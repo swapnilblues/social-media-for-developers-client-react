@@ -48,7 +48,7 @@ export default class SocialMediaClient extends React.Component {
                         this.state.users.map(user =>
                             <li className="list-group-item"
                                 key={user.id}>
-                                <Link to={`/social-media/${user.id}`}>
+                                <Link to={`/${user.id}`}>
                                     {user.name}
                                 </Link>
                             </li>
