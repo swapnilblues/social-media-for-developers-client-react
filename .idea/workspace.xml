@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34301708-b379-4e87-8ddd-026c3db59646" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Prototype/social-media-user-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Prototype/social-media-user-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +49,7 @@
       <option name="presentableId" value="Default" />
       <updated>1584855189239</updated>
       <workItem from="1584855191981" duration="2779000" />
-      <workItem from="1585004109367" duration="15894000" />
+      <workItem from="1585004109367" duration="16498000" />
     </task>
     <servers />
   </component>
