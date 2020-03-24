@@ -1,13 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import SocialMediaManagerComponent from "./SocialMediaManagerComponent";
 
-const App = () => {
-  return (
-    <div className="App">
-     <h1>Hello from React</h1>
-    </div>
-  );
+function App() {
+    return (
+        <div>
+            <SocialMediaManagerComponent/>
+        </div>
+    );
 }
 
 export default App;
