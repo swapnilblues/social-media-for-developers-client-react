@@ -28,11 +28,11 @@ export default class SocialMediaClient extends React.Component {
         return (
             <div className="container">
                 <h1>
-                    Social Media Client ({this.state.users.length})
+                    Social Media Client List
                 </h1>
                 <ul className="list-group">
                     <li className="list-group-item">
-                        <input className="form-control" placeholder="Enter Name" value={this.state.title}
+                        <input className="form-control" placeholder="Enter First and Last Name" value={this.state.title}
                                onChange={(e) => this.setState({
                                    name: e.target.value
                                })}
@@ -46,12 +46,20 @@ export default class SocialMediaClient extends React.Component {
                     <br/>
                     {
                         this.state.users.map(user =>
-                            <li className="list-group-item"
-                                key={user.id}>
-                                <Link to={`/user-details/${user.id}`}>
-                                    {user.name}
-                                </Link>
-                            </li>
+                                <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                                    <Link to={`/user-details/${user.id}`}>
+                                        <div className="card card-body .wbdv-grid-card" key={user.id}>
+                                            <h5 className="card-title">
+                                                {user.name}
+                                            </h5>
+                                        </div>
+                                    </Link>
+                                    <br/>
+                                </div>
+                            // <li className="list-group-item"
+                            //     key={user.id}>
+                            //
+                            // </li>
                         )
                     }
                 </ul>
