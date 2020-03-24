@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import SocialMediaClient from "./Prototype/social-media-client";
 import SocialMediaUserDetails from "./Prototype/social-media-user-details";
 

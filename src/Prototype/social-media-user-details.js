@@ -35,7 +35,7 @@ export default class SocialMediaUserDetails extends React.Component {
                             <i className="fas fa-times wbdv-course-editor wbdv-close"/>
                         </a>
                     </Link>
-                    <a href="#" className="navbar-brand wbdv-course-title">Social Media for Developers</a>
+                    <span className="navbar-brand wbdv-course-title">Social Media for Developers</span>
                 </nav>
 
                 <div className="container">
