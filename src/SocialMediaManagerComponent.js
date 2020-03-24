@@ -15,7 +15,7 @@ class SocialMediaManagerComponent extends React.Component {
                         component={SocialMediaClient}
                     />
                     <Route
-                        path="/:userId"
+                        path="/user-details/:userId"
                         exact={true}
                         render={
                             (props) =>

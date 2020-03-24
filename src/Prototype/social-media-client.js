@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default class SocialMediaClient extends React.Component {
 
@@ -48,7 +48,7 @@ export default class SocialMediaClient extends React.Component {
                         this.state.users.map(user =>
                             <li className="list-group-item"
                                 key={user.id}>
-                                <Link to={`/${user.id}`}>
+                                <Link to={`/user-details/${user.id}`}>
                                     {user.name}
                                 </Link>
                             </li>
