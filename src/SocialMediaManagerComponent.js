@@ -5,6 +5,7 @@ import SocialMediaUserDetails from "./Prototype/social-media-user-details";
 import ProfileDetailsContainer from "./Profile/ProfileDetailsContainer";
 import GitHubRepositories from "./Profile/GitHubRepositories";
 import ProfilesContainer from "./Profile/ProfilesContainer";
+import LandingComponent from "./Component/LandingComponent";
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -15,8 +16,9 @@ class SocialMediaManagerComponent extends React.Component {
                     <Route
                         path="/"
                         exact={true}
-                        component={SocialMediaClient}
-                    />
+                        component = {LandingComponent}
+                    >
+                    </Route>
                     <Route
                         path="/user-details/:userId"
                         exact={true}
