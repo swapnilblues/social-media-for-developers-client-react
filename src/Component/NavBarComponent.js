@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default class NavBarComponent extends React.Component {
 
@@ -18,7 +19,9 @@ export default class NavBarComponent extends React.Component {
                     <div className="collapse navbar-collapse" id="navbar-menu">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a href="#" className="nav-link wbdv-page-tab">Geeks</a>
+                                <Link to={"/profiles"}>
+                                    <span className="nav-link wbdv-page-tab">Geeks</span>
+                                </Link>
                             </li>
                             <li className="nav-item active">
                                 <a href="#" className="nav-link wbdv-page-tab">Login</a>

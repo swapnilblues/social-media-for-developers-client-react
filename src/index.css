@@ -11,3 +11,130 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Geeks */
+.search-geeks {
+  margin: 10px;
+}
+
+.search-geek-button {
+  margin-left: 10px;
+}
+.find-all-users-button {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+/* Profile Page */
+.profile-grid {
+  display: grid;
+  grid-template-areas: 'top top';
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.profile-top {
+  grid-area: top;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-top img {
+  width: 250px;
+}
+
+.profile-top .icons a {
+  color: #fff;
+  margin: 0 0.3rem;
+}
+
+
+
+.profile-about {
+  grid-area: about;
+  text-align: center;
+}
+
+.profile-about .skills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-exp {
+  grid-area: exp;
+}
+
+.profile-edu {
+  grid-area: edu;
+}
+
+.profile-exp h2,
+.profile-edu h2 {
+  margin-bottom: 1rem;
+}
+
+.profile-exp > div,
+.profile-edu > div {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: #ccc 1px dotted;
+}
+
+.profile-exp > div:last-child,
+.profile-edu > div:last-child {
+  border: 0;
+}
+
+.profile-exp p,
+.profile-edu p {
+  margin: 0.5rem 0;
+}
+
+.profile-github {
+  grid-area: github;
+}
+
+.profile-github .repo {
+  display: flex;
+}
+
+.profile-github .repo > div:first-child {
+  flex: 7;
+  flex-basis: 70%;
+}
+
+.profile-github > div:last-child {
+  flex: 3;
+  flex-basis: 20%;
+}
+
+div .dp {
+  margin-left: 2px;
+}
+
+.geek-name {
+  color: white;
+}
+
+.paragraph-justify {
+  text-align: justify;
+}
+
+.geek-bio {
+  color: white;
+}
+
+.skills {
+  list-style-type:none;
+}
+
+div .github-repo {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+

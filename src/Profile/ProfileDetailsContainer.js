@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBarComponent";
 
-export default class ProfileComponent extends React.Component {
+export default class ProfileDetailsContainer extends React.Component {
 
     state = {
         user: {user: {}, social: {}, experience: [], education: [], skills: []},
@@ -43,23 +43,22 @@ export default class ProfileComponent extends React.Component {
                     <div className="profile-grid my-1 bg-secondary">
 
 
-                        <div className="col-sm-4 dp">
-                            <img src={"../../public/images/sajag_dp.jfif"} alt="Not" width="250" height="250">
-                            </img>
+                        <div className="col-sm-4">
+                            <img src="../images/sajag_dp.jfif" alt="Not found" width="250" height="250"/>
                         </div>
 
 
                         <div className="col-sm-8">
-                            <div className="profile-details">
+                            <div className="row">
                                 <h2 className="geek-name"><b>{this.state.user.user.name}</b></h2>
                             </div>
-                            <div className="profile-details">
+                            <div className="row">
                                 <p className="geek-bio paragraph-justify"><b>
                                     {this.state.user.bio}
                                 </b></p>
                             </div>
 
-                            <div className="profile-details">
+                            <div className="row">
 
                                 <h4><b>Skills</b></h4>
 

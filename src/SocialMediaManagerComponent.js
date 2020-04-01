@@ -2,8 +2,9 @@ import React from "react";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import SocialMediaClient from "./Prototype/social-media-client";
 import SocialMediaUserDetails from "./Prototype/social-media-user-details";
-import ProfileComponent from "./Profile/ProfileComponent";
+import ProfileDetailsContainer from "./Profile/ProfileDetailsContainer";
 import GitHubRepositories from "./Profile/GitHubRepositories";
+import ProfilesContainer from "./Profile/ProfilesContainer";
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -32,7 +33,7 @@ class SocialMediaManagerComponent extends React.Component {
                         exact={true}
                         render={
                             (props) =>
-                                <ProfileComponent
+                                <ProfileDetailsContainer
                                     {...props}
                                 />
                         }
@@ -52,6 +53,16 @@ class SocialMediaManagerComponent extends React.Component {
                             }
                         >
                         </Route>
+
+                    <Route
+                        path="/profiles"
+                        exact={true}
+                        render={
+                            (props) =>
+                                <ProfilesContainer/>
+                        }
+                    >
+                    </Route>
                 </Router>
             </div>
     )

@@ -34,7 +34,7 @@ export default class ProfileComponent extends React.Component {
 
                     <br/>
                     <Link to={`/profiles/${this.props.profileId}`}>
-                        <a className="btn btn-light">Back To {this.state.user.user.name}'s Profiles</a>
+                        <span className="btn btn-light">Back To {this.state.user.user.name}'s Profiles</span>
                     </Link>
                     <br/>
 
@@ -52,7 +52,8 @@ export default class ProfileComponent extends React.Component {
                                 <br/>
                                 <i className="fas fa-code-branch"/>
                                 {
-                                    this.state.repo.forks !== 0 &&
+                                    this.state.repo.forks !== 0 ||
+                                    !this.state.repo.parent &&
                                      <span>
                                          <span> </span>
                                          {this.state.repo.forks}
@@ -61,6 +62,7 @@ export default class ProfileComponent extends React.Component {
 
                                 }
                                 {this.state.repo.forks === 0 &&
+                                this.state.repo.parent &&
                                 <span>
                                     <span> </span>
                                     {this.state.repo.parent.forks}
