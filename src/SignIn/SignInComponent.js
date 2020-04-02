@@ -1,5 +1,6 @@
 import React from "react";
 import NavBarComponent from "../Component/NavBarComponent";
+import {Link} from "react-router-dom";
 
 export default class SignInComponent extends React.Component {
 
@@ -34,7 +35,8 @@ export default class SignInComponent extends React.Component {
                     </button>
 
                     <p className="my-1">
-                        Don't have an account? <a href="../sign-up/signUp.html">Sign Up</a>
+                        Don't have an account?
+                        <Link to={"/sign-up"}> Sign Up</Link>
                     </p>
 
 
