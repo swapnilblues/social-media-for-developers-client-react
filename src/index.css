@@ -156,7 +156,7 @@ div .github-repo {
   background-image: url("./images/landing-page-image.jpg");
 
   background-attachment: fixed;
-  
+
   width: 100%; height: 100%;
 }
 
@@ -164,3 +164,20 @@ div .github-repo {
   padding: 70px 70px;
   text-align: center;
 }
+
+/* login */
+
+.login-main-div {
+  margin-top: 10px;
+
+}
+
+/* Forms */
+
+input {
+  display: block;
+  width: 70%;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+}
+

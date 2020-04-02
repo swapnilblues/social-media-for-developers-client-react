@@ -6,6 +6,8 @@ import ProfileDetailsContainer from "./Profile/ProfileDetailsContainer";
 import GitHubRepositories from "./Profile/GitHubRepositories";
 import ProfilesContainer from "./Profile/ProfilesContainer";
 import LandingComponent from "./Component/LandingComponent";
+import SignUpComponent from "./SignUp/SignUpComponent";
+import SignInComponent from "./SignIn/SignInComponent";
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -65,6 +67,23 @@ class SocialMediaManagerComponent extends React.Component {
                         }
                     >
                     </Route>
+
+                    <Route
+                        path="/sign-up"
+                        exact={true}
+                        component={SignUpComponent}
+                    >
+
+                    </Route>
+
+                    <Route
+                        path="/sign-in"
+                        exact={true}
+                        component={SignInComponent}
+                    >
+
+                    </Route>
+
                 </Router>
             </div>
     )

@@ -4,13 +4,19 @@ import {Link} from "react-router-dom";
 export default class NavBarComponent extends React.Component {
 
 
+    state = {
+        selectedTab: ''
+    }
+
     render() {
         return (
             <div>
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                     <a href="#" className="navbar-brand">
-                        <i className="fas fa-code-branch"/>
-                        GeeksHub
+                        <Link to={"/"}>
+                            <i className="fas fa-code-branch"/>
+                            GeeksHub
+                        </Link>
                     </a>
 
                     <button className="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu">
@@ -23,11 +29,15 @@ export default class NavBarComponent extends React.Component {
                                     <span className="nav-link wbdv-page-tab">Geeks</span>
                                 </Link>
                             </li>
-                            <li className="nav-item active">
-                                <a href="#" className="nav-link wbdv-page-tab">Login</a>
+                            <li className="nav-item">
+                                <Link to={"/sign-in"}>
+                                    <span href="#" className="nav-link wbdv-page-tab">Login</span>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a href="#" className="nav-link wbdv-page-tab">Register</a>
+                                <Link to={"/sign-up"}>
+                                    <a href="#" className="nav-link wbdv-page-tab">Sign Up</a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
