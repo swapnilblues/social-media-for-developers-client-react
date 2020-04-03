@@ -15,16 +15,20 @@ export default class ProfileDetailsContainer extends React.Component {
             .then(results => this.setState({
                 user: results
             }))
-        await fetch(`https://api.github.com/users/${this.state.user.githubusername}/repos`)
-            .then(response => response.json())
-            .then(results => this.setState({
-                repos: results
-            }))
+
+        await this.getRepos(this.state.user.githubusername)
+
         await console.log("Name", this.state.repos)
     }
 
 
-    printUser = () => console.log(this.state.users)
+    getRepos = (username) => {
+        fetch(`https://api.github.com/users/${username}/repos`)
+            .then(response => response.json())
+            .then(results => this.setState({
+                repos: results
+            }))
+    }
     //
     // searchUser = (name) => {
     //     fetch(`https://jsonplaceholder.typicode.com/users?name=${name}`)
@@ -112,10 +116,13 @@ export default class ProfileDetailsContainer extends React.Component {
                     </div>
 
 
+                    
                     <div className="profile-github">
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
+
+
                         {
                             this.state.repos.map(repo =>
                                 <div>
