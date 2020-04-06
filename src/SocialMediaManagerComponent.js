@@ -8,6 +8,7 @@ import ProfilesContainer from "./Profile/ProfilesContainer";
 import LandingComponent from "./Component/LandingComponent";
 import SignUpComponent from "./SignUp/SignUpComponent";
 import SignInComponent from "./SignIn/SignInComponent";
+import DashboardContainer from "./Dashboard/DashboardContainer";
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -32,6 +33,20 @@ class SocialMediaManagerComponent extends React.Component {
                         }
                     >
                     </Route>
+                    <Route
+                    path="/profiles/:userId/dashboard"
+                    exact={true}
+                    render={
+                        (props) =>
+                            <DashboardContainer
+                                {...props}
+                            />
+                    }>
+
+
+                    </Route>
+
+
                     <Route
                         path="/profiles/:userId"
                         exact={true}
