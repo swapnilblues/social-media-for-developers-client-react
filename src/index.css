@@ -155,7 +155,7 @@ div .github-repo {
 .landing-main-div {
   background-image: url("./images/landing-page-image.jpg");
 
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
 
   width: 100%; height: 100%;
 }
