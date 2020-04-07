@@ -30,10 +30,12 @@ export default class DashboardContainer extends React.Component {
                         <i className="fas fa-child"> </i>
                         Welcome, {this.state.user.name}!</p>
                 </div>
+                <div className="container">
                 <h2 className="my-2">Experience Credentials</h2>
                 <ExperienceTableComponent
                     experiences={this.state.experiences}
                 />
+                </div>
             </div>
         )
 

@@ -10,6 +10,7 @@ import SignUpComponent from "./SignUp/SignUpComponent";
 import SignInComponent from "./SignIn/SignInComponent";
 import FailureComponent from "./Temporary/failure";
 import SuccessComponent from "./Temporary/success";
+import DashboardContainer from "./Dashboard/DashboardContainer";
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -23,6 +24,19 @@ class SocialMediaManagerComponent extends React.Component {
                         component = {LandingComponent}
                     >
                     </Route>
+
+                    <Route
+                        path="/profiles/:userId/dashboard"
+                        exact={true}
+                        render={
+                            (props) =>
+                                <DashboardContainer
+                                    {...props}
+                                />
+                        }
+                    >
+                    </Route>
+
                     <Route
                         path="/user-details/:userId"
                         exact={true}
