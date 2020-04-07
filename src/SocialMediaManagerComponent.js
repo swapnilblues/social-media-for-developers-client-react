@@ -21,7 +21,7 @@ class SocialMediaManagerComponent extends React.Component {
                     <Route
                         path="/"
                         exact={true}
-                        component = {LandingComponent}
+                        component={LandingComponent}
                     >
                     </Route>
 
@@ -60,19 +60,19 @@ class SocialMediaManagerComponent extends React.Component {
                     >
                     </Route>
 
-                        <Route
-                            path="/profiles/:profileId/github/:repoName"
-                            exact={true}
-                            render={
-                                (props) =>
-                                    <GitHubRepositories
-                                        profileId={props.match.params.profileId}
-                                        repoName={props.match.params.repoName}
-                                        {...props}
-                                    />
-                            }
-                        >
-                        </Route>
+                    <Route
+                        path="/profiles/:profileId/github/:repoName"
+                        exact={true}
+                        render={
+                            (props) =>
+                                <GitHubRepositories
+                                    profileId={props.match.params.profileId}
+                                    repoName={props.match.params.repoName}
+                                    {...props}
+                                />
+                        }
+                    >
+                    </Route>
 
                     <Route
                         path="/profiles"
@@ -87,7 +87,12 @@ class SocialMediaManagerComponent extends React.Component {
                     <Route
                         path="/sign-up"
                         exact={true}
-                        component={SignUpComponent}
+                        render={
+                            (props) =>
+                                <SignUpComponent
+                                    {...props}
+                                />
+                        }
                     >
 
                     </Route>
@@ -95,6 +100,12 @@ class SocialMediaManagerComponent extends React.Component {
                     <Route
                         path="/sign-in"
                         exact={true}
+                        render={
+                            (props) =>
+                                <SignUpComponent
+                                    {...props}
+                                />
+                        }
                         component={SignInComponent}
                     >
 
@@ -109,20 +120,26 @@ class SocialMediaManagerComponent extends React.Component {
                     </Route>
 
                     <Route
-                        path="/success"
+                        path="/success/:email"
                         exact={true}
-                        component={SuccessComponent}
+                        render={
+                            (props) =>
+                                <SuccessComponent
+                                    email = {props.match.params.email}
+                                    {...props}
+                                />
+                        }
                     >
 
                     </Route>
 
 
-
                 </Router>
             </div>
-    )
+        )
 
     }
-    }
+}
 
-    export default SocialMediaManagerComponent
+export default SocialMediaManagerComponent
+

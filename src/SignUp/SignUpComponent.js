@@ -13,7 +13,7 @@ export default class SignUpComponent extends React.Component {
     }
 
     register = () => {
-        if(this.state.password !== this.state.cpassword)
+        if (this.state.password !== this.state.cpassword)
             alert("Passwords do not match")
         else {
             alert("Awesome")
@@ -29,7 +29,23 @@ export default class SignUpComponent extends React.Component {
                         name: this.state.name
                     }
                 )
-            }).then(response => console.log("RESPONSE",response))
+            }).then(response =>
+                // console.log("RESPONSE",response)
+                response.json()
+            ).then(
+                r => {
+                    if (r.errors !== undefined) {
+                        r.errors.map(error =>
+                            console.log("ERROR", error.msg)
+                        )
+                    }
+                    else {
+                        console.log("SUCCESS", r.token)
+                        //Store session/token in localstorage.
+                        this.props.history.push(`/success/${this.state.email}`)
+                    }
+                }
+            )
         }
     }
 
