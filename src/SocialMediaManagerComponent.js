@@ -8,6 +8,8 @@ import ProfilesContainer from "./Profile/ProfilesContainer";
 import LandingComponent from "./Component/LandingComponent";
 import SignUpComponent from "./SignUp/SignUpComponent";
 import SignInComponent from "./SignIn/SignInComponent";
+import FailureComponent from "./Temporary/failure";
+import SuccessComponent from "./Temporary/success";
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -18,7 +20,7 @@ class SocialMediaManagerComponent extends React.Component {
                     <Route
                         path="/"
                         exact={true}
-                        component = {LandingComponent}
+                        component={LandingComponent}
                     >
                     </Route>
                     <Route
@@ -44,19 +46,19 @@ class SocialMediaManagerComponent extends React.Component {
                     >
                     </Route>
 
-                        <Route
-                            path="/profiles/:profileId/github/:repoName"
-                            exact={true}
-                            render={
-                                (props) =>
-                                    <GitHubRepositories
-                                        profileId={props.match.params.profileId}
-                                        repoName={props.match.params.repoName}
-                                        {...props}
-                                    />
-                            }
-                        >
-                        </Route>
+                    <Route
+                        path="/profiles/:profileId/github/:repoName"
+                        exact={true}
+                        render={
+                            (props) =>
+                                <GitHubRepositories
+                                    profileId={props.match.params.profileId}
+                                    repoName={props.match.params.repoName}
+                                    {...props}
+                                />
+                        }
+                    >
+                    </Route>
 
                     <Route
                         path="/profiles"
@@ -83,12 +85,26 @@ class SocialMediaManagerComponent extends React.Component {
                     >
 
                     </Route>
+                    <Route
+                        path="/failure"
+                        exact={true}
+                        component={FailureComponent}
+                    >
+
+                    </Route>
+
+                    <Route
+                        path="/success"
+                        exact={true}
+                        component={SuccessComponent}
+                    >
+                    </Route>
 
                 </Router>
             </div>
-    )
+        )
 
     }
-    }
+}
 
-    export default SocialMediaManagerComponent
+export default SocialMediaManagerComponent
