@@ -1,8 +1,45 @@
 import React from "react";
-import NavBarComponent from "../Component/NavBarComponent";
+import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {Link} from "react-router-dom";
+import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {connect} from "react-redux";
 
-export default class SignInComponent extends React.Component {
+class SignInComponent extends React.Component {
+
+    state = {
+        email : '',
+        password : ''
+    }
+
+    login = async () => {
+        await fetch(`${LOCALHOST_URL}/users/auth`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    password: this.state.password,
+                    email: this.state.email
+                }
+            )
+        }).then(response =>
+                    response.json()
+        ).then(
+            r => {
+                if (r.errors !== undefined) {
+                    r.errors.map(error =>
+                                     console.log("ERROR", error.msg)
+                    )
+                } else {
+                    console.log("SUCCESS", r.token)
+                    this.props.generateTokenAndSave(r.token)
+                    this.props.history.push(`/success`)
+                }
+            }
+        )
+
+    }
 
     render() {
 
@@ -15,22 +52,34 @@ export default class SignInComponent extends React.Component {
                     <p className="lead"><i className="fas fa-sign-in-alt"></i> SIGN IN</p>
                     <form className="form">
                         <div className="form-group">
-                            <input
-                                type="email"
-                                placeholder="Email Address"
-                                name="email"
-                                required
+                            <input onChange={async (e) =>
+                                await this.setState({
+                                                        email: e.target.value
+                                                    })
+                            }
+                                   placeholder="Email Address"
+                                   name={"email"}
+                                   required
+                                   type={"email"}
+                                   value={this.state.email}
                             />
                         </div>
                         <div className="form-group">
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                name="password"
+
+                            <input onChange={async (e) =>
+                                await this.setState({
+                                                        password: e.target.value
+                                                    })
+                            }
+                                   placeholder="Password"
+                                   name={"password"}
+                                   type={"password"}
+                                   required
+                                   value={this.state.password}
                             />
                         </div>
                     </form>
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" onClick={this.login} className="btn btn-primary">
                         Sign In
                     </button>
 
@@ -43,6 +92,27 @@ export default class SignInComponent extends React.Component {
                 </div>
             </div>
         )
+
     }
 
 }
+
+const stateToPropertyMapper = (state) => {
+    return {
+        // token: state.token
+    }
+}
+
+const dispatchToPropertyMapper = (dispatch) => {
+    return {
+        generateTokenAndSave: (token) =>
+            dispatch({
+                         type: "ADD_TOKEN",
+                         token: token
+                     })
+
+    }
+}
+
+export default connect(
+    stateToPropertyMapper, dispatchToPropertyMapper)(SignInComponent)

@@ -2,15 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34301708-b379-4e87-8ddd-026c3db59646" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Reducer/auth.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Component/NavBar/NavBarComponentInSession.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/LandingComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/LandingComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/NavBarComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/NavBar/NavBarComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Dashboard/DashboardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashboardContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/ExperienceTableComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/ExperienceTableComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Profile/GitHubRepositories.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile/GitHubRepositories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Profile/ProfileDetailsContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile/ProfileDetailsContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Profile/ProfilesContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile/ProfilesContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reducer/auth.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reducer/auth.reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SignIn/SignInComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SignIn/SignInComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SignUp/SignUpComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SignUp/SignUpComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Temporary/success.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Temporary/success.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +47,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Component/NavBar" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -55,6 +59,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\suman\Documents\social-media-for-developers-client-react\src\Component\NavBar" />
       <recent name="C:\Users\suman\Documents\social-media-for-developers-client-react\src\Dashboard" />
     </key>
   </component>
@@ -72,7 +77,8 @@
       <workItem from="1585004109367" duration="16498000" />
       <workItem from="1586212281052" duration="8101000" />
       <workItem from="1586289625919" duration="589000" />
-      <workItem from="1586296330379" duration="14336000" />
+      <workItem from="1586296330379" duration="14538000" />
+      <workItem from="1586376663178" duration="4369000" />
     </task>
     <task id="LOCAL-00001" summary="Dashboard components and container created. Connected to API.">
       <created>1586217283232</created>
@@ -92,6 +98,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Dashboard components and container created. Connected to API." />
   </component>
   <component name="WindowStateProjectService">
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586378114678">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586378114678" />
     <state x="681" y="7" key="CommitChangelistDialog2" timestamp="1586217282700">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -112,5 +122,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1586217432190" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1586377429870">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1586377429870" />
   </component>
 </project>

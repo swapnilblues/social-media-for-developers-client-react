@@ -80,6 +80,35 @@ class SocialMediaManagerComponent extends React.Component {
                     <Provider store={store}>
 
                         <Route
+                            path="/success"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <SuccessComponent
+                                        email={props.match.params.email}
+                                        {...props}
+                                    />
+                            }
+                        >
+
+                        </Route>
+
+
+                        <Route
+                            path="/sign-in"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <SignUpComponent
+                                        {...props}
+                                    />
+                            }
+                            component={SignInComponent}
+                        >
+
+                        </Route>
+
+                        <Route
                             path="/dashboard"
                             exact={true}
                             render={
@@ -104,19 +133,7 @@ class SocialMediaManagerComponent extends React.Component {
                         </Route>
                     </Provider>
 
-                    <Route
-                        path="/sign-in"
-                        exact={true}
-                        render={
-                            (props) =>
-                                <SignUpComponent
-                                    {...props}
-                                />
-                        }
-                        component={SignInComponent}
-                    >
 
-                    </Route>
 
                     <Route
                         path="/failure"
@@ -126,19 +143,6 @@ class SocialMediaManagerComponent extends React.Component {
 
                     </Route>
 
-                    <Route
-                        path="/success/:email"
-                        exact={true}
-                        render={
-                            (props) =>
-                                <SuccessComponent
-                                    email={props.match.params.email}
-                                    {...props}
-                                />
-                        }
-                    >
-
-                    </Route>
 
 
                 </Router>

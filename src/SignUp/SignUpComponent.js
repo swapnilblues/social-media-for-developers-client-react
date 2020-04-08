@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import NavBarComponent from "../Component/NavBarComponent";
+import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {Link} from "react-router-dom";
 import {API_URL, LOCALHOST_URL} from "../common/constants";
 
@@ -52,9 +52,10 @@ class SignUpComponent extends React.Component {
                                 },
                                 method: 'POST'
                             }).then(res => console.log(res))
-                                this.props.generateTokenAndSave(r.token)
-                                this.props.history.push(`/dashboard`)
-                        // this.props.history.push(`/success/${this.state.email}`)
+                             .then( () =>
+                                this.props.generateTokenAndSave(r.token))
+                             .then(() =>
+                                this.props.history.push(`/dashboard`))
                     }
                 }
             )

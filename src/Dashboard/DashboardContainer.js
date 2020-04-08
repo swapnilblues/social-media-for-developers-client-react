@@ -12,16 +12,14 @@ class DashboardContainer extends React.Component {
     }
 
     componentDidMount() {
-        console.log("AA",this.props.token)
+        console.log("Dashboard token: ",this.props.token)
         fetch(
             `${LOCALHOST_URL}/profile/me`,{
                 headers: {
-                    'x-auth-token': this.props.token
+                    'x-auth-token': '' + this.props.token
                 }}
         )
             .then(response => response.json())
-            // .then(a => console.log(a))
-            // .then(results => console.log("RR",results))
             .then(results => this.setState({
                                                user: results.user,
                                                experiences: results.experience
@@ -31,20 +29,19 @@ class DashboardContainer extends React.Component {
     render() {
         return (
             <div>
-                Dashboard
-                {/*<DashboardNavbarComponent/>*/}
-                {/*<div className="container">*/}
-                {/*    <h2 className="large">Dashboard</h2>*/}
-                {/*    <p className="lead">*/}
-                {/*        <i className="fas fa-child"> </i>*/}
-                {/*        Welcome, {this.state.user.name}</p>*/}
-                {/*</div>*/}
-                {/*<div className="container">*/}
-                {/*<h2 className="my-2">Experience Credentials</h2>*/}
-                {/*<ExperienceTableComponent*/}
-                {/*    experiences={this.state.experiences}*/}
-                {/*/>*/}
-                {/*</div>*/}
+                <DashboardNavbarComponent/>
+                <div className="container">
+                    <h2 className="large">Dashboard</h2>
+                    <p className="lead">
+                        <i className="fas fa-child"> </i>
+                        Welcome, {this.state.user.name}</p>
+                </div>
+                <div className="container">
+                <h2 className="my-2">Experience Credentials</h2>
+                <ExperienceTableComponent
+                    experiences={this.state.experiences}
+                />
+                </div>
             </div>
         )
 

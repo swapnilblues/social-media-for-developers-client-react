@@ -9,7 +9,7 @@ const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case "ADD_TOKEN": {
-
+            console.log("token in reducer: ", action.token)
             return {
                 token: action.token,
                 isSession: true

@@ -1,5 +1,5 @@
 import React from "react";
-import NavBarComponent from "./NavBarComponent";
+import NavBarComponent from "./NavBar/NavBarComponent";
 
 export default class LandingComponent extends React.Component {
 
