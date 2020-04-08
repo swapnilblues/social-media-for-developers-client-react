@@ -1,4 +1,6 @@
 import React from "react";
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux"
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import SocialMediaClient from "./Prototype/social-media-client";
 import SocialMediaUserDetails from "./Prototype/social-media-user-details";
@@ -11,6 +13,9 @@ import SignInComponent from "./SignIn/SignInComponent";
 import FailureComponent from "./Temporary/failure";
 import SuccessComponent from "./Temporary/success";
 import DashboardContainer from "./Dashboard/DashboardContainer";
+import authReducer from "./Reducer/auth.reducer"
+
+const store = createStore(authReducer)
 
 class SocialMediaManagerComponent extends React.Component {
 
@@ -22,18 +27,6 @@ class SocialMediaManagerComponent extends React.Component {
                         path="/"
                         exact={true}
                         component={LandingComponent}
-                    >
-                    </Route>
-
-                    <Route
-                        path="/profiles/:userId/dashboard"
-                        exact={true}
-                        render={
-                            (props) =>
-                                <DashboardContainer
-                                    {...props}
-                                />
-                        }
                     >
                     </Route>
 
@@ -84,18 +77,32 @@ class SocialMediaManagerComponent extends React.Component {
                     >
                     </Route>
 
-                    <Route
-                        path="/sign-up"
-                        exact={true}
-                        render={
-                            (props) =>
-                                <SignUpComponent
-                                    {...props}
-                                />
-                        }
-                    >
+                    <Provider store={store}>
 
-                    </Route>
+                        <Route
+                            path="/dashboard"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <DashboardContainer
+                                        {...props}
+                                    />
+                            }
+                        >
+                        </Route>
+
+                        <Route
+                            path="/sign-up"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <SignUpComponent
+                                        {...props}
+                                    />
+                            }
+                        >
+                        </Route>
+                    </Provider>
 
                     <Route
                         path="/sign-in"
@@ -125,7 +132,7 @@ class SocialMediaManagerComponent extends React.Component {
                         render={
                             (props) =>
                                 <SuccessComponent
-                                    email = {props.match.params.email}
+                                    email={props.match.params.email}
                                     {...props}
                                 />
                         }

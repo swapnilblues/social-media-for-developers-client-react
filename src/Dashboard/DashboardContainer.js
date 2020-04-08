@@ -1,19 +1,27 @@
 import React from "react";
 import DashboardNavbarComponent from "./DashboardNavbarComponent";
 import ExperienceTableComponent from "./ExperienceTableComponent";
+import {LOCALHOST_URL} from "../common/constants";
+import {connect} from "react-redux";
 
-export default class DashboardContainer extends React.Component {
+class DashboardContainer extends React.Component {
 
     state = {
-        user: {user: {}},
+        user: {name : ''},
         experiences: []
     }
 
     componentDidMount() {
+        console.log("AA",this.props.token)
         fetch(
-            `https://group-32-node-server.herokuapp.com/codebook/profile/user/5e838d60e3120a21983de85c`)
+            `${LOCALHOST_URL}/profile/me`,{
+                headers: {
+                    'x-auth-token': this.props.token
+                }}
+        )
             .then(response => response.json())
-            // .then(results => console.log(results.experience))
+            // .then(a => console.log(a))
+            // .then(results => console.log("RR",results))
             .then(results => this.setState({
                                                user: results.user,
                                                experiences: results.experience
@@ -23,22 +31,34 @@ export default class DashboardContainer extends React.Component {
     render() {
         return (
             <div>
-                <DashboardNavbarComponent/>
-                <div className="container">
-                    <h2 className="large">Dashboard</h2>
-                    <p className="lead">
-                        <i className="fas fa-child"> </i>
-                        Welcome, {this.state.user.name}!</p>
-                </div>
-                <div className="container">
-                <h2 className="my-2">Experience Credentials</h2>
-                <ExperienceTableComponent
-                    experiences={this.state.experiences}
-                />
-                </div>
+                Dashboard
+                {/*<DashboardNavbarComponent/>*/}
+                {/*<div className="container">*/}
+                {/*    <h2 className="large">Dashboard</h2>*/}
+                {/*    <p className="lead">*/}
+                {/*        <i className="fas fa-child"> </i>*/}
+                {/*        Welcome, {this.state.user.name}</p>*/}
+                {/*</div>*/}
+                {/*<div className="container">*/}
+                {/*<h2 className="my-2">Experience Credentials</h2>*/}
+                {/*<ExperienceTableComponent*/}
+                {/*    experiences={this.state.experiences}*/}
+                {/*/>*/}
+                {/*</div>*/}
             </div>
         )
 
     }
 
 }
+
+const stateToPropertyMapper = (state) => {
+    return {
+        token: state.token
+    }
+}
+
+const dispatchToPropertyMapper = (dispatch) => {}
+
+export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
+(DashboardContainer)

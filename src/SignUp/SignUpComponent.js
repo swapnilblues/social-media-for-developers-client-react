@@ -1,9 +1,14 @@
 import React from "react";
+import {connect} from "react-redux";
 import NavBarComponent from "../Component/NavBarComponent";
 import {Link} from "react-router-dom";
-import {API_URL} from "../common/constants";
+import {API_URL, LOCALHOST_URL} from "../common/constants";
 
-export default class SignUpComponent extends React.Component {
+class SignUpComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     state = {
         password: '',
@@ -12,12 +17,12 @@ export default class SignUpComponent extends React.Component {
         cpassword: ''
     }
 
-    register = () => {
-        if (this.state.password !== this.state.cpassword)
+    register = async () => {
+        if (this.state.password !== this.state.cpassword) {
             alert("Passwords do not match")
-        else {
-            alert("Awesome")
-            fetch(`${API_URL}/users`, {
+        } else {
+            // alert("Awesome")
+            await fetch(`${API_URL}/users`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
@@ -30,19 +35,26 @@ export default class SignUpComponent extends React.Component {
                     }
                 )
             }).then(response =>
-                // console.log("RESPONSE",response)
-                response.json()
+                        response.json()
             ).then(
                 r => {
                     if (r.errors !== undefined) {
                         r.errors.map(error =>
-                            console.log("ERROR", error.msg)
+                                         console.log("ERROR", error.msg)
                         )
-                    }
-                    else {
+                    } else {
                         console.log("SUCCESS", r.token)
-                        //Store session/token in localstorage.
-                        this.props.history.push(`/success/${this.state.email}`)
+                         fetch(
+                            `${LOCALHOST_URL}/profile`, {
+                                headers: {
+                                    'x-auth-token': r.token,
+                                    'content-type': 'application/json'
+                                },
+                                method: 'POST'
+                            }).then(res => console.log(res))
+                                this.props.generateTokenAndSave(r.token)
+                                this.props.history.push(`/dashboard`)
+                        // this.props.history.push(`/success/${this.state.email}`)
                     }
                 }
             )
@@ -68,8 +80,8 @@ export default class SignUpComponent extends React.Component {
                             {/*/>*/}
                             <input onChange={async (e) =>
                                 await this.setState({
-                                    name: e.target.value
-                                })
+                                                        name: e.target.value
+                                                    })
                             }
                                    placeholder="Full Name"
                                    name={"email"}
@@ -82,8 +94,8 @@ export default class SignUpComponent extends React.Component {
 
                             <input onChange={async (e) =>
                                 await this.setState({
-                                    email: e.target.value
-                                })
+                                                        email: e.target.value
+                                                    })
                             }
                                    type={"email"}
                                    placeholder="Email"
@@ -97,8 +109,8 @@ export default class SignUpComponent extends React.Component {
 
                             <input onChange={async (e) =>
                                 await this.setState({
-                                    password: e.target.value
-                                })
+                                                        password: e.target.value
+                                                    })
                             }
                                    type={"password"}
                                    placeholder="Password"
@@ -111,8 +123,8 @@ export default class SignUpComponent extends React.Component {
                         <div className="form-group">
                             <input onChange={async (e) =>
                                 await this.setState({
-                                    cpassword: e.target.value
-                                })
+                                                        cpassword: e.target.value
+                                                    })
                             }
                                    type={"password"}
                                    placeholder="Confirm Password"
@@ -138,5 +150,24 @@ export default class SignUpComponent extends React.Component {
             </div>
         )
     }
-
 }
+
+const stateToPropertyMapper = (state) => {
+    return {
+        // token: state.token
+    }
+}
+
+const dispatchToPropertyMapper = (dispatch) => {
+    return {
+        generateTokenAndSave: (token) =>
+            dispatch({
+                         type: "ADD_TOKEN",
+                         token: token
+                     })
+
+    }
+}
+
+export default connect(
+    stateToPropertyMapper, dispatchToPropertyMapper)(SignUpComponent)
