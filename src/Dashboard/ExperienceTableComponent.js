@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker/es";
 import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {connect} from "react-redux";
 
 class ExperienceTableComponent extends React.Component {
 
@@ -16,7 +17,7 @@ class ExperienceTableComponent extends React.Component {
         fetch(`${LOCALHOST_URL}/profile/experience`, {
             method: "PUT",
             headers: {
-                'x-auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU4ZDAyYmY2MTFmNmE0YmMwYmQ3NjkzIn0sImlhdCI6MTU4NjI5OTU4NCwiZXhwIjoxNTg2NjU5NTg0fQ.dyPgKCGKxkuqhz8lR-1qh17-giznUcXAw55XyZO4ErM',
+                'x-auth-token': localStorage.getItem('token'),
                 'content-type': 'application/json'
             },
             body: JSON.stringify(
@@ -25,18 +26,28 @@ class ExperienceTableComponent extends React.Component {
                     title: this.state.inputPosition,
                     from: this.state.inputFrom,
                     to: this.state.inputTo,
-                    current : true
+                    current: true
                 }
             )
         })
-            .then()
+            .then(response=> {
+                this.getExperience()
+            })
     }
 
     componentDidMount = async () => {
+        this.getExperience();
+    }
+
+    getExperience = () => {
         fetch(
-            `${API_URL}/profile/user/5e8d02bf611f6a4bc0bd7693`)
+            `${LOCALHOST_URL}/profile/me`, {
+                headers: {
+                    'x-auth-token': localStorage.getItem('token')
+                }
+            }
+        )
             .then(response => response.json())
-            // .then(results => console.log(results.experience))
             .then(results => this.setState({
                                                experiences: results.experience
                                            }))
@@ -45,6 +56,8 @@ class ExperienceTableComponent extends React.Component {
     render() {
         return (
             <table className="table">
+                {this.props.user._id}
+                {this.props.user.name}
                 <thead>
                 <tr>
                     <th>Company</th>
@@ -55,20 +68,22 @@ class ExperienceTableComponent extends React.Component {
                 </thead>
                 <tbody>
                 {
-                    this.state.experiences !== undefined && this.state.experiences.map(experience =>
-                                                   <tr key={experience._id}>
-                                                       <td>{experience.company}</td>
-                                                       <td>{experience.title}</td>
-                                                       <td className="hide-sm">
-                                                           {experience.from}
-                                                       </td>
-                                                       <td>
-                                                           <button className="btn btn-danger">
-                                                               <i className="far fa-trash-alt"> </i>
-                                                               Delete
-                                                           </button>
-                                                       </td>
-                                                   </tr>
+                    this.state.experiences !== undefined
+                    && this.state.experiences.map(experience =>
+                                                      <tr key={experience._id}>
+                                                          <td>{experience.company}</td>
+                                                          <td>{experience.title}</td>
+                                                          <td className="hide-sm">
+                                                              {experience.from}
+                                                          </td>
+                                                          <td>
+                                                              <button
+                                                                  className="btn btn-danger">
+                                                                  <i className="far fa-trash-alt"> </i>
+                                                                  Delete
+                                                              </button>
+                                                          </td>
+                                                      </tr>
                     )
                 }
                 <tr>
@@ -99,6 +114,7 @@ class ExperienceTableComponent extends React.Component {
                     </td>
                     <td className="hide-sm">
                         <input
+                            type="date"
                             className="nav-item ml-auto form-control"
                             placeholder="From..."
                             onChange={async (e) =>
@@ -109,6 +125,7 @@ class ExperienceTableComponent extends React.Component {
                             // value={}
                         />
                         <input
+                            type="date"
                             className="nav-item ml-auto form-control"
                             placeholder="To"
                             onChange={async (e) =>
@@ -122,7 +139,10 @@ class ExperienceTableComponent extends React.Component {
                     </td>
                     <td>
                         <button
-                            onClick={this.addExperience}
+                            onClick={ () => {
+                                this.addExperience()
+                            }
+                            }
                             className="btn btn-danger">
                             <i className="fas fa-plus-circle fa-lg"> </i>
                             Add
