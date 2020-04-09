@@ -2,6 +2,8 @@ import React from "react";
 import DatePicker from "react-datepicker/es";
 import {API_URL, LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+
 
 class ExperienceTableComponent extends React.Component {
 
@@ -10,7 +12,8 @@ class ExperienceTableComponent extends React.Component {
         inputCompany: '',
         inputPosition: '',
         inputFrom: '',
-        inputTo: ''
+        inputTo: '',
+        edit: false
     }
 
     addExperience = () => {
@@ -69,29 +72,65 @@ class ExperienceTableComponent extends React.Component {
             }))
     }
 
+    changeEdit = () => {
+        if (this.state.edit === false)
+            this.setState({
+                edit: true
+            })
+        else
+            this.setState({
+                edit: false
+            })
+    }
+
     render() {
         return (
-            <table className="table">
-                {this.props.user._id}
-                {this.props.user.name}
-                <thead>
-                <tr>
-                    <th>Company</th>
-                    <th className="hide-sm">Title</th>
-                    <th className="hide-sm">Years</th>
-                    <th></th>
-                </tr>
-                </thead>
+            <div className="col">
+                <div>
+                <ul className="row">
+                    <li className="col-lg-3">Company</li>
+                    <li className="hide-sm col-lg-3">Title</li>
+                    <li className="hide-sm col-lg-2">To</li>
+                    <li className="hide-sm col-lg-2">From</li>
+                </ul>
+                </div>
                 <tbody>
                 {
-                    this.state.experiences !== undefined
-                    && this.state.experiences.map(experience =>
+                    this.state.experiences.map(experience =>
+
                         <tr key={experience._id}>
-                            <td>{experience.company}</td>
-                            <td>{experience.title}</td>
-                            <td className="hide-sm">
-                                {experience.from}
+                            <td>
+                                <Link to={`/dashboard/experience/${experience._id}`}>
+                                    {experience.company}
+                                </Link>
                             </td>
+                            <td><Link to={`/dashboard/experience/${experience._id}`}>
+                                {experience.title}
+                            </Link>
+                            </td>
+                            <td className="hide-sm">
+                                <Link to={`/dashboard/experience/${experience._id}`}>
+                                    {experience.to}
+                                </Link>
+                            </td>
+                            <td className="hide-sm">
+                                <Link to={`/dashboard/experience/${experience._id}`}>
+                                    {experience.from}
+                                </Link>
+                            </td>
+                            {this.state.edit === false &&
+                            <td>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => this.changeEdit()}
+                                >
+
+                                    <i className="far fa-edit"
+                                    > </i>
+                                </button>
+                            </td>
+                            }
+                            {this.state.edit === false &&
                             <td>
                                 <button
                                     className="btn btn-danger"
@@ -100,10 +139,23 @@ class ExperienceTableComponent extends React.Component {
 
                                     <i className="far fa-trash-alt"
                                     > </i>
-                                    Delete
+
                                 </button>
                             </td>
+                            }
+                            {this.state.edit === true &&
+                            <td>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => this.changeEdit()}
+                                >
+
+                                    Save
+                                </button>
+                            </td>
+                            }
                         </tr>
+
                     )
                 }
                 <tr>
@@ -144,6 +196,8 @@ class ExperienceTableComponent extends React.Component {
                                 )}
                             value={this.state.inputFrom}
                         />
+                    </td>
+                    <td className="hide-sm">
                         <input
                             type="date"
                             className="nav-item ml-auto form-control"
@@ -169,7 +223,7 @@ class ExperienceTableComponent extends React.Component {
                     </td>
                 </tr>
                 </tbody>
-            </table>
+            </div>
         );
     }
 }
