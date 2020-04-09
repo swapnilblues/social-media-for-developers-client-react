@@ -30,7 +30,19 @@ class ExperienceTableComponent extends React.Component {
                 }
             )
         })
-            .then(response=> {
+            .then(response => {
+                this.getExperience()
+            })
+    }
+
+    deleteExperience = (eid) => {
+        fetch(`${LOCALHOST_URL}/profile/experience/${eid}`, {
+            method: "DELETE",
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        })
+            .then(response => {
                 this.getExperience()
             })
     }
@@ -49,8 +61,12 @@ class ExperienceTableComponent extends React.Component {
         )
             .then(response => response.json())
             .then(results => this.setState({
-                                               experiences: results.experience
-                                           }))
+                experiences: results.experience,
+                inputCompany: '',
+                inputPosition: '',
+                inputFrom: '',
+                inputTo: ''
+            }))
     }
 
     render() {
@@ -70,20 +86,24 @@ class ExperienceTableComponent extends React.Component {
                 {
                     this.state.experiences !== undefined
                     && this.state.experiences.map(experience =>
-                                                      <tr key={experience._id}>
-                                                          <td>{experience.company}</td>
-                                                          <td>{experience.title}</td>
-                                                          <td className="hide-sm">
-                                                              {experience.from}
-                                                          </td>
-                                                          <td>
-                                                              <button
-                                                                  className="btn btn-danger">
-                                                                  <i className="far fa-trash-alt"> </i>
-                                                                  Delete
-                                                              </button>
-                                                          </td>
-                                                      </tr>
+                        <tr key={experience._id}>
+                            <td>{experience.company}</td>
+                            <td>{experience.title}</td>
+                            <td className="hide-sm">
+                                {experience.from}
+                            </td>
+                            <td>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => this.deleteExperience(experience._id)}
+                                >
+
+                                    <i className="far fa-trash-alt"
+                                    > </i>
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
                     )
                 }
                 <tr>
@@ -93,11 +113,11 @@ class ExperienceTableComponent extends React.Component {
                             placeholder="Input Company Here"
                             onChange={async (e) =>
                                 await this.setState({
-                                                        inputCompany: e.target.value
-                                                    }
+                                        inputCompany: e.target.value
+                                    }
                                 )}
                             // onChange={}
-                            // value={}
+                            value={this.state.inputCompany}
                         />
                     </td>
                     <td>
@@ -106,10 +126,10 @@ class ExperienceTableComponent extends React.Component {
                             placeholder="Input Title Here"
                             onChange={async (e) =>
                                 await this.setState({
-                                                        inputPosition: e.target.value
-                                                    }
+                                        inputPosition: e.target.value
+                                    }
                                 )}
-                            // value={}
+                            value={this.state.inputPosition}
                         />
                     </td>
                     <td className="hide-sm">
@@ -119,10 +139,10 @@ class ExperienceTableComponent extends React.Component {
                             placeholder="From..."
                             onChange={async (e) =>
                                 await this.setState({
-                                                        inputFrom: e.target.value
-                                                    }
+                                        inputFrom: e.target.value
+                                    }
                                 )}
-                            // value={}
+                            value={this.state.inputFrom}
                         />
                         <input
                             type="date"
@@ -130,16 +150,15 @@ class ExperienceTableComponent extends React.Component {
                             placeholder="To"
                             onChange={async (e) =>
                                 await this.setState({
-                                                        inputTo: e.target.value
-                                                    }
+                                        inputTo: e.target.value
+                                    }
                                 )}
-                            // onChange={}
-                            // value={}
+                            value={this.state.inputTo}
                         />
                     </td>
                     <td>
                         <button
-                            onClick={ () => {
+                            onClick={() => {
                                 this.addExperience()
                             }
                             }
