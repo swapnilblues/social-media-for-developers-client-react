@@ -15,6 +15,7 @@ import SuccessComponent from "./Temporary/success";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 import authReducer from "./Reducer/auth.reducer"
 
+
 const store = createStore(authReducer)
 
 class SocialMediaManagerComponent extends React.Component {

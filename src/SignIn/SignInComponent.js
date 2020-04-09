@@ -34,7 +34,7 @@ class SignInComponent extends React.Component {
                 } else {
                     console.log("SUCCESS", r.token)
                     this.props.generateTokenAndSave(r.token)
-                    this.props.history.push(`/success`)
+                    this.props.history.push(`/dashboard`)
                 }
             }
         )

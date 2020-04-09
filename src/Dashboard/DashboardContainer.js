@@ -8,15 +8,17 @@ class DashboardContainer extends React.Component {
 
     state = {
         user: {name : ''},
-        experiences: []
+        experiences: [],
+        dashboardToken : ''
     }
 
     componentDidMount() {
-        console.log("Dashboard token: ",this.props.token)
+        this.state.dashboardToken = localStorage.getItem('token')
+        console.log("Dashboard token: ",this.state.dashboardToken)
         fetch(
             `${LOCALHOST_URL}/profile/me`,{
                 headers: {
-                    'x-auth-token': '' + this.props.token
+                    'x-auth-token': '' + this.state.dashboardToken
                 }}
         )
             .then(response => response.json())
@@ -50,9 +52,10 @@ class DashboardContainer extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => {
-    return {
-        token: state.token
-    }
+    // console.log("FSM ",state)
+    // return {
+    //     token: state.token
+    // }
 }
 
 const dispatchToPropertyMapper = (dispatch) => {}

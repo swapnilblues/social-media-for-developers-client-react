@@ -14,7 +14,8 @@ class SignUpComponent extends React.Component {
         password: '',
         email: '',
         name: '',
-        cpassword: ''
+        cpassword: '',
+        token: ''
     }
 
     register = async () => {
@@ -35,27 +36,35 @@ class SignUpComponent extends React.Component {
                     }
                 )
             }).then(response =>
-                        response.json()
+                response.json()
             ).then(
                 r => {
                     if (r.errors !== undefined) {
                         r.errors.map(error =>
-                                         console.log("ERROR", error.msg)
+                            console.log("ERROR", error.msg)
                         )
                     } else {
-                        console.log("SUCCESS", r.token)
-                         fetch(
+                        console.log("SUCCESS", r)
+                        this.setState(
+                            {
+                                token: r.token
+                            }
+                        )
+                        fetch(
                             `${LOCALHOST_URL}/profile`, {
                                 headers: {
-                                    'x-auth-token': r.token,
+                                    'x-auth-token': this.state.token,
                                     'content-type': 'application/json'
                                 },
                                 method: 'POST'
-                            }).then(res => console.log(res))
-                             .then( () =>
-                                this.props.generateTokenAndSave(r.token))
-                             .then(() =>
-                                this.props.history.push(`/dashboard`))
+                            }).then(
+                            async () =>  {
+                                await console.log('State token ', this.state.token)
+                                await this.props.generateTokenAndSave(this.state.token)
+                                await this.props.history.push(`/dashboard`)
+                            }
+                    )
+
                     }
                 }
             )
@@ -81,8 +90,8 @@ class SignUpComponent extends React.Component {
                             {/*/>*/}
                             <input onChange={async (e) =>
                                 await this.setState({
-                                                        name: e.target.value
-                                                    })
+                                    name: e.target.value
+                                })
                             }
                                    placeholder="Full Name"
                                    name={"email"}
@@ -95,8 +104,8 @@ class SignUpComponent extends React.Component {
 
                             <input onChange={async (e) =>
                                 await this.setState({
-                                                        email: e.target.value
-                                                    })
+                                    email: e.target.value
+                                })
                             }
                                    type={"email"}
                                    placeholder="Email"
@@ -110,8 +119,8 @@ class SignUpComponent extends React.Component {
 
                             <input onChange={async (e) =>
                                 await this.setState({
-                                                        password: e.target.value
-                                                    })
+                                    password: e.target.value
+                                })
                             }
                                    type={"password"}
                                    placeholder="Password"
@@ -124,8 +133,8 @@ class SignUpComponent extends React.Component {
                         <div className="form-group">
                             <input onChange={async (e) =>
                                 await this.setState({
-                                                        cpassword: e.target.value
-                                                    })
+                                    cpassword: e.target.value
+                                })
                             }
                                    type={"password"}
                                    placeholder="Confirm Password"
@@ -163,9 +172,9 @@ const dispatchToPropertyMapper = (dispatch) => {
     return {
         generateTokenAndSave: (token) =>
             dispatch({
-                         type: "ADD_TOKEN",
-                         token: token
-                     })
+                type: "ADD_TOKEN",
+                token: token
+            })
 
     }
 }
