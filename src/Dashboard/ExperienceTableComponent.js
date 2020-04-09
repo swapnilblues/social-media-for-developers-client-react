@@ -94,32 +94,32 @@ class ExperienceTableComponent extends React.Component {
                     <li className="hide-sm col-lg-2">From</li>
                 </ul>
                 </div>
-                <tbody>
+                {/*<tbody>*/}
                 {
                     this.state.experiences.map(experience =>
-
-                        <tr key={experience._id}>
-                            <td>
+                        <div className="container row" key={experience._id}>
+                            <div className="col-lg-3">
                                 <Link to={`/dashboard/experience/${experience._id}`}>
                                     {experience.company}
                                 </Link>
-                            </td>
-                            <td><Link to={`/dashboard/experience/${experience._id}`}>
+                            </div>
+                            <div className="hide-sm col-lg-3">
+                            <Link to={`/dashboard/experience/${experience._id}`}>
                                 {experience.title}
                             </Link>
-                            </td>
-                            <td className="hide-sm">
+                            </div>
+                            <div className="hide-sm col-lg-2">
                                 <Link to={`/dashboard/experience/${experience._id}`}>
                                     {experience.to}
                                 </Link>
-                            </td>
-                            <td className="hide-sm">
+                            </div>
+                            <div className="hide-sm col-lg-2">
                                 <Link to={`/dashboard/experience/${experience._id}`}>
                                     {experience.from}
                                 </Link>
-                            </td>
+                            </div>
                             {this.state.edit === false &&
-                            <td>
+                            <div className="hide-sm col-lg-2">
                                 <button
                                     className="btn btn-danger"
                                     onClick={() => this.changeEdit()}
@@ -128,7 +128,7 @@ class ExperienceTableComponent extends React.Component {
                                     <i className="far fa-edit"
                                     > </i>
                                 </button>
-                            </td>
+                            </div>
                             }
                             {this.state.edit === false &&
                             <td>
@@ -154,7 +154,7 @@ class ExperienceTableComponent extends React.Component {
                                 </button>
                             </td>
                             }
-                        </tr>
+                        </div>
 
                     )
                 }
@@ -222,7 +222,6 @@ class ExperienceTableComponent extends React.Component {
                         </button>
                     </td>
                 </tr>
-                </tbody>
             </div>
         );
     }
