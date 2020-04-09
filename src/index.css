@@ -181,3 +181,12 @@ input {
   border: 1px solid #ccc;
 }
 
+/* Dashboard*/
+
+.experience-ul {
+  list-style-type: none;
+}
+
+.edit-button {
+  margin-right: 10px;
+}

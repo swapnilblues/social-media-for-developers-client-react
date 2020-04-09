@@ -13,7 +13,15 @@ class ExperienceTableComponent extends React.Component {
         inputPosition: '',
         inputFrom: '',
         inputTo: '',
-        edit: false
+
+        currentCompany: '',
+        currentPosition: '',
+        currentFrom: '',
+        currentTo: '',
+
+        edit: false,
+
+
     }
 
     addExperience = () => {
@@ -54,6 +62,11 @@ class ExperienceTableComponent extends React.Component {
         this.getExperience();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.experienceId !== this.props.experienceId)
+            this.getExperience()
+    }
+
     getExperience = () => {
         fetch(
             `${LOCALHOST_URL}/profile/me`, {
@@ -85,77 +98,212 @@ class ExperienceTableComponent extends React.Component {
 
     render() {
         return (
-            <div className="col">
-                <div>
-                <ul className="row">
-                    <li className="col-lg-3">Company</li>
-                    <li className="hide-sm col-lg-3">Title</li>
-                    <li className="hide-sm col-lg-2">To</li>
-                    <li className="hide-sm col-lg-2">From</li>
-                </ul>
+            <div className="col list-group">
+                <div className="list-group-item">
+                    <ul className="row experience-ul">
+                        <li className="col-lg-3">Company</li>
+                        <li className="hide-sm col-lg-3">Title</li>
+                        <li className="hide-sm col-lg-2">From</li>
+                        <li className="hide-sm col-lg-2">To</li>
+                    </ul>
                 </div>
                 {/*<tbody>*/}
                 {
                     this.state.experiences.map(experience =>
-                        <div className="container row" key={experience._id}>
-                            <div className="col-lg-3">
-                                <Link to={`/dashboard/experience/${experience._id}`}>
-                                    {experience.company}
-                                </Link>
-                            </div>
-                            <div className="hide-sm col-lg-3">
-                            <Link to={`/dashboard/experience/${experience._id}`}>
-                                {experience.title}
-                            </Link>
-                            </div>
-                            <div className="hide-sm col-lg-2">
-                                <Link to={`/dashboard/experience/${experience._id}`}>
-                                    {experience.to}
-                                </Link>
-                            </div>
-                            <div className="hide-sm col-lg-2">
-                                <Link to={`/dashboard/experience/${experience._id}`}>
-                                    {experience.from}
-                                </Link>
-                            </div>
-                            {this.state.edit === false &&
-                            <div className="hide-sm col-lg-2">
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => this.changeEdit()}
-                                >
+                        <Link to={`/dashboard/experience/${experience._id}`}>
 
-                                    <i className="far fa-edit"
-                                    > </i>
-                                </button>
-                            </div>
+                            {
+                                console.log("Old Eid", this.props.experienceId + " AA ", experience._id)
                             }
-                            {this.state.edit === false &&
-                            <td>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => this.deleteExperience(experience._id)}
-                                >
 
-                                    <i className="far fa-trash-alt"
-                                    > </i>
+                            {
+                                this.state.edit === true && this.props.experienceId === experience._id &&
 
-                                </button>
-                            </td>
+                                <div className="list-group-item active">
+                                    <div className="container row" key={experience._id}>
+                                        <div className="col-lg-3">
+
+                                            <input
+                                                className="nav-item ml-auto form-control"
+                                                placeholder="Input Company Here"
+                                                onChange={async (e) => {
+                                                    const n = e.target.value;
+                                                    await this.setState({
+                                                            ...this.state,
+                                                            inputCompany: n
+                                                        }
+                                                    )
+                                                }}
+                                                value={this.state.inputCompany}
+                                            />
+
+                                        </div>
+                                        <div className="hide-sm col-lg-3">
+
+                                            <input
+                                                className="nav-item ml-auto form-control"
+                                                placeholder="Input Title Here"
+                                                onChange={async (e) => {
+                                                    const n = e.target.value;
+                                                    await this.setState({
+                                                            ...this.state,
+                                                            inputTitle: n
+                                                        }
+                                                    )
+                                                }}
+                                                value={this.state.inputTitle}
+                                            />
+
+                                        </div>
+
+                                        <div className="hide-sm col-lg-2">
+
+                                            <input
+                                                className="nav-item ml-auto form-control"
+                                                placeholder="Input From Date"
+                                                onChange={async (e) => {
+                                                    const n = e.target.value;
+                                                    await this.setState({
+                                                            ...this.state,
+                                                            inputFrom: n
+                                                        }
+                                                    )
+                                                }}
+                                                value={this.state.inputFrom}
+                                            />
+
+                                        </div>
+                                        <div className="hide-sm col-lg-2">
+
+                                            <input
+                                                className="nav-item ml-auto form-control"
+                                                placeholder="Input To Date"
+                                                onChange={async (e) => {
+                                                    const n = e.target.value;
+                                                    await this.setState({
+                                                            ...this.state,
+                                                            inputTo: n
+                                                        }
+                                                    )
+                                                }}
+                                                value={this.state.inputTo}
+                                            />
+
+                                        </div>
+                                        <td>
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={() => this.changeEdit()}
+                                            >
+
+                                                Save
+                                            </button>
+                                        </td>
+
+                                    </div>
+                                </div>
+
+
                             }
-                            {this.state.edit === true &&
-                            <td>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => this.changeEdit()}
-                                >
 
-                                    Save
-                                </button>
-                            </td>
+                            {
+
+                                this.state.edit === false && this.props.experienceId === experience._id &&
+
+
+                                <div>
+                                    <div className="list-group-item active">
+                                        <div className="container row" key={experience._id}>
+                                            <div className="col-lg-3">
+
+                                                {experience.company}
+
+                                            </div>
+                                            <div className="hide-sm col-lg-3">
+
+                                                {experience.title}
+
+                                            </div>
+                                            <div className="hide-sm col-lg-2">
+
+                                                {experience.from}
+
+                                            </div>
+                                            <div className="hide-sm col-lg-2">
+
+                                                {experience.to}
+
+                                            </div>
+
+                                            {this.state.edit === false &&
+                                            <div className="hide-sm col-lg-2">
+                                                <button
+                                                    className="btn btn-danger edit-button"
+                                                    onClick={() => this.changeEdit()}
+                                                >
+
+                                                    <i className="far fa-edit"
+                                                    > </i>
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger"
+                                                    onClick={() => this.deleteExperience(experience._id)}
+                                                >
+
+                                                    <i className="far fa-trash-alt"
+                                                    > </i>
+
+                                                </button>
+                                            </div>
+                                            }
+                                            {this.state.edit === true &&
+                                            <td>
+                                                <button
+                                                    className="btn btn-danger"
+                                                    onClick={() => this.changeEdit()}
+                                                >
+                                                    Save
+                                                </button>
+                                            </td>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                        </div>
 
+                            {
+                                this.props.experienceId !== experience._id &&
+
+                                <div className="list-group-item">
+                                    <div className="container row" key={experience._id}>
+                                        <div className="col-lg-3">
+
+                                            {experience.company}
+
+                                        </div>
+                                        <div className="hide-sm col-lg-3">
+
+                                            {experience.title}
+
+                                        </div>
+                                        <div className="hide-sm col-lg-2">
+
+                                            {experience.from}
+
+                                        </div>
+                                        <div className="hide-sm col-lg-2">
+
+                                            {experience.to}
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            }
+
+
+                        </Link>
                     )
                 }
                 <tr>
@@ -168,7 +316,6 @@ class ExperienceTableComponent extends React.Component {
                                         inputCompany: e.target.value
                                     }
                                 )}
-                            // onChange={}
                             value={this.state.inputCompany}
                         />
                     </td>

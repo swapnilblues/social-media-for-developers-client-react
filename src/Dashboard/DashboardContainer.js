@@ -41,7 +41,7 @@ class DashboardContainer extends React.Component {
                 <div className="container">
                 <h2 className="my-2">Experience Credentials</h2>
                 <ExperienceTableComponent
-                    // experiences={this.state.experiences}
+                    experienceId = {this.props.experienceId}
                     user={this.state.user}
                 />
                 </div>
