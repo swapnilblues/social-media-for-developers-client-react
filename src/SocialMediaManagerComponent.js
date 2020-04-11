@@ -42,12 +42,14 @@ class SocialMediaManagerComponent extends React.Component {
                         }
                     >
                     </Route>
+
                     <Route
                         path="/profiles/:userId"
                         exact={true}
                         render={
                             (props) =>
                                 <ProfileDetailsContainer
+                                    userId = {props.match.params.userId}
                                     {...props}
                                 />
                         }
@@ -93,7 +95,6 @@ class SocialMediaManagerComponent extends React.Component {
                         >
 
                         </Route>
-
 
                         <Route
                             path="/sign-in"

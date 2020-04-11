@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
+import {LOCALHOST_URL} from "../common/constants";
 
 export default class ProfileDetailsContainer extends React.Component {
 
@@ -10,17 +11,15 @@ export default class ProfileDetailsContainer extends React.Component {
     }
 
     componentDidMount = async () => {
-        await fetch("https://group-32-node-server.herokuapp.com/codebook/profile/user/5e838d60e3120a21983de85c")
+        await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
             .then(response => response.json())
             .then(results => this.setState({
-                user: results
-            }))
+                                               user: results
+                                           }))
 
         await this.getRepos(this.state.user.githubusername)
-
         await console.log("Name", this.state.repos)
     }
-
 
     getRepos = (username) => {
         fetch(`https://api.github.com/users/${username}/repos`, {
@@ -30,8 +29,8 @@ export default class ProfileDetailsContainer extends React.Component {
         })
             .then(response => response.json())
             .then(results => this.setState({
-                repos: results
-            }))
+                                               repos: results
+                                           }))
     }
     //
     // searchUser = (name) => {
@@ -52,7 +51,8 @@ export default class ProfileDetailsContainer extends React.Component {
 
 
                         <div className="col-sm-4">
-                            <img src="../images/sajag_dp.jfif" alt="Not found" width="250" height="250"/>
+                            <img src="../images/sajag_dp.jfif" alt="Not found" width="250"
+                                 height="250"/>
                         </div>
 
 
@@ -67,40 +67,40 @@ export default class ProfileDetailsContainer extends React.Component {
                             </div>
 
                             <div className="row">
-
                                 <h4><b>Skills</b></h4>
-
                             </div>
                             <div className="row">
                                 <ul className="skills">
                                     {this.state.user.skills.map(skill =>
-                                        <li><i className="fas fa-terminal"/> {skill}</li>
+                                                                    <li><i
+                                                                        className="fas fa-terminal"/> {skill}
+                                                                    </li>
                                     )}
                                 </ul>
                             </div>
                         </div>
-
-
                     </div>
-
 
                     <div className="profile-exp bg-white p-2">
                         <h2 className="text-primary">Experience</h2>
                         {
                             this.state.user.experience.map(exp =>
-                                <div>
-                                    <h3 className="text-dark">{exp.company}</h3>
-                                    <p>{exp.from}</p>
-                                    <p><strong>Position: </strong>{exp.title}</p>
-                                    <p><strong>Location: </strong>{exp.location}</p>
-                                    <p>
-                                        <strong>Description: </strong>{exp.description}
-                                    </p>
-                                </div>
-                            )
-                        }
-
-                    </div>
+                                                               <div>
+                                                                   <h3 className="text-dark">{exp.company}</h3>
+                                                                   <p>{exp.from}</p>
+                                                                   <p>
+                                                                       <strong>Position: </strong>{exp.title}
+                                                                   </p>
+                                                                   <p>
+                                                                       <strong>Location: </strong>{exp.location}
+                                                                   </p>
+                                                                   <p>
+                                                                       <strong>Description: </strong>{exp.description}
+                                                                   </p>
+                                                               </div>
+                                                                )
+                                                            }
+                                                        </div>
 
 
                     <div className="profile-edu bg-white p-2">
@@ -120,37 +120,35 @@ export default class ProfileDetailsContainer extends React.Component {
                     </div>
 
 
-                    
                     <div className="profile-github">
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
-
-
                         {
                             this.state.repos.map(repo =>
-                                <div>
-                                    <Link to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
-                                        <div className="p-1 border border-secondary github-repo">
-                                            <div>
-                                                <h4><a href="#" className="text-dark">{repo.name}</a></h4>
-                                                <p className="paragraph-justify">
-                                                    {repo.description}
-                                                </p>
-                                                <i className="fas fa-star"/> {repo.stargazers_count}
+                                                     <div>
+                                                         <Link
+                                                             to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
+                                                             <div
+                                                                 className="p-1 border border-secondary github-repo">
+                                                                 <div>
+                                                                     <h4><a href="#"
+                                                                            className="text-dark">{repo.name}</a>
+                                                                     </h4>
+                                                                     <p className="paragraph-justify">
+                                                                         {repo.description}
+                                                                     </p>
+                                                                     <i className="fas fa-star"/> {repo.stargazers_count}
+                                                                 </div>
+                                                             </div>
+                                                         </Link>
+                                                         <br/>
+                                                     </div>
+                                                    )
+                                                }
                                             </div>
                                         </div>
-                                    </Link>
-                                    <br/>
-                                </div>
-                            )
+                                    </div>
+                                )
+                            }
                         }
-
-
-                    </div>
-                </div>
-
-            </div>
-        )
-    }
-}

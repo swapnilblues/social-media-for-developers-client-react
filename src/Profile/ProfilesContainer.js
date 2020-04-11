@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
+import {LOCALHOST_URL} from "../common/constants";
 
 export default class ProfilesContainer extends React.Component {
 
@@ -14,7 +15,7 @@ export default class ProfilesContainer extends React.Component {
     }
 
     findAllUser = () => {
-        fetch("https://group-32-node-server.herokuapp.com/codebook/profile/all")
+        fetch(`${LOCALHOST_URL}/profile/all`)
             .then(response => response.json())
             .then(results => this.setState({
                 users: results
@@ -69,9 +70,6 @@ export default class ProfilesContainer extends React.Component {
                                 </div>
                             )
                         }
-
-
-
                     </div>
                 </div>
             </div>
