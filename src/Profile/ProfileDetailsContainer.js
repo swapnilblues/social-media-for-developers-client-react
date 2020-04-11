@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {LOCALHOST_URL} from "../common/constants";
+import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
 export default class ProfileDetailsContainer extends React.Component {
 
@@ -44,7 +45,14 @@ export default class ProfileDetailsContainer extends React.Component {
     render() {
         return (
             <div>
-                <NavBarComponent/>
+                {
+                    localStorage.getItem('token') === null &&
+                    <NavBarComponent/>
+                }
+                {
+                    localStorage.getItem('token') !== null &&
+                    <NavBarInSessionComponent/>
+                }
                 <div className="container">
 
                     <div className="profile-grid my-1 bg-secondary">
@@ -132,7 +140,7 @@ export default class ProfileDetailsContainer extends React.Component {
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
-                        
+
                         {
                             this.state.repos.map(repo =>
                                     <div>

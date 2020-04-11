@@ -149,10 +149,6 @@ class ExperienceTableComponent extends React.Component {
 
 
                             {
-                                console.log("Old Eid", this.props.experienceId + " AA ", experience._id)
-                            }
-
-                            {
                                 this.state.edit === true && this.props.experienceId === experience._id &&
 
                                 <div className="list-group-item active">

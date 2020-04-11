@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
+import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
 export default class ProfileComponent extends React.Component {
 
@@ -30,7 +31,14 @@ export default class ProfileComponent extends React.Component {
     render() {
         return (
             <div>
-                <NavBarComponent/>
+                {
+                    localStorage.getItem('token') === null &&
+                    <NavBarComponent/>
+                }
+                {
+                    localStorage.getItem('token') !== null &&
+                    <NavBarInSessionComponent/>
+                }
                 {/*{this.state.user.user.name}*/}
                 {/*{this.props.repoName}*/}
                 {/*{this.state.repo.name}*/}

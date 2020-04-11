@@ -25,14 +25,31 @@ export default class NavBarComponent extends React.Component {
                     <div className="collapse navbar-collapse" id="navbar-menu">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
+                                <Link to={"/dashboard"}>
+                                    <span className="nav-link wbdv-page-tab">Dashboard</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link to={"/profiles"}>
                                     <span className="nav-link wbdv-page-tab">Geeks</span>
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={"/dashboard"}>
-                                    <a href="#" className="nav-link wbdv-page-tab">Dashboard</a>
+                                <Link to={"/posts"}>
+                                    <span href="#" className="nav-link wbdv-page-tab">Posts</span>
                                 </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to={"/sign-in"}>
+                                    <span  className="nav-link wbdv-page-tab"
+                                    onClick={ async () => {
+                                        localStorage.clear()
+
+                                    }
+                                    }
+                                    >Sign Out</span>
+                                </Link>
+
                             </li>
                         </ul>
                     </div>

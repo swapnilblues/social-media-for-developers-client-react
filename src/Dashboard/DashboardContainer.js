@@ -4,6 +4,7 @@ import ExperienceTableComponent from "./ExperienceTableComponent";
 import {LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
 import EducationTableComponent from "./EducationTableComponent";
+import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
 class DashboardContainer extends React.Component {
 
@@ -16,6 +17,10 @@ class DashboardContainer extends React.Component {
     componentDidMount() {
         this.state.dashboardToken = localStorage.getItem('token')
         console.log("Dashboard token: ", this.state.dashboardToken)
+        {
+            this.state.dashboardToken === null &&
+            this.props.history.push('/sign-in')
+        }
         fetch(
             `${LOCALHOST_URL}/profile/me`, {
                 headers: {
@@ -32,8 +37,10 @@ class DashboardContainer extends React.Component {
 
     render() {
         return (
+
             <div>
-                <DashboardNavbarComponent/>
+                <NavBarInSessionComponent/>
+
                 <div className="container">
                     <h2 className="large">Dashboard</h2>
                     <p className="lead">

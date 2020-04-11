@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {LOCALHOST_URL} from "../common/constants";
+import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
 export default class ProfilesContainer extends React.Component {
 
@@ -25,7 +26,15 @@ export default class ProfilesContainer extends React.Component {
     render() {
         return (
             <div>
-                <NavBarComponent/>
+                {
+                    localStorage.getItem('token') === null &&
+                    <NavBarComponent/>
+                }
+                {
+                    localStorage.getItem('token') !== null &&
+                    <NavBarInSessionComponent/>
+                }
+
                 <div className="container">
 
                     <div className="row find-user">
