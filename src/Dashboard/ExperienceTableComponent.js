@@ -13,6 +13,7 @@ class ExperienceTableComponent extends React.Component {
         inputPosition: '',
         inputFrom: '',
         inputTo: '',
+        inputDescription: '',
         current: false,
 
         edit: false,
@@ -32,8 +33,9 @@ class ExperienceTableComponent extends React.Component {
                     company: this.state.inputCompany,
                     title: this.state.inputPosition,
                     from: this.state.inputFrom,
-                    to: !this.state.current? this.state.inputTo : 'Present',
-                    current: this.state.current
+                    to: !this.state.current ? this.state.inputTo : 'Present',
+                    current: this.state.current,
+                    description: this.state.inputDescription
                 }
             )
         })
@@ -77,6 +79,7 @@ class ExperienceTableComponent extends React.Component {
                 inputCompany: '',
                 inputPosition: '',
                 inputFrom: '',
+                inputDescription: '',
                 inputTo: ''
             }))
     }
@@ -96,17 +99,21 @@ class ExperienceTableComponent extends React.Component {
         return (
             <div className="col list-group">
                 <div className="list-group-item">
-                    <ul className="row experience-ul">
-                        <li className="col-lg-3">Company</li>
-                        <li className="hide-sm col-lg-3">Title</li>
-                        <li className="hide-sm col-lg-2">From</li>
-                        <li className="hide-sm col-lg-2">To</li>
-                    </ul>
+                    <div className="container row">
+                        {/*<ul className="row experience-ul">*/}
+                        <div className="col-lg-2">Company</div>
+                        <div className="hide-sm col-lg-2">Title</div>
+                        <div className="hide-sm col-lg-2">Description</div>
+                        <div className="hide-sm col-lg-2">From</div>
+                        <div className="hide-sm col-lg-2">To</div>
+                        {/*</ul>*/}
+                    </div>
                 </div>
                 {/*<tbody>*/}
                 {
                     this.state.experiences.map(experience =>
                         <Link to={`/dashboard/experience/${experience._id}`}>
+
 
                             {
                                 console.log("Old Eid", this.props.experienceId + " AA ", experience._id)
@@ -117,7 +124,7 @@ class ExperienceTableComponent extends React.Component {
 
                                 <div className="list-group-item active">
                                     <div className="container row" key={experience._id}>
-                                        <div className="col-lg-3">
+                                        <div className="col-lg-2">
 
                                             <input
                                                 className="nav-item ml-auto form-control"
@@ -134,7 +141,7 @@ class ExperienceTableComponent extends React.Component {
                                             />
 
                                         </div>
-                                        <div className="hide-sm col-lg-3">
+                                        <div className="hide-sm col-lg-2">
 
                                             <input
                                                 className="nav-item ml-auto form-control"
@@ -148,6 +155,23 @@ class ExperienceTableComponent extends React.Component {
                                                     )
                                                 }}
                                                 value={this.state.inputTitle}
+                                            />
+
+                                        </div>
+                                        <div className="hide-sm col-lg-2">
+
+                                            <textarea
+                                                className="nav-item ml-auto form-control"
+                                                placeholder="Input Description Here"
+                                                onChange={async (e) => {
+                                                    const n = e.target.value;
+                                                    await this.setState({
+                                                            ...this.state,
+                                                            inputDescription: n
+                                                        }
+                                                    )
+                                                }}
+                                                value={this.state.inputDescription}
                                             />
 
                                         </div>
@@ -186,7 +210,7 @@ class ExperienceTableComponent extends React.Component {
                                             />
 
                                         </div>
-                                        <td>
+                                        <div className="hide-sm col-lg-2">
                                             <button
                                                 className="btn btn-danger"
                                                 onClick={() => this.changeEdit()}
@@ -194,7 +218,7 @@ class ExperienceTableComponent extends React.Component {
 
                                                 Save
                                             </button>
-                                        </td>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -210,14 +234,19 @@ class ExperienceTableComponent extends React.Component {
                                 <div>
                                     <div className="list-group-item active">
                                         <div className="container row" key={experience._id}>
-                                            <div className="col-lg-3">
+                                            <div className="col-lg-2">
 
                                                 {experience.company}
 
                                             </div>
-                                            <div className="hide-sm col-lg-3">
+                                            <div className="hide-sm col-lg-2">
 
                                                 {experience.title}
+
+                                            </div>
+                                            <div className="hide-sm col-lg-2">
+
+                                                {experience.description}
 
                                             </div>
                                             <div className="hide-sm col-lg-2">
@@ -231,11 +260,21 @@ class ExperienceTableComponent extends React.Component {
 
                                             </div>
 
-                                            {this.state.edit === false &&
+
                                             <div className="hide-sm col-lg-2">
                                                 <button
                                                     className="btn btn-danger edit-button"
-                                                    onClick={() => this.changeEdit()}
+                                                    onClick={async () => {
+                                                        await this.setState({
+                                                            inputCompany: experience.company,
+                                                            inputTitle: experience.title,
+                                                            inputDescription: experience.description,
+                                                            inputTo: experience.to,
+                                                            inputFrom: experience.from
+                                                        })
+                                                        await this.changeEdit()
+                                                    }
+                                                    }
                                                 >
 
                                                     <i className="far fa-edit"
@@ -246,22 +285,12 @@ class ExperienceTableComponent extends React.Component {
                                                     onClick={() => this.deleteExperience(experience._id)}
                                                 >
 
-                                                    <i className="far fa-trash-alt"
-                                                    > </i>
+                                                    <i className="far fa-trash-alt"> </i>
 
                                                 </button>
                                             </div>
-                                            }
-                                            {this.state.edit === true &&
-                                            <td>
-                                                <button
-                                                    className="btn btn-danger"
-                                                    onClick={() => this.changeEdit()}
-                                                >
-                                                    Save
-                                                </button>
-                                            </td>
-                                            }
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -270,16 +299,27 @@ class ExperienceTableComponent extends React.Component {
                             {
                                 this.props.experienceId !== experience._id &&
 
-                                <div className="list-group-item">
+                                <div className="list-group-item"
+                                    onClick={() => {
+                                        this.setState({
+                                            edit: false
+                                        })
+                                    }}
+                                >
                                     <div className="container row" key={experience._id}>
-                                        <div className="col-lg-3">
+                                        <div className="col-lg-2">
 
                                             {experience.company}
 
                                         </div>
-                                        <div className="hide-sm col-lg-3">
+                                        <div className="hide-sm col-lg-2">
 
                                             {experience.title}
+
+                                        </div>
+                                        <div className="hide-sm col-lg-2">
+
+                                            {experience.description}
 
                                         </div>
                                         <div className="hide-sm col-lg-2">
@@ -298,57 +338,71 @@ class ExperienceTableComponent extends React.Component {
                                 </div>
                             }
 
-
                         </Link>
                     )
                 }
-                <tr>
-                    <td>
-                        <input
-                            className="nav-item ml-auto form-control"
-                            placeholder="Input Company Here"
-                            onChange={async (e) =>
-                                await this.setState({
-                                        inputCompany: e.target.value
-                                    }
-                                )}
-                            value={this.state.inputCompany}
-                        />
-                    </td>
-                    <td>
-                        <input
-                            className="nav-item ml-auto form-control"
-                            placeholder="Input Title Here"
-                            onChange={async (e) =>
-                                await this.setState({
-                                        inputPosition: e.target.value
-                                    }
-                                )}
-                            value={this.state.inputPosition}
-                        />
-                    </td>
-                    <td className="hide-sm">
-                        <input
-                            type="date"
-                            className="nav-item ml-auto form-control"
-                            placeholder="From..."
-                            onChange={async (e) =>
-                                await this.setState({
-                                        inputFrom: e.target.value
-                                    }
-                                )}
-                            value={this.state.inputFrom}
-                        />
-                    </td>
-                    <td className="hide-sm">
-                        {   this.state.current &&
+
+                <br/>
+                <div className="list-group-item">
+                    <div className="container row">
+                        <div className="col-lg-2">
+                            <input
+                                className="nav-item ml-auto form-control"
+                                placeholder="Input Company Here"
+                                onChange={async (e) =>
+                                    await this.setState({
+                                            inputCompany: e.target.value
+                                        }
+                                    )}
+                                value={this.state.inputCompany}
+                            />
+                        </div>
+                        <div className="col-lg-2">
+                            <input
+                                className="nav-item ml-auto form-control"
+                                placeholder="Input Title Here"
+                                onChange={async (e) =>
+                                    await this.setState({
+                                            inputPosition: e.target.value
+                                        }
+                                    )}
+                                value={this.state.inputPosition}
+                            />
+                        </div>
+                        <div className="col-lg-2">
+                            <textarea
+                                className="nav-item ml-auto form-control"
+                                placeholder="Input Description Here"
+                                onChange={async (e) =>
+                                    await this.setState({
+                                            inputDescription: e.target.value
+                                        }
+                                    )}
+                                value={this.state.inputDescription}
+                            />
+                        </div>
+                        <div className="col-lg-2">
+                            <input
+                                type="date"
+                                className="nav-item ml-auto form-control"
+                                placeholder="From..."
+                                onChange={async (e) =>
+                                    await this.setState({
+                                            inputFrom: e.target.value
+                                        }
+                                    )}
+                                value={this.state.inputFrom}
+                            />
+                        </div>
+                        <div className="col-lg-2">
+                            {this.state.current &&
                             <input
                                 value={"Present"}
                                 readOnly={"true"}
                                 disabled={"true"}
                             />
-                        }
-                        { !this.state.current &&
+                            }
+                            {!this.state.current &&
                             <input
                                 type="date"
                                 className="nav-item ml-auto form-control"
@@ -360,36 +414,38 @@ class ExperienceTableComponent extends React.Component {
                                     )}
                                 value={this.state.inputTo}
                             />
-                        }
-
-                    </td>
-
-                    <td className="hide-sm">
-                        <input
-                            type="checkbox"
-                            onChange={async (e) =>
-                                await this.setState({
-                                    current: !this.state.current
-                                })
                             }
+                        </div>
+                        <div className="col-lg-1">
 
-                            id="vehicle1" name="vehicle1"
-                            value={this.state.current}/>
-                        <label htmlFor="vehicle1"> Ongoing</label>
-                    </td>
+                            <input
+                                type="checkbox"
+                                onChange={async (e) =>
+                                    await this.setState({
+                                        current: !this.state.current
+                                    })
+                                }
 
-                    <td className="hide-sm">
-                        <button
-                            onClick={() => {
-                                this.addExperience()
-                            }
-                            }
-                            className="btn btn-danger">
-                            <i className="fas fa-plus-circle fa-lg"> </i>
-                            Add
-                        </button>
-                    </td>
-                </tr>
+                                id="vehicle1" name="vehicle1"
+                                value={this.state.current}/>
+
+                            <label htmlFor="vehicle1"> Ongoing</label>
+                        </div>
+                        <div className="col-lg-1">
+                            <button
+                                onClick={() => {
+                                    this.addExperience()
+                                }
+                                }
+                                className="btn btn-danger">
+                                <i className="fas fa-plus-circle fa-lg"> </i>
+
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         );
     }
