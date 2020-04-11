@@ -10,11 +10,19 @@ class ExperienceTableComponent extends React.Component {
     state = {
         experiences: [],
         inputCompany: '',
-        inputPosition: '',
+        inputTitle: '',
         inputFrom: '',
         inputTo: '',
         inputDescription: '',
         current: false,
+
+        updateCompany: '',
+        updateTitle: '',
+        updateFrom: '',
+        updateTo: '',
+        updateDescription: '',
+        updateCurrent: false,
+
 
         edit: false,
 
@@ -31,11 +39,35 @@ class ExperienceTableComponent extends React.Component {
             body: JSON.stringify(
                 {
                     company: this.state.inputCompany,
-                    title: this.state.inputPosition,
+                    title: this.state.inputTitle,
                     from: this.state.inputFrom,
                     to: !this.state.current ? this.state.inputTo : 'Present',
                     current: this.state.current,
                     description: this.state.inputDescription
+                }
+            )
+        })
+            .then(response => {
+                this.getExperience()
+            })
+    }
+
+    updateExperience = (experienceId) => {
+        fetch(`${LOCALHOST_URL}/profile/experience/${experienceId}`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    company: this.state.updateCompany,
+                    title: this.state.updateTitle,
+                    from: this.state.updateFrom,
+                    // to: !this.state.current ? this.state.inputTo : 'Present',
+                    to: this.state.updateTo,
+                    current: this.state.updateCurrent,
+                    description: this.state.updateDescription
                 }
             )
         })
@@ -55,6 +87,7 @@ class ExperienceTableComponent extends React.Component {
                 this.getExperience()
             })
     }
+
 
     componentDidMount = async () => {
         this.getExperience();
@@ -77,7 +110,7 @@ class ExperienceTableComponent extends React.Component {
             .then(results => this.setState({
                 experiences: results.experience,
                 inputCompany: '',
-                inputPosition: '',
+                inputTitle: '',
                 inputFrom: '',
                 inputDescription: '',
                 inputTo: ''
@@ -133,11 +166,11 @@ class ExperienceTableComponent extends React.Component {
                                                     const n = e.target.value;
                                                     await this.setState({
                                                             ...this.state,
-                                                            inputCompany: n
+                                                            updateCompany: n
                                                         }
                                                     )
                                                 }}
-                                                value={this.state.inputCompany}
+                                                value={this.state.updateCompany}
                                             />
 
                                         </div>
@@ -150,11 +183,11 @@ class ExperienceTableComponent extends React.Component {
                                                     const n = e.target.value;
                                                     await this.setState({
                                                             ...this.state,
-                                                            inputTitle: n
+                                                            updateTitle: n
                                                         }
                                                     )
                                                 }}
-                                                value={this.state.inputTitle}
+                                                value={this.state.updateTitle}
                                             />
 
                                         </div>
@@ -167,11 +200,11 @@ class ExperienceTableComponent extends React.Component {
                                                     const n = e.target.value;
                                                     await this.setState({
                                                             ...this.state,
-                                                            inputDescription: n
+                                                            updateDescription: n
                                                         }
                                                     )
                                                 }}
-                                                value={this.state.inputDescription}
+                                                value={this.state.updateDescription}
                                             />
 
                                         </div>
@@ -179,22 +212,40 @@ class ExperienceTableComponent extends React.Component {
                                         <div className="hide-sm col-lg-2">
 
                                             <input
+                                                type="date"
                                                 className="nav-item ml-auto form-control"
                                                 placeholder="Input From Date"
                                                 onChange={async (e) => {
                                                     const n = e.target.value;
                                                     await this.setState({
                                                             ...this.state,
-                                                            inputFrom: n
+                                                            updateFrom: n
                                                         }
                                                     )
                                                 }}
-                                                value={this.state.inputFrom}
+                                                value={this.state.updateFrom}
                                             />
 
                                         </div>
                                         <div className="hide-sm col-lg-2">
 
+                                            {this.state.updateTo !== 'Present' &&
+                                            <input
+                                                type="date"
+                                                className="nav-item ml-auto form-control"
+                                                placeholder="Input To Date"
+                                                onChange={async (e) => {
+                                                    const n = e.target.value;
+                                                    await this.setState({
+                                                            ...this.state,
+                                                            updateTo: n
+                                                        }
+                                                    )
+                                                }}
+                                                value={this.state.updateTo}
+                                            />
+                                            }
+                                            {this.state.updateTo === 'Present' &&
                                             <input
                                                 className="nav-item ml-auto form-control"
                                                 placeholder="Input To Date"
@@ -202,18 +253,25 @@ class ExperienceTableComponent extends React.Component {
                                                     const n = e.target.value;
                                                     await this.setState({
                                                             ...this.state,
-                                                            inputTo: n
+                                                            updateTo: n
                                                         }
                                                     )
                                                 }}
-                                                value={this.state.inputTo}
+                                                readOnly={"true"}
+                                                disabled={"true"}
+                                                value={this.state.updateTo}
                                             />
+                                            }
 
                                         </div>
                                         <div className="hide-sm col-lg-2">
                                             <button
                                                 className="btn btn-danger"
-                                                onClick={() => this.changeEdit()}
+                                                onClick={async () => {
+                                                    await this.changeEdit()
+                                                    await this.updateExperience(experience._id)
+
+                                                }}
                                             >
 
                                                 Save
@@ -266,11 +324,12 @@ class ExperienceTableComponent extends React.Component {
                                                     className="btn btn-danger edit-button"
                                                     onClick={async () => {
                                                         await this.setState({
-                                                            inputCompany: experience.company,
-                                                            inputTitle: experience.title,
-                                                            inputDescription: experience.description,
-                                                            inputTo: experience.to,
-                                                            inputFrom: experience.from
+                                                            updateCompany: experience.company,
+                                                            updateTitle: experience.title,
+                                                            updateDescription: experience.description,
+                                                            updateTo: experience.to,
+                                                            updateFrom: experience.from,
+                                                            updateCurrent: experience.current
                                                         })
                                                         await this.changeEdit()
                                                     }
@@ -300,11 +359,11 @@ class ExperienceTableComponent extends React.Component {
                                 this.props.experienceId !== experience._id &&
 
                                 <div className="list-group-item"
-                                    onClick={() => {
-                                        this.setState({
-                                            edit: false
-                                        })
-                                    }}
+                                     onClick={() => {
+                                         this.setState({
+                                             edit: false
+                                         })
+                                     }}
                                 >
                                     <div className="container row" key={experience._id}>
                                         <div className="col-lg-2">
@@ -363,10 +422,10 @@ class ExperienceTableComponent extends React.Component {
                                 placeholder="Input Title Here"
                                 onChange={async (e) =>
                                     await this.setState({
-                                            inputPosition: e.target.value
+                                            inputTitle: e.target.value
                                         }
                                     )}
-                                value={this.state.inputPosition}
+                                value={this.state.inputTitle}
                             />
                         </div>
                         <div className="col-lg-2">
