@@ -132,12 +132,12 @@ export default class ProfileDetailsContainer extends React.Component {
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
-                        <br/>
+                        
                         {
                             this.state.repos.map(repo =>
                                     <div>
-                                        {
-                                            repo.name !== "undefined.github.io" &&
+                                        {   repo.name !== 'undefined.github.io' &&
+
                                             <Link
                                                 to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
                                                 <div
@@ -154,17 +154,19 @@ export default class ProfileDetailsContainer extends React.Component {
                                                 </div>
                                             </Link>
                                         }
-                                        {
-                                            repo !== 'undefined.github.io' &&
-                                         <div>
-                                             <h5>GitHub account not found</h5>
-                                         </div>
-                                        }
+
                                             <br/>
 
                                     </div>
 
                             )
+                        }
+                        {
+                            this.state.repos.length === 1 &&
+                                this.state.repos[0].name === 'undefined.github.io' &&
+                            <div>
+                                <h5>GitHub account not found</h5>
+                            </div>
                         }
                     </div>
                 </div>
