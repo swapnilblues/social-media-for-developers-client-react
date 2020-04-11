@@ -136,6 +136,19 @@ class SocialMediaManagerComponent extends React.Component {
                         </Route>
 
                         <Route
+                            path="/dashboard/education/:educationId"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <DashboardContainer
+                                        educationId = {props.match.params.educationId}
+                                        {...props}
+                                    />
+                            }
+                        >
+                        </Route>
+
+                        <Route
                             path="/sign-up"
                             exact={true}
                             render={
