@@ -14,8 +14,8 @@ export default class ProfileDetailsContainer extends React.Component {
         await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
             .then(response => response.json())
             .then(results => this.setState({
-                                               user: results
-                                           }))
+                user: results
+            }))
 
         await this.getRepos(this.state.user.githubusername)
         await console.log("Name", this.state.repos)
@@ -29,8 +29,8 @@ export default class ProfileDetailsContainer extends React.Component {
         })
             .then(response => response.json())
             .then(results => this.setState({
-                                               repos: results
-                                           }))
+                repos: results
+            }))
     }
     //
     // searchUser = (name) => {
@@ -72,9 +72,9 @@ export default class ProfileDetailsContainer extends React.Component {
                             <div className="row">
                                 <ul className="skills">
                                     {this.state.user.skills.map(skill =>
-                                                                    <li><i
-                                                                        className="fas fa-terminal"/> {skill}
-                                                                    </li>
+                                        <li><i
+                                            className="fas fa-terminal"/> {skill}
+                                        </li>
                                     )}
                                 </ul>
                             </div>
@@ -85,38 +85,46 @@ export default class ProfileDetailsContainer extends React.Component {
                         <h2 className="text-primary">Experience</h2>
                         {
                             this.state.user.experience.map(exp =>
-                                                               <div>
-                                                                   <h3 className="text-dark">{exp.company}</h3>
-                                                                   <p>{exp.from}</p>
-                                                                   <p>
-                                                                       <strong>Position: </strong>{exp.title}
-                                                                   </p>
-                                                                   <p>
-                                                                       <strong>Location: </strong>{exp.location}
-                                                                   </p>
-                                                                   <p>
-                                                                       <strong>Description: </strong>{exp.description}
-                                                                   </p>
-                                                               </div>
-                                                                )
-                                                            }
-                                                        </div>
+
+                                <div>
+                                    <h3 className="text-dark">{exp.company}</h3>
+                                    <p>{exp.from} to {exp.to}</p>
+                                    <p>
+                                        <strong>Position: </strong>{exp.title}
+                                    </p>
+                                    <p>
+                                        <strong>Description: </strong>{exp.description}
+                                    </p>
+                                </div>
+                            )
+                        }
+                        {
+                            this.state.user.experience.length === 0 &&
+                            <h5>No Experience Record Found</h5>
+                        }
+                    </div>
 
 
                     <div className="profile-edu bg-white p-2">
                         <h2 className="text-primary">Education</h2>
-                        <div>
-                            <h3>Northeastern University</h3>
-                            <p>Sep 2019 - Current</p>
-                            <p><strong>Degree: </strong>Masters' of Science</p>
-                            <p><strong>Field Of Study: </strong>Computer Science</p>
-                            <p>
-                                <strong>Description: </strong>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Dignissimos placeat, dolorum ullam
-                                ipsam, sapiente suscipit dicta eius velit amet aspernatur
-                                asperiores modi quidem expedita fugit.
-                            </p>
-                        </div>
+                        {
+                            this.state.user.education.map(edu =>
+                                <div>
+                                    <h3 className="text-dark">{edu.school}</h3>
+                                    <p>{edu.from} - {edu.to}</p>
+                                    <p>
+                                        <strong>Degree and Field Of Study: </strong>{edu.degree}
+                                    </p>
+                                    <p>
+                                        <strong>Description: </strong>{edu.description}
+                                    </p>
+                                </div>
+                            )
+                        }
+                        {
+                            this.state.user.education.length === 0 &&
+                                <h5>No Education Record Found</h5>
+                        }
                     </div>
 
 
@@ -124,31 +132,43 @@ export default class ProfileDetailsContainer extends React.Component {
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
+                        <br/>
                         {
                             this.state.repos.map(repo =>
-                                                     <div>
-                                                         <Link
-                                                             to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
-                                                             <div
-                                                                 className="p-1 border border-secondary github-repo">
-                                                                 <div>
-                                                                     <h4><a href="#"
-                                                                            className="text-dark">{repo.name}</a>
-                                                                     </h4>
-                                                                     <p className="paragraph-justify">
-                                                                         {repo.description}
-                                                                     </p>
-                                                                     <i className="fas fa-star"/> {repo.stargazers_count}
-                                                                 </div>
-                                                             </div>
-                                                         </Link>
-                                                         <br/>
-                                                     </div>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
+                                    <div>
+                                        {
+                                            repo.name !== "undefined.github.io" &&
+                                            <Link
+                                                to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
+                                                <div
+                                                    className="p-1 border border-secondary github-repo">
+                                                    <div>
+                                                        <h4><a href="#"
+                                                               className="text-dark">{repo.name}</a>
+                                                        </h4>
+                                                        <p className="paragraph-justify">
+                                                            {repo.description}
+                                                        </p>
+                                                        <i className="fas fa-star"/> {repo.stargazers_count}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        }
+                                        {
+                                            repo !== 'undefined.github.io' &&
+                                         <div>
+                                             <h5>GitHub account not found</h5>
+                                         </div>
+                                        }
+                                            <br/>
+
                                     </div>
-                                )
-                            }
+
+                            )
                         }
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
