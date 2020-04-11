@@ -13,11 +13,7 @@ class ExperienceTableComponent extends React.Component {
         inputPosition: '',
         inputFrom: '',
         inputTo: '',
-
-        currentCompany: '',
-        currentPosition: '',
-        currentFrom: '',
-        currentTo: '',
+        current: false,
 
         edit: false,
 
@@ -36,8 +32,8 @@ class ExperienceTableComponent extends React.Component {
                     company: this.state.inputCompany,
                     title: this.state.inputPosition,
                     from: this.state.inputFrom,
-                    to: this.state.inputTo,
-                    current: true
+                    to: !this.state.current? this.state.inputTo : 'Present',
+                    current: this.state.current
                 }
             )
         })
@@ -345,19 +341,44 @@ class ExperienceTableComponent extends React.Component {
                         />
                     </td>
                     <td className="hide-sm">
+                        {   this.state.current &&
+                            <input
+                                value={"Present"}
+                                readOnly={"true"}
+                                disabled={"true"}
+                            />
+                        }
+                        { !this.state.current &&
+                            <input
+                                type="date"
+                                className="nav-item ml-auto form-control"
+                                placeholder="To"
+                                onChange={async (e) =>
+                                    await this.setState({
+                                            inputTo: e.target.value
+                                        }
+                                    )}
+                                value={this.state.inputTo}
+                            />
+                        }
+
+                    </td>
+
+                    <td className="hide-sm">
                         <input
-                            type="date"
-                            className="nav-item ml-auto form-control"
-                            placeholder="To"
+                            type="checkbox"
                             onChange={async (e) =>
                                 await this.setState({
-                                        inputTo: e.target.value
-                                    }
-                                )}
-                            value={this.state.inputTo}
-                        />
+                                    current: !this.state.current
+                                })
+                            }
+
+                            id="vehicle1" name="vehicle1"
+                            value={this.state.current}/>
+                        <label htmlFor="vehicle1"> Ongoing</label>
                     </td>
-                    <td>
+
+                    <td className="hide-sm">
                         <button
                             onClick={() => {
                                 this.addExperience()
