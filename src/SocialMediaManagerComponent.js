@@ -149,6 +149,19 @@ class SocialMediaManagerComponent extends React.Component {
                         </Route>
 
                         <Route
+                            path="/dashboard/github/:githubUsername"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <DashboardContainer
+                                        githubUsername = {props.match.params.githubUsername}
+                                        {...props}
+                                    />
+                            }
+                        >
+                        </Route>
+
+                        <Route
                             path="/sign-up"
                             exact={true}
                             render={

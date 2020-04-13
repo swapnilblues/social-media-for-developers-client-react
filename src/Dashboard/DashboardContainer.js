@@ -5,6 +5,7 @@ import {LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
 import EducationTableComponent from "./EducationTableComponent";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
+import GitHubDashboard from "./GitHubDashboard";
 
 class DashboardContainer extends React.Component {
 
@@ -60,6 +61,13 @@ class DashboardContainer extends React.Component {
                     <h2 className="my-2">Education Credentials</h2>
                     <EducationTableComponent
                         educationId={this.props.educationId}
+                        user={this.state.user}
+                    />
+                </div>
+                <div className="container">
+                    <h2 className="my-2">GitHub Username</h2>
+                    <GitHubDashboard
+                        githubUsername={this.props.githubUsername}
                         user={this.state.user}
                     />
                 </div>
