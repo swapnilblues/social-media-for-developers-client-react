@@ -1,29 +1,30 @@
 import React, {Component, Fragment} from 'react';
 import NeoPostItem from "./NeoPostItem";
 import axios from "axios";
-import '../App.css';
+import './main.css';
+import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
 class NeoPosts extends Component {
     state = {
-        posts:[],
-        inputPost:'',
-        text:''
+        posts: [],
+        inputPost: '',
+        text: ''
     }
 
-    deletePost = async (id) =>{
+    deletePost = async (id) => {
 
-        await axios.delete('http://localhost:3002/codebook/posts/'+id).then((res)=>{
+        await axios.delete('http://localhost:3002/codebook/posts/' + id).then((res) => {
             console.log(res)
         });
         let postsData = await axios.get('http://localhost:3002/codebook/posts',
             {
-                headers:{
+                headers: {
                     "x-auth-token": localStorage.getItem('token')
                 }
             })
         console.log(postsData)
         this.setState({
-            posts:postsData.data
+            posts: postsData.data
         })
 
     }
@@ -35,15 +36,15 @@ class NeoPosts extends Component {
         }
 
         let postsData = await axios.get('http://localhost:3002/codebook/posts',
-                                          {
-                                              headers:{
-                                                  "x-auth-token":localStorage.getItem('token'),
-                                              }
-                                          })
+            {
+                headers: {
+                    "x-auth-token": localStorage.getItem('token'),
+                }
+            })
         console.log(postsData)
         this.setState({
-                          posts:postsData.data
-                      })
+            posts: postsData.data
+        })
     }
 
     // async componentDidUpdate  (prevProps, prevState, snapshot) {
@@ -61,43 +62,46 @@ class NeoPosts extends Component {
     //     }
     // }
 
-    submitPost = async ()=>{
-        await axios.post('http://localhost:3002/codebook/posts',{text:this.state.text});
+    submitPost = async () => {
+        await axios.post('http://localhost:3002/codebook/posts', {text: this.state.text});
         const postsData = await axios.get('http://localhost:3002/codebook/posts',
-                                          {
-                                              headers:{
-                                                  "x-auth-token":'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU5NGM1ZGE3NTJiNjMwMDA0NGUxYTk0In0sImlhdCI6MTU4NjgwODI4MiwiZXhwIjoxNTg3MTY4MjgyfQ.c5VZhqxOpUogyqrPNL9rM-yDIP5GhXT6upMmDTvOqHI'
-                                              }
-                                          });
+            {
+                headers: {
+                    "x-auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU5NGM1ZGE3NTJiNjMwMDA0NGUxYTk0In0sImlhdCI6MTU4NjgwODI4MiwiZXhwIjoxNTg3MTY4MjgyfQ.c5VZhqxOpUogyqrPNL9rM-yDIP5GhXT6upMmDTvOqHI'
+                }
+            });
         console.log(postsData);
         this.setState({
-                          posts:postsData.data,
-                          text:''
-                      })
+            posts: postsData.data,
+            text: ''
+        })
     }
 
     handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     };
 
 
     render() {
         return (
-            <div class="container">
-                <h1 className='large text-primary'>Posts</h1>
-                <p className='lead'>
-                    <i className='fa fa-user' /> Welcome to the community
-                </p>
-                <div className='post-form'>
-                    <div className='bg-primary p'>
-                        <h3>Say Something...</h3>
-                    </div>
-                    <form
-                        className='form my-1'
-                        onSubmit={e => {
-                            e.preventDefault();
-                        }}
-                    >
+            <div>
+                <NavBarInSessionComponent/>
+                <div class="container">
+
+                    <h1 className='large text-primary'>Posts</h1>
+                    <p className='lead'>
+                        <i className='fa fa-user'/> Welcome to the community
+                    </p>
+                    <div className='post-form'>
+                        <div className='bg-primary p'>
+                            <h3>Say Something...</h3>
+                        </div>
+                        <form
+                            className='form my-1'
+                            onSubmit={e => {
+                                e.preventDefault();
+                            }}
+                        >
         <textarea
             name='text'
             cols='30'
@@ -105,21 +109,22 @@ class NeoPosts extends Component {
             placeholder='Create a post'
             value={this.state.text}
             required
-            onChange={(e)=>this.handleChange(e)}
+            onChange={(e) => this.handleChange(e)}
         />
-                        <button type='submit' className='btn btn-dark my-1' onClick={()=> this.submitPost()} >
-                            Submit
-                        </button>
-                    </form>
-                </div>
+                            <button type='submit' className='btn btn-dark my-1' onClick={() => this.submitPost()}>
+                                Submit
+                            </button>
+                        </form>
+                    </div>
 
-                {this.state.posts && this.state.posts.map(post=>(
-                    <li>{post.text}</li>
+                    {this.state.posts && this.state.posts.map(post => (
+                        <li>{post.text}</li>
                     ))}
 
-                {this.state.posts && this.state.posts.map(post=>(
-                    <NeoPostItem showDelete={true} delete={this.deletePost} {...post} />
-                ))}
+                    {this.state.posts && this.state.posts.map(post => (
+                        <NeoPostItem showDelete={true} delete={this.deletePost} {...post} />
+                    ))}
+                </div>
             </div>
         );
     }

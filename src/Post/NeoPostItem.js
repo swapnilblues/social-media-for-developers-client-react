@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import img1 from '../img/showcase.jpg';
 import Moment from 'react-moment';
 import axios from "axios";
-import '../App.css';
+import './main.css';
 
 class NeoPostItem extends Component {
 

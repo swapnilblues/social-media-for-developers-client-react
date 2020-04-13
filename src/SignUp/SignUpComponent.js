@@ -76,7 +76,7 @@ class SignUpComponent extends React.Component {
         return (
             <div>
                 <NavBarComponent/>
-                <div className="container login-main-div">
+                <div className="container login-main-div-1">
 
 
                     <p className="lead"><i className="fas fa-user-plus"/> SIGN UP</p>
