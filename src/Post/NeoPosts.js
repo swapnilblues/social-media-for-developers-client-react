@@ -8,14 +8,24 @@ class NeoPosts extends Component {
     state = {
         posts: [],
         inputPost: '',
-        text: ''
+        text: '',
+        token: ''
     }
 
     deletePost = async (id) => {
 
-        await axios.delete('http://localhost:3002/codebook/posts/' + id).then((res) => {
-            console.log(res)
-        });
+        await fetch(`http://localhost:3002/codebook/posts/${id}`, {
+            method: "DELETE",
+            headers: {
+                'x-auth-token': this.state.token
+            }
+        })
+
+        // await axios.delete('http://localhost:3002/codebook/posts/' + id).then((res) => {
+        //     console.log(res)
+        // });
+
+
         let postsData = await axios.get('http://localhost:3002/codebook/posts',
             {
                 headers: {
@@ -35,6 +45,9 @@ class NeoPosts extends Component {
             this.props.history.push('/sign-in')
         }
 
+        this.setState({
+            token : localStorage.getItem('token')
+        })
         let postsData = await axios.get('http://localhost:3002/codebook/posts',
             {
                 headers: {
@@ -63,11 +76,22 @@ class NeoPosts extends Component {
     // }
 
     submitPost = async () => {
-        await axios.post('http://localhost:3002/codebook/posts', {text: this.state.text});
+        console.log("NEO token", this.state.token)
+        await fetch('http://localhost:3002/codebook/posts', {
+            method: "POST",
+            headers: {
+                'x-auth-token': this.state.token,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {text : this.state.text}
+            )
+        })
+
         const postsData = await axios.get('http://localhost:3002/codebook/posts',
             {
                 headers: {
-                    "x-auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU5NGM1ZGE3NTJiNjMwMDA0NGUxYTk0In0sImlhdCI6MTU4NjgwODI4MiwiZXhwIjoxNTg3MTY4MjgyfQ.c5VZhqxOpUogyqrPNL9rM-yDIP5GhXT6upMmDTvOqHI'
+                    "x-auth-token": this.state.token
                 }
             });
         console.log(postsData);

@@ -9,30 +9,31 @@ class NeoPostDetail extends Component {
         id: this.props.match.params.id,
         post:[],
         comment:'',
-        comments:[]
+        comments:[],
+        commentNumber:0
     }
 
     handleComment = (e) =>{
         this.setState({
             comment:e.target.value
-                      })
+        })
     }
 
     handlePostComponent=(comment)=>{
         axios.post('http://localhost:3002/codebook/posts/comment/'+this.state.post[0]._id,
-                   {
-                       text: comment
-                   }).then((res)=>{
+            {
+                text: comment
+            }).then((res)=>{
             if(res){
                 this.setState({
-                                  commentNumber: this.state.commentNumber+1,
-                                  inputComment:''
-                              })
+                    commentNumber: this.state.commentNumber+1,
+                    inputComment:''
+                })
                 axios.get('http://localhost:3002/codebook/posts/'+this.state.post[0]._id).then(res=>{
                     if(res){
                         this.setState({
-                                          comments:res.data.comments
-                                      })
+                            comments:res.data.comments
+                        })
                     }
                 })
             }
@@ -41,22 +42,22 @@ class NeoPostDetail extends Component {
 
     handleDeleteOfComment=()=>{
         this.setState({
-                          commentNumber:this.state.commentNumber-1
-                      })
+            commentNumber:this.state.commentNumber-1
+        })
     }
 
     componentDidMount = async () => {
         let postData = await axios.get('http://localhost:3002/codebook/posts/'+this.state.id,{
             headers:{
-                "x-auth-token":'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU5NGM1ZGE3NTJiNjMwMDA0NGUxYTk0In0sImlhdCI6MTU4NjgwODI4MiwiZXhwIjoxNTg3MTY4MjgyfQ.c5VZhqxOpUogyqrPNL9rM-yDIP5GhXT6upMmDTvOqHI'
+                "x-auth-token": localStorage.getItem('token')
             }
         })
         let data = [];
         data.push(postData.data);
         this.setState({
             post:data,
-            comments:postData.data.comments
-                      })
+            comments:data.comments
+        })
     }
 
     render() {
@@ -67,7 +68,7 @@ class NeoPostDetail extends Component {
                         Back To Posts
                     </Link>
 
-                    {this.state.post && this.state.post.map(p=>(
+                    {this.state.post && this.state.post.length>0 && this.state.post.map(p=>(
                         <NeoPostItem showDelete={false} {...p} />
                     ))}
 
@@ -86,13 +87,12 @@ class NeoPostDetail extends Component {
             onChange={e => this.handleComment(e)}
             required
         />
-        <input type='submit' className='btn btn-dark my-1' value='Submit' onClick={()=>this.handlePostComponent(this.state.comment)} />
+                            <input type='submit' className='btn btn-dark my-1' value='Submit' onClick={()=>this.handlePostComponent(this.state.comment)} />
                         </form>
-                        {console.log(this.state.comments)}
-                        {this.state.comments.length>0 &&  this.state.comments.map(com=>(
-                            <CommentItem
-                                         postId={this.state.post[0]._id} {...com} />
-                        ))}
+                        {/*{this.state.comments && this.state.comments.length>0 &&  this.state.comments.map(com=>(*/}
+                        {/*    <CommentItem*/}
+                        {/*        postId={this.state.post[0]._id} {...com} />*/}
+                        {/*))}*/}
 
                     </div>
                 </Fragment>
