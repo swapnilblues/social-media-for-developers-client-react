@@ -74,14 +74,6 @@ class gitHubDashboard extends React.Component {
 
 
     componentDidMount = async () => {
-
-        this.state.dashboardToken = localStorage.getItem('token')
-        console.log("Dashboard token: ", this.state.dashboardToken)
-        {
-            this.state.dashboardToken === null &&
-            this.props.history.push('/sign-in')
-        }
-
         await this.getGithubUsername();
     }
 
