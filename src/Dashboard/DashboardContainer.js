@@ -16,6 +16,7 @@ class DashboardContainer extends React.Component {
     }
 
     componentDidMount() {
+
         this.state.dashboardToken = localStorage.getItem('token')
         console.log("Dashboard token: ", this.state.dashboardToken)
         {
@@ -42,11 +43,19 @@ class DashboardContainer extends React.Component {
             <div>
                 <NavBarInSessionComponent/>
 
+
                 <div className="container">
                     <h2 className="large">Dashboard</h2>
                     <p className="lead">
                         <i className="fas fa-child"> </i>
                         Welcome, {this.state.user.name}</p>
+                </div>
+                <div className="container">
+                    <h2 className="my-2">GitHub Username</h2>
+                    <GitHubDashboard
+                        githubUsername={this.props.githubUsername}
+                        user={this.state.user}
+                    />
                 </div>
                 <div className="container">
                     <h2 className="my-2">Experience Credentials</h2>
@@ -64,13 +73,7 @@ class DashboardContainer extends React.Component {
                         user={this.state.user}
                     />
                 </div>
-                <div className="container">
-                    <h2 className="my-2">GitHub Username</h2>
-                    <GitHubDashboard
-                        githubUsername={this.props.githubUsername}
-                        user={this.state.user}
-                    />
-                </div>
+
             </div>
         )
 
