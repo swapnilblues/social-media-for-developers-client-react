@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="34301708-b379-4e87-8ddd-026c3db59646" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Profile/ProfileDetailsContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile/ProfileDetailsContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Profile/ProfilesContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile/ProfilesContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/DashboardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashboardContainer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,6 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -71,7 +70,10 @@
       <workItem from="1586296330379" duration="14538000" />
       <workItem from="1586376663178" duration="4616000" />
       <workItem from="1586447025640" duration="6717000" />
-      <workItem from="1586574664617" duration="1424000" />
+      <workItem from="1586574664617" duration="1735000" />
+      <workItem from="1586623480237" duration="32000" />
+      <workItem from="1586984608704" duration="347000" />
+      <workItem from="1587148433131" duration="345000" />
     </task>
     <task id="LOCAL-00001" summary="Dashboard components and container created. Connected to API.">
       <created>1586217283232</created>
@@ -84,7 +86,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Dashboard components and container created. Connected to API." />
@@ -119,5 +121,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1586377429870" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1586984622021">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1586984622021" />
   </component>
 </project>
