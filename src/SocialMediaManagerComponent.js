@@ -32,8 +32,12 @@ class SocialMediaManagerComponent extends React.Component {
                         component={LandingComponent}
                     >
                     </Route>
-                        <Route path="/posts" exact component={NeoPosts} ></Route>
-                        <Route path="/posts/:id" exact component={NeoPostDetail} ></Route>
+                        <Route path="/posts" exact component={NeoPosts} >
+
+                        </Route>
+                        <Route path="/posts/:id" exact component={NeoPostDetail} >
+
+                        </Route>
 
 
 

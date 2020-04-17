@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import EducationTableComponent from "./EducationTableComponent";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 import GitHubDashboard from "./GitHubDashboard";
+import PhoneNumberComponent from "./PhoneNumberComponent";
 
 import axios from 'axios';
 import FileUploader from 'react-firebase-file-uploader';
@@ -68,6 +69,9 @@ class DashboardContainer extends React.Component {
                         Welcome, {this.state.user.name}</p>
                 </div>
 
+                <br/>
+
+
                 <div className="container">
                     <h4>Add an Image</h4>
                     <br/>
@@ -92,6 +96,7 @@ class DashboardContainer extends React.Component {
                         imageUrl={this.state.image}/>
                 </div>
 
+
                 <div className="container">
                     <h2 className="my-2">GitHub Username</h2>
                     <GitHubDashboard
@@ -99,7 +104,15 @@ class DashboardContainer extends React.Component {
                         user={this.state.user}
                     />
                 </div>
-
+                <br/>
+                <div className="container">
+                    <h2 className="my-2">Phone Number</h2>
+                    <PhoneNumberComponent
+                        githubUsername={this.props.githubUsername}
+                        user={this.state.user}
+                    />
+                </div>
+                <br/>
                 <div className="container">
                     <h2 className="my-2">Experience Credentials</h2>
                     <ExperienceTableComponent

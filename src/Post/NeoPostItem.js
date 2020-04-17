@@ -14,11 +14,12 @@ class NeoPostItem extends Component {
         show: true,
         showDelete: this.props.showDelete,
         token: '',
-        likeStatus:false
+        likeStatus:false,
+        image: ''
     }
 
     componentDidMount() {
-        console.log(this.props)
+        console.log("this: ", this.props)
         {
             localStorage.getItem('token') === null &&
             this.props.history.push('/sign-in')
@@ -27,8 +28,13 @@ class NeoPostItem extends Component {
         this.setState({
             token: localStorage.getItem('token')
         })
+
+
     }
 
+    getImageById = () => {
+        fetch(`${LOCALHOST_URL}/profile/user/${}`)
+    }
 
     handleLike = () => {
         fetch(`${LOCALHOST_URL}/posts/like/${this.props._id}`, {

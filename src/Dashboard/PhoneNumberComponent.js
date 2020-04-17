@@ -3,82 +3,103 @@ import DatePicker from "react-datepicker/es";
 import {API_URL, LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import MaskedInput from "react-text-mask/dist/reactTextMask";
 
 
-class gitHubDashboard extends React.Component {
+class phoneNumberComponent extends React.Component {
 
     state = {
-        githubUsername: null,
+        phoneNumber: '',
         dashboardToken: '',
-        edit: false
+        edit: false,
+        p: ''
     }
 
-    addGithubUsername = () => {
-        // console.log("Trying to add githubusername")
-        // console.log(localStorage.getItem('token'))
-        // console.log(this.state.githubUsername)
-        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
-            method: "POST",
-            headers: {
-                'x-auth-token': localStorage.getItem('token'),
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    githubusername: this.state.githubUsername
-                }
-            )
-        }).then(() => this.getGithubUsername())
-    }
-
-    updateGithubUsername = (educationId) => {
-        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
-            method: "PUT",
-            headers: {
-                'x-auth-token': localStorage.getItem('token'),
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    school: this.state.updateSchool,
-                    degree: this.state.updateDegree,
-                    from: this.state.updateFrom,
-                    // to: !this.state.current ? this.state.inputTo : 'Present',
-                    to: this.state.updateTo,
-                    current: this.state.updateCurrent,
-                    description: this.state.updateDescription,
-                    fieldofstudy: 'null'
-                }
-            )
-        })
-            .then(response => {
-                this.getGithubUsername()
+    addPhoneNumber = () => {
+        if(this.state.phoneNumber === null) {
+            alert("Enter correct format phone number");
+            this.setState({
+                phoneNumber: null
             })
+
+        }
+        else if(this.unFormatPhoneNumber(this.state.phoneNumber).length < 10) {
+            alert("Enter correct format phone number");
+            this.setState({
+                phoneNumber: null
+            })
+
+        }
+        else {
+            fetch(`${LOCALHOST_URL}/profile/phone`, {
+                method: "POST",
+                headers: {
+                    'x-auth-token': localStorage.getItem('token'),
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        phone: this.unFormatPhoneNumber(this.state.phoneNumber)
+                    }
+                )
+            }).then(() => this.getPhoneNumber())
+        }
     }
 
-    deleteGithubUsername = (eid) => {
-        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
+    formatPhoneNumber = (phoneNumberString) => {
+        console.log("AA",phoneNumberString)
+        let cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+        let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        }
+        return null
+    }
+
+
+    unFormatPhoneNumber = (phoneNumberString) => {
+        var p = '';
+        if(phoneNumberString.length===10){
+            p=phoneNumberString;
+        }
+        else {
+            var j = 0;
+            for (j = 0; j < phoneNumberString.length; j++) {
+                var char = phoneNumberString.charAt(j);
+                if(char>='0' && char<='9'){
+                    p+=phoneNumberString.charAt(j);
+                }
+            }
+        }
+         console.log("BB",p);
+        return p;
+    }
+
+    deletePhoneNumber = () => {
+        fetch(`${LOCALHOST_URL}/profile/phone`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': this.state.dashboardToken,
                 'content-type': 'application/json'
             }
         })
-            .then(() => {
-                this.getGithubUsername()
+            .then( () => {
+                 this.getPhoneNumber()
             })
+
     }
 
 
     componentDidMount = async () => {
+        // this.unFormatPhoneNumber('(666) 555-4454')
         await this.setState({
             dashboardToken: localStorage.getItem('token')
         })
-        await this.getGithubUsername();
+        await this.getPhoneNumber();
     }
 
 
-    getGithubUsername = () => {
+    getPhoneNumber = () => {
         fetch(
             `${LOCALHOST_URL}/profile/me`, {
                 headers: {
@@ -88,8 +109,10 @@ class gitHubDashboard extends React.Component {
         )
             .then(response => response.json())
             .then(results => this.setState({
-                githubUsername: results.githubusername !== "" ? results.githubusername: null
-
+                phoneNumber: results.phone !== "" ? results.phone: null
+            }))
+            .then(() => this.setState({
+                p: this.formatPhoneNumber(this.state.phoneNumber)
             }))
     }
 
@@ -104,10 +127,11 @@ class gitHubDashboard extends React.Component {
             })
     }
 
+
     render() {
         return (
             // <div>
-            //     {this.state.githubUsername}
+            //     {this.state.phoneNumber}
             // </div>
 
 
@@ -116,15 +140,19 @@ class gitHubDashboard extends React.Component {
                 <div className="col list-group">
                     <div className="list-group-item">
                         <div className="container row">
-                            {!this.state.githubUsername &&
-                            <div className="col-lg-2"><i>No Username Given</i></div>
+                            {!this.state.phoneNumber &&
+                            <div className="col-lg-2"><i>No Phone Number Given</i></div>
                             }
-                            {this.state.githubUsername &&
-                            <div className="col-lg-2"><i>{this.state.githubUsername}</i></div>
+                            {this.state.phoneNumber &&
+
+                            <div className="col-lg-2">
+
+                                <i>{this.state.p}</i>
+                            </div>
                             }
 
                             <div className="col-lg-2">
-                                {!this.state.githubUsername &&
+                                {!this.state.phoneNumber &&
                                 <button
                                     onClick={() => {
                                         this.setState({
@@ -133,10 +161,10 @@ class gitHubDashboard extends React.Component {
                                     }
                                     }
                                     className="btn btn-danger">
-                                    Add Username
+                                    Add Phone Number
                                 </button>
                                 }
-                                {this.state.githubUsername &&
+                                {this.state.phoneNumber &&
                                 <button
                                     onClick={() => {
                                         this.setState({
@@ -145,7 +173,7 @@ class gitHubDashboard extends React.Component {
                                     }
                                     }
                                     className="btn btn-danger">
-                                    Edit Username
+                                    Edit Phone Number
                                 </button>
                                 }
                             </div>
@@ -157,17 +185,28 @@ class gitHubDashboard extends React.Component {
                 <div className="list-group-item">
                     <div className="container row">
                         <div className="col-lg-2">
-                            <input
+                            <MaskedInput
+                                mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                guide
+                                showMasked
 
                                 className="nav-item ml-auto form-control"
-                                placeholder="Input GitHub Username"
+
                                 onChange={async (e) =>
                                     await this.setState({
-                                            githubUsername: e.target.value,
+                                            phoneNumber: e.target.value,
                                         }
                                     )}
-                                value={this.state.githubUsername}
+                                value={this.state.phoneNumber}
                             />
+
+                            {/*<MaskedInput*/}
+                            {/*    mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}*/}
+                            {/*    guide*/}
+                            {/*    */}
+                            {/*    value={this.state.phoneNumber}*/}
+                            {/*/>*/}
+
                         </div>
 
 
@@ -177,7 +216,7 @@ class gitHubDashboard extends React.Component {
                                     await this.setState({
                                         edit: false
                                     })
-                                    await this.addGithubUsername()
+                                    await this.addPhoneNumber()
                                 }
                                 }
                                 className="btn btn-danger">
@@ -192,7 +231,7 @@ class gitHubDashboard extends React.Component {
                                     await this.setState({
                                         edit: false
                                     })
-                                    await this.deleteGithubUsername()
+                                    await this.deletePhoneNumber()
                                 }
                                 }
                                 className="btn btn-danger">
@@ -206,7 +245,7 @@ class gitHubDashboard extends React.Component {
                         {/*            await this.setState({*/}
                         {/*                edit: false*/}
                         {/*            })*/}
-                        {/*            await this.deleteGithubUsername()*/}
+                        {/*            await this.deletephoneNumber()*/}
                         {/*        }*/}
                         {/*        }*/}
                         {/*        className="btn btn-danger"*/}
@@ -228,4 +267,4 @@ class gitHubDashboard extends React.Component {
     }
 }
 
-export default gitHubDashboard
+export default phoneNumberComponent
