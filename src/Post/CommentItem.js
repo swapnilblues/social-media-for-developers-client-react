@@ -12,7 +12,11 @@ class CommentItem extends Component {
     }
 
     handleDeleteComment =()=>{
-        axios.delete('http://localhost:3002/codebook/posts/comment/'+this.props.postId+'/'+this.props._id).then((res)=>{
+        axios.delete('http://localhost:3002/codebook/posts/comment/'+this.props.postId+'/'+this.props._id,{
+            headers:{
+                "x-auth-token": localStorage.getItem('token')
+            }
+        }).then((res)=>{
             if(res){
                 this.setState({
                                   show:false
@@ -22,8 +26,11 @@ class CommentItem extends Component {
     }
 
     componentDidMount() {
-            axios.get(`http://localhost:3002/codebook/users/id/${this.props.user}`).then((res)=>{
-            console.log(res.data.name)
+            axios.get(`http://localhost:3002/codebook/users/id/${this.props.user}`,{
+                headers:{
+                    "x-auth-token": localStorage.getItem('token')
+                }
+            }).then((res)=>{
             this.setState({
                 userName:res.data.name
                           })

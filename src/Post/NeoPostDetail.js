@@ -19,25 +19,49 @@ class NeoPostDetail extends Component {
         })
     }
 
-    handlePostComponent=(comment)=>{
-        axios.post('http://localhost:3002/codebook/posts/comment/'+this.state.post[0]._id,
-            {
-                text: comment
-            }).then((res)=>{
-            if(res){
-                this.setState({
-                    commentNumber: this.state.commentNumber+1,
-                    inputComment:''
-                })
-                axios.get('http://localhost:3002/codebook/posts/'+this.state.post[0]._id).then(res=>{
-                    if(res){
-                        this.setState({
-                            comments:res.data.comments
-                        })
-                    }
-                })
-            }
+     handlePostComponent= async(comment)=>{
+
+        await fetch(`http://localhost:3002/codebook/posts/comment/${this.state.post._id}`, {
+            method: "POST",
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({text:comment})
         });
+
+         let postData = await axios.get('http://localhost:3002/codebook/posts/'+this.state.post._id,{
+             headers:{
+                 "x-auth-token": localStorage.getItem('token')
+             }
+         });
+         console.log(postData)
+         this.setState({
+             comments:postData,
+             comment:''
+         })
+
+        // console.log('here');
+        // // console.log(this.state.post[0]._id)
+        // axios.post(`https://group-32-node-server.herokuapp.com/codebook/posts/comment/${this.state.post[0]._id}`,
+        //     {
+        //         text: comment
+        //     }).then((res)=>{
+        //     if(res){
+        //         console.log('here 1' );
+        //         this.setState({
+        //             commentNumber: this.state.commentNumber+1,
+        //             inputComment:''
+        //         });
+        //         // axios.get('http://localhost:3002/codebook/posts/'+this.state.post[0]._id).then(res=>{
+        //         //     if(res){
+        //         //         this.setState({
+        //         //             comments:res.data.comments
+        //         //         })
+        //         //     }
+        //         })
+        //     }
+        // }).catch(err=>console.log(err));
     }
 
     handleDeleteOfComment=()=>{
@@ -47,6 +71,7 @@ class NeoPostDetail extends Component {
     }
 
     componentDidMount = async () => {
+
         let postData = await axios.get('http://localhost:3002/codebook/posts/'+this.state.id,{
             headers:{
                 "x-auth-token": localStorage.getItem('token')
@@ -54,12 +79,15 @@ class NeoPostDetail extends Component {
         })
 
         let data = [];
+
         data.push(postData.data);
 
         this.setState({
             post:data[0],
             comments:data[0].comments
         })
+        console.log(this.state.post)
+        // console.log('here 3'+this.state.comments.length);
     }
 
     render() {
@@ -82,7 +110,7 @@ class NeoPostDetail extends Component {
                         /> }
 
                     <div className='post-form'>
-                        <div className='bg-primary p'>
+                        <div className='bg-prim ary p'>
                             <h3>Leave a Comment</h3>
                         </div>
                         <form
@@ -96,15 +124,17 @@ class NeoPostDetail extends Component {
             onChange={e => this.handleComment(e)}
             required
         />
-                            <input type='submit' className='btn btn-dark my-1' value='Submit' onClick={()=>this.handlePostComponent(this.state.comment)} />
+                           <input type='submit' className='btn btn-dark my-1' value='Submit' onClick={()=>this.handlePostComponent(this.state.comment)} />
                         </form>
 
-                        {this.state.comments && this.state.comments.map(comment=>(
-                            <li>{comment.text}</li>
-                        ))}
+
+                        {/*{this.state.comments && this.state.comments.map(comment=>(*/}
+                        {/*    <li>{comment.text}</li>*/}
+                        {/*))}*/}
 
                         {this.state.comments && this.state.comments.length>0 &&  this.state.comments.map(com=>(
                             <CommentItem postId={this.state.id} _id={com._id}  text={com.text} user={com.user} {...com} />
+
                         ))}
 
                     </div>
