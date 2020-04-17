@@ -22,7 +22,6 @@ class CommentItem extends Component {
     }
 
     componentDidMount() {
-        // {console.log(this.props.text)}
             axios.get(`http://localhost:3002/codebook/users/id/${this.props.user}`).then((res)=>{
             console.log(res.data.name)
             this.setState({
@@ -30,7 +29,6 @@ class CommentItem extends Component {
                           })
         });
     }
-
 
     render() {
         return (
@@ -44,7 +42,7 @@ class CommentItem extends Component {
                 <div>
                     <p className='my-1'>{this.props.text}</p>
                     <p className='post-date'>
-                        Posted on <span>{new Date()}</span>
+                        Posted on {this.props.date}
                     </p>
                     <button
                         onClick={this.handleDeleteComment}
