@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import EducationTableComponent from "./EducationTableComponent";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 import GitHubDashboard from "./GitHubDashboard";
+import PhoneNumberComponent from "./PhoneNumberComponent";
 
 class DashboardContainer extends React.Component {
 
@@ -50,6 +51,7 @@ class DashboardContainer extends React.Component {
                         <i className="fas fa-child"> </i>
                         Welcome, {this.state.user.name}</p>
                 </div>
+                <br/>
                 <div className="container">
                     <h2 className="my-2">GitHub Username</h2>
                     <GitHubDashboard
@@ -57,6 +59,15 @@ class DashboardContainer extends React.Component {
                         user={this.state.user}
                     />
                 </div>
+                <br/>
+                <div className="container">
+                    <h2 className="my-2">Phone Number</h2>
+                    <PhoneNumberComponent
+                        githubUsername={this.props.githubUsername}
+                        user={this.state.user}
+                    />
+                </div>
+                <br/>
                 <div className="container">
                     <h2 className="my-2">Experience Credentials</h2>
                     <ExperienceTableComponent
