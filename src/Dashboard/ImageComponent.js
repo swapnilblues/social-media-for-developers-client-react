@@ -1,13 +1,10 @@
 import React from "react";
-
-const ImageComponent = () => {
+const ImageComponent = ({imageUrl}) => {
     return (
-        <div>
-            <h1> I'm an image </h1>
-        </div>
+        <img style={{height : 150, width : 150}}
+             src={imageUrl}
+             alt="new"
+        />
     )
 }
-
 export default ImageComponent
-
-
