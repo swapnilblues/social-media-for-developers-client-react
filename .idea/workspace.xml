@@ -2,10 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34301708-b379-4e87-8ddd-026c3db59646" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Post/CommentComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/CommentItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/NeoPostDetail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/NeoPostItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/NeoPosts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/PostBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/PostBlockDetail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/PostComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/PostComponentDetail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/RenderPosts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/RenderPostsDetail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Post/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/showcase.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/LandingComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/LandingComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Dashboard/DashboardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/DashboardContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/GitHubDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/GitHubDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SignUp/SignUpComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SignUp/SignUpComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocialMediaManagerComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +92,7 @@
       <workItem from="1586574664617" duration="1735000" />
       <workItem from="1586623480237" duration="32000" />
       <workItem from="1586984608704" duration="347000" />
-      <workItem from="1587148433131" duration="345000" />
+      <workItem from="1587148433131" duration="1164000" />
     </task>
     <task id="LOCAL-00001" summary="Dashboard components and container created. Connected to API.">
       <created>1586217283232</created>

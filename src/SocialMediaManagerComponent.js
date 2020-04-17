@@ -14,6 +14,8 @@ import FailureComponent from "./Temporary/failure";
 import SuccessComponent from "./Temporary/success";
 import DashboardContainer from "./Dashboard/DashboardContainer";
 import authReducer from "./Reducer/auth.reducer"
+import NeoPosts from "./Post/NeoPosts";
+import NeoPostDetail from "./Post/NeoPostDetail";
 
 
 const store = createStore(authReducer)
@@ -30,6 +32,10 @@ class SocialMediaManagerComponent extends React.Component {
                         component={LandingComponent}
                     >
                     </Route>
+                        <Route path="/posts" exact component={NeoPosts} ></Route>
+                        <Route path="/posts/:id" exact component={NeoPostDetail} ></Route>
+
+
 
                     <Route
                         path="/user-details/:userId"
