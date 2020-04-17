@@ -141,9 +141,9 @@ class NeoPosts extends Component {
                         </form>
                     </div>
 
-                    {this.state.posts && this.state.posts.map(post => (
-                        <li>{post.text}</li>
-                    ))}
+                    {/*{this.state.posts && this.state.posts.map(post => (*/}
+                    {/*    <li>{post.text}</li>*/}
+                    {/*))}*/}
 
                     {this.state.posts && this.state.posts.map(post => (
                         <NeoPostItem showDelete={true} delete={this.deletePost} {...post} />
