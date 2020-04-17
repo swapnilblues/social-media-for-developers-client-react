@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardNavbarComponent from "./DashboardNavbarComponent";
 import ExperienceTableComponent from "./ExperienceTableComponent";
 import {LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
@@ -8,13 +7,34 @@ import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionCompone
 import GitHubDashboard from "./GitHubDashboard";
 import PhoneNumberComponent from "./PhoneNumberComponent";
 
+import axios from 'axios';
+import FileUploader from 'react-firebase-file-uploader';
+import {storage} from '../firebase_config';
+import firebase from 'firebase/app';
+
+
 class DashboardContainer extends React.Component {
 
     state = {
         user: {name: ''},
         experiences: [],
-        dashboardToken: ''
+        dashboardToken: '',
+        image:''
     }
+
+    handleUploadSuccess= (filename)=>{
+        storage.ref('Uploaded_Images').child(filename).getDownloadURL().
+        then(url=>{
+            console.log(url);
+            let newA=url;
+            console.log(newA);
+            this.setState({
+                              image:newA
+                          })
+            console.log(this.state.image);
+        })
+    }
+
 
     componentDidMount() {
 
@@ -33,9 +53,9 @@ class DashboardContainer extends React.Component {
         )
             .then(response => response.json())
             .then(results => this.setState({
-                user: results.user,
-                experiences: results.experience
-            }))
+                                               user: results.user,
+                                               experiences: results.experience
+                                           }))
     }
 
     render() {
@@ -43,15 +63,29 @@ class DashboardContainer extends React.Component {
 
             <div>
                 <NavBarInSessionComponent/>
-
-
                 <div className="container">
                     <h2 className="large">Dashboard</h2>
                     <p className="lead">
                         <i className="fas fa-child"> </i>
                         Welcome, {this.state.user.name}</p>
                 </div>
+
                 <br/>
+
+
+                <div className="container">
+                    <h4>Add an Image</h4>
+                    <br/>
+                    <FileUploader
+                        accept="image/*"
+                        name='image'
+                        storageRef={firebase.storage().ref('Uploaded_Images')}
+                        onUploadSuccess={this.handleUploadSuccess}
+                    />
+
+                </div>
+
+
                 <div className="container">
                     <h2 className="my-2">GitHub Username</h2>
                     <GitHubDashboard
@@ -92,15 +126,9 @@ class DashboardContainer extends React.Component {
 
 }
 
-const stateToPropertyMapper = (state) => {
-    // console.log("FSM ",state)
-    // return {
-    //     token: state.token
-    // }
-}
+const stateToPropertyMapper = (state) => {}
 
-const dispatchToPropertyMapper = (dispatch) => {
-}
+const dispatchToPropertyMapper = (dispatch) => {}
 
 export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
 (DashboardContainer)

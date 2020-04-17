@@ -13,10 +13,12 @@ class NeoPostItem extends Component {
         commentsNumber: this.props.comments.length,
         show: true,
         showDelete: this.props.showDelete,
-        token: ''
+        token: '',
+        likeStatus:false
     }
 
     componentDidMount() {
+        console.log(this.props)
         {
             localStorage.getItem('token') === null &&
             this.props.history.push('/sign-in')
@@ -32,14 +34,24 @@ class NeoPostItem extends Component {
         fetch(`${LOCALHOST_URL}/posts/like/${this.props._id}`, {
             method: "PUT",
             headers: {
-                'x-auth-token': this.state.token
+                'x-auth-token': localStorage.getItem('token')
             }
         })
             .then(res => {
-                    if (res)
-                        this.setState({
-                            likeNumber: this.state.likeNumber + 1
-                        })
+                    if (res) {
+                        if (res.status !== 200) {
+                            this.setState({
+                                likeStatus: true
+                            })
+                        } else{
+                            this.setState({
+                                likeNumber: this.state.likeNumber + 1,
+                            })
+                    }
+                        setTimeout(function(){
+                            this.setState({likeStatus:false});
+                        }.bind(this),3000);
+                    }
                 }
             )
     }
@@ -48,7 +60,7 @@ class NeoPostItem extends Component {
         fetch(`${LOCALHOST_URL}/posts/unlike/${this.props._id}`, {
             method: "PUT",
             headers: {
-                'x-auth-token': this.state.token
+                'x-auth-token': localStorage.getItem('token')
             }
         })
             .then(res => {
@@ -60,30 +72,13 @@ class NeoPostItem extends Component {
             )
     }
 
-
-    // handleUnlike = () => {
-    //     axios.put('http://localhost:3002/codebook/posts/unlike/' + this.props._id).then((res) => {
-    //         if (res)
-    //             this.setState({
-    //                 likeNumber: this.state.likeNumber - 1
-    //             });
-    //     });
-    // }
-
-    // deletePost = async () =>{
-    //     axios.delete('http://localhost:3002/codebook/posts/'+this.props._id).then((res)=>{
-    //         if(res){
-    //             this.setState({
-    //                 show:false
-    //                           })
-    //         }
-    //     })
-    // }
-
     render() {
         return (
             this.state.show ?
                 <div>
+                    {this.state.likeStatus && <div className="alert alert-danger" role="alert">
+                        You have already liked this post
+                    </div>}
                     <div className='post bg-white p-1 my-1'>
                         <div>
                             <Link>

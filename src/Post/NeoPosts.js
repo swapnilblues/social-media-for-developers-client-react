@@ -9,7 +9,8 @@ class NeoPosts extends Component {
         posts: [],
         inputPost: '',
         text: '',
-        token: ''
+        token: '',
+        postStatus:false
     }
 
     deletePost = async (id) => {
@@ -97,8 +98,12 @@ class NeoPosts extends Component {
         console.log(postsData);
         this.setState({
             posts: postsData.data,
-            text: ''
+            text: '',
+            postStatus:true
         })
+        setTimeout(function(){
+            this.setState({postStatus:false});
+        }.bind(this),3000);
     }
 
     handleChange = e => {
@@ -110,8 +115,9 @@ class NeoPosts extends Component {
         return (
             <div>
                 <NavBarInSessionComponent/>
-                <div class="container">
 
+                <div class="container">
+                    <div>{this.state.postStatus&&<div  className="alert alert-success" role="alert">Post Created Successfully</div>}</div>
                     <h1 className='large text-primary'>Posts</h1>
                     <p className='lead'>
                         <i className='fa fa-user'/> Welcome to the community
@@ -141,9 +147,9 @@ class NeoPosts extends Component {
                         </form>
                     </div>
 
-                    {this.state.posts && this.state.posts.map(post => (
-                        <li>{post.text}</li>
-                    ))}
+                    {/*{this.state.posts && this.state.posts.map(post => (*/}
+                    {/*    <li>{post.text}</li>*/}
+                    {/*))}*/}
 
                     {this.state.posts && this.state.posts.map(post => (
                         <NeoPostItem showDelete={true} delete={this.deletePost} {...post} />
