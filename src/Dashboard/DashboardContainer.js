@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardNavbarComponent from "./DashboardNavbarComponent";
 import ExperienceTableComponent from "./ExperienceTableComponent";
 import {LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
@@ -32,9 +31,9 @@ class DashboardContainer extends React.Component {
         )
             .then(response => response.json())
             .then(results => this.setState({
-                user: results.user,
-                experiences: results.experience
-            }))
+                                               user: results.user,
+                                               experiences: results.experience
+                                           }))
     }
 
     render() {
@@ -42,8 +41,6 @@ class DashboardContainer extends React.Component {
 
             <div>
                 <NavBarInSessionComponent/>
-
-
                 <div className="container">
                     <h2 className="large">Dashboard</h2>
                     <p className="lead">
@@ -53,7 +50,8 @@ class DashboardContainer extends React.Component {
 
                 <div className="container">
                     Upload Picture
-                </div>
+                </div>0
+
 
                 <div className="container">
                     <h2 className="my-2">GitHub Username</h2>
