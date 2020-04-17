@@ -6,22 +6,18 @@ import EducationTableComponent from "./EducationTableComponent";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 import GitHubDashboard from "./GitHubDashboard";
 import PhoneNumberComponent from "./PhoneNumberComponent";
-
 import axios from 'axios';
 import FileUploader from 'react-firebase-file-uploader';
 import {storage} from '../firebase_config';
 import firebase from 'firebase/app';
 import ImageComponent from "./ImageComponent";
-
 class DashboardContainer extends React.Component {
-
     state = {
         user: {name: ''},
         experiences: [],
         dashboardToken: '',
         image: '',
     }
-
     handleUploadSuccess = (filename) => {
         storage.ref('Uploaded_Images').child(filename).getDownloadURL().then(url => {
             console.log(url);
@@ -33,9 +29,7 @@ class DashboardContainer extends React.Component {
             console.log(this.state.image);
         })
     }
-
     componentDidMount() {
-
         this.state.dashboardToken = localStorage.getItem('token')
         console.log("Dashboard token: ", this.state.dashboardToken)
         {
@@ -56,10 +50,8 @@ class DashboardContainer extends React.Component {
                                                image: results.image
                                            }))
     }
-
     render() {
         return (
-
             <div>
                 <NavBarInSessionComponent/>
                 <div className="container">
@@ -68,10 +60,7 @@ class DashboardContainer extends React.Component {
                         <i className="fas fa-child"> </i>
                         Welcome, {this.state.user.name}</p>
                 </div>
-
                 <br/>
-
-
                 <div className="container">
                     <h4>Add an Image</h4>
                     <br/>
@@ -82,7 +71,6 @@ class DashboardContainer extends React.Component {
                         onUploadSuccess={this.handleUploadSuccess}
                     />
                 </div>
-
                 <div className="container">
                     <h2 className="my-2">Phone Number</h2>
                     <PhoneNumberComponent
@@ -90,13 +78,10 @@ class DashboardContainer extends React.Component {
                         user={this.state.user}
                     />
                 </div>
-
                 <div className="container">
                     <ImageComponent
                         imageUrl={this.state.image}/>
                 </div>
-
-
                 <div className="container">
                     <h2 className="my-2">GitHub Username</h2>
                     <GitHubDashboard
@@ -129,19 +114,13 @@ class DashboardContainer extends React.Component {
                         user={this.state.user}
                     />
                 </div>
-
             </div>
         )
-
     }
-
 }
-
 const stateToPropertyMapper = (state) => {
 }
-
 const dispatchToPropertyMapper = (dispatch) => {
 }
-
 export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
 (DashboardContainer)
