@@ -14,9 +14,9 @@ class gitHubDashboard extends React.Component {
     }
 
     addGithubUsername = () => {
-        // console.log("Trying to add githubusername")
-        // console.log(localStorage.getItem('token'))
-        // console.log(this.state.githubUsername)
+        console.log("Trying to add githubusername")
+        console.log(localStorage.getItem('token'))
+        console.log(this.state.githubUsername)
         fetch(`${LOCALHOST_URL}/profile/githubusername`, {
             method: "POST",
             headers: {
@@ -28,10 +28,7 @@ class gitHubDashboard extends React.Component {
                     githubusername: this.state.githubUsername
                 }
             )
-        })
-            .then(() => {
-                this.getGithubUsername()
-            })
+        }).then(() => this.getGithubUsername())
     }
 
     updateGithubUsername = (educationId) => {
@@ -60,20 +57,23 @@ class gitHubDashboard extends React.Component {
     }
 
     deleteGithubUsername = (eid) => {
-        fetch(`${LOCALHOST_URL}/profile/education/${eid}`, {
+        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
             method: "DELETE",
             headers: {
-                'x-auth-token': localStorage.getItem('token'),
+                'x-auth-token': this.state.dashboardToken,
                 'content-type': 'application/json'
             }
         })
-            .then(response => {
+            .then(() => {
                 this.getGithubUsername()
             })
     }
 
 
     componentDidMount = async () => {
+        await this.setState({
+            dashboardToken: localStorage.getItem('token')
+        })
         await this.getGithubUsername();
     }
 
@@ -88,7 +88,8 @@ class gitHubDashboard extends React.Component {
         )
             .then(response => response.json())
             .then(results => this.setState({
-                githubUsername: results.githubusername
+                githubUsername: results.githubusername !== "" ? results.githubusername: null
+
             }))
     }
 
@@ -185,6 +186,20 @@ class gitHubDashboard extends React.Component {
                             </button>
                         </div>
 
+                        <div className="col-lg-1">
+                            <button
+                                onClick={async () => {
+                                    await this.setState({
+                                        edit: false
+                                    })
+                                    await this.deleteGithubUsername()
+                                }
+                                }
+                                className="btn btn-danger">
+                                Delete
+
+                            </button>
+                        </div>
                         {/*<div className="col-lg-1">*/}
                         {/*    <button*/}
                         {/*        onClick={async () => {*/}
