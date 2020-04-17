@@ -40,28 +40,6 @@ class NeoPostDetail extends Component {
              comments:postData,
              comment:''
          })
-
-        // console.log('here');
-        // // console.log(this.state.post[0]._id)
-        // axios.post(`https://group-32-node-server.herokuapp.com/codebook/posts/comment/${this.state.post[0]._id}`,
-        //     {
-        //         text: comment
-        //     }).then((res)=>{
-        //     if(res){
-        //         console.log('here 1' );
-        //         this.setState({
-        //             commentNumber: this.state.commentNumber+1,
-        //             inputComment:''
-        //         });
-        //         // axios.get('http://localhost:3002/codebook/posts/'+this.state.post[0]._id).then(res=>{
-        //         //     if(res){
-        //         //         this.setState({
-        //         //             comments:res.data.comments
-        //         //         })
-        //         //     }
-        //         })
-        //     }
-        // }).catch(err=>console.log(err));
     }
 
     handleDeleteOfComment=()=>{
