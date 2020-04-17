@@ -17,6 +17,7 @@ class NeoPostItem extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         {
             localStorage.getItem('token') === null &&
             this.props.history.push('/sign-in')
