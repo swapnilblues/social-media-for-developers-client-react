@@ -80,6 +80,14 @@ class DashboardContainer extends React.Component {
                 </div>
 
                 <div className="container">
+                    <h2 className="my-2">Phone Number</h2>
+                    <PhoneNumberComponent
+                        githubUsername={this.props.githubUsername}
+                        user={this.state.user}
+                    />
+                </div>
+
+                <div className="container">
                     <ImageComponent
                         imageUrl={this.state.image}/>
                 </div>

@@ -8,19 +8,33 @@ export default class ProfilesContainer extends React.Component {
 
     state = {
         users: [],
-        repos: []
+        repos: [],
+        image: ''
     }
 
     componentDidMount = () => {
         this.findAllUser()
+        this.getDisplayImage()
+    }
+
+    getDisplayImage = () => {
+        fetch(`${LOCALHOST_URL}/profile/image`, {
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        })
+            .then(response => response.json())
+            .then(results => this.setState({
+                image : results.image
+                                           }))
     }
 
     findAllUser = () => {
         fetch(`${LOCALHOST_URL}/profile/all`)
             .then(response => response.json())
             .then(results => this.setState({
-                users: results
-            }))
+                                               users: results
+                                           }))
     }
 
     render() {
@@ -38,12 +52,13 @@ export default class ProfilesContainer extends React.Component {
                 <div className="container">
 
 
-
                     <div className="row find-user">
                         <button
                             onClick={this.findAllUser}
-                            className="btn btn-warning find-all-users-button">Find All Users</button>
-                        <input type="text" placeholder="Search for user" className="form-control search-geeks"
+                            className="btn btn-warning find-all-users-button">Find All Users
+                        </button>
+                        <input type="text" placeholder="Search for user"
+                               className="form-control search-geeks"
                                width="100"/>
                         <button className="btn btn-info search-geek-button">Search</button>
                     </div>
@@ -52,31 +67,35 @@ export default class ProfilesContainer extends React.Component {
 
 
                         <div className="col-sm-1 dp">
-                            <img src="../images/sajag_dp.jfif" alt="" width="250" height="250"/>
+                            {/*<img src="../images/sajag_dp.jfif" alt="" width="250" height="250"/>*/}
+                            <img src={this.state.image} alt="" width="250" height="250"/>
                         </div>
 
                         {
                             this.state.users.map(user =>
-                                <div key={user.user._id} className="col-sm-6">
-                                    <div className="row">
-                                        <h2 className="geek-name"><b>{user.user.name}</b></h2>
-                                    </div>
-                                    <div className="row">
-                                        <p className="geek-bio">
-                                            {user.bio}
-                                        </p>
-                                    </div>
-                                    <div className="row">
-                                        <p className="geek-bio">
-                                            Quincy, MA
-                                        </p>
-                                    </div>
-                                    <div className="row">
-                                        <Link to={`/profiles/${user.user._id}`}>
-                                            <span href="#" className="btn btn-danger">Open Profile</span>
-                                        </Link>
-                                    </div>
-                                </div>
+                                                     <div key={user.user._id} className="col-sm-6">
+                                                         <div className="row">
+                                                             <h2 className="geek-name">
+                                                                 <b>{user.user.name}</b></h2>
+                                                         </div>
+                                                         <div className="row">
+                                                             <p className="geek-bio">
+                                                                 {user.bio}
+                                                             </p>
+                                                         </div>
+                                                         <div className="row">
+                                                             <p className="geek-bio">
+                                                                 Quincy, MA
+                                                             </p>
+                                                         </div>
+                                                         <div className="row">
+                                                             <Link
+                                                                 to={`/profiles/${user.user._id}`}>
+                                                                 <span href="#"
+                                                                       className="btn btn-danger">Open Profile</span>
+                                                             </Link>
+                                                         </div>
+                                                     </div>
                             )
                         }
                     </div>
