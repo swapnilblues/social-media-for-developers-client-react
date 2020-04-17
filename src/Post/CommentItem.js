@@ -12,7 +12,11 @@ class CommentItem extends Component {
     }
 
     handleDeleteComment =()=>{
-        axios.delete('http://localhost:3002/codebook/posts/comment/'+this.props.postId+'/'+this.props._id).then((res)=>{
+        axios.delete('http://localhost:3002/codebook/posts/comment/'+this.props.postId+'/'+this.props._id,{
+            headers:{
+                "x-auth-token": localStorage.getItem('token')
+            }
+        }).then((res)=>{
             if(res){
                 this.setState({
                                   show:false
@@ -22,15 +26,16 @@ class CommentItem extends Component {
     }
 
     componentDidMount() {
-        // {console.log(this.props.text)}
-            axios.get(`http://localhost:3002/codebook/users/id/${this.props.user}`).then((res)=>{
-            console.log(res.data.name)
+            axios.get(`http://localhost:3002/codebook/users/id/${this.props.user}`,{
+                headers:{
+                    "x-auth-token": localStorage.getItem('token')
+                }
+            }).then((res)=>{
             this.setState({
                 userName:res.data.name
                           })
         });
     }
-
 
     render() {
         return (
@@ -44,7 +49,7 @@ class CommentItem extends Component {
                 <div>
                     <p className='my-1'>{this.props.text}</p>
                     <p className='post-date'>
-                        Posted on <span>{new Date()}</span>
+                        Posted on {this.props.date}
                     </p>
                     <button
                         onClick={this.handleDeleteComment}

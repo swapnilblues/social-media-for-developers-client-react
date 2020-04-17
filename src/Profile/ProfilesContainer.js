@@ -37,6 +37,8 @@ export default class ProfilesContainer extends React.Component {
 
                 <div className="container">
 
+
+
                     <div className="row find-user">
                         <button
                             onClick={this.findAllUser}
@@ -44,8 +46,6 @@ export default class ProfilesContainer extends React.Component {
                         <input type="text" placeholder="Search for user" className="form-control search-geeks"
                                width="100"/>
                         <button className="btn btn-info search-geek-button">Search</button>
-
-
                     </div>
 
                     <div className="profile-grid bg-secondary">
