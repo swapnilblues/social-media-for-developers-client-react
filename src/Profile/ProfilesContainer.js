@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {LOCALHOST_URL} from "../common/constants";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
+import ProfileImageComponent from "./ProfileImageComponent";
 const axios = require('axios');
 const test = require('../Post/temp')
 export default class ProfilesContainer extends React.Component {
@@ -11,6 +12,7 @@ export default class ProfilesContainer extends React.Component {
         users: [],
         repos: [],
         nameToSearch:'',
+        userId: '',
         image: ''
     }
 
@@ -102,7 +104,7 @@ export default class ProfilesContainer extends React.Component {
                             <div className="col-sm-12">
                                 {this.state.users&&this.state.users.map(user=>(
                                     <div className="card profile-card" style={{float:"left",marginLeft:"1.2em"}}  key={user.user._id}>
-                                        <img className="card-img-top" src="..." alt="Card image cap"/>
+                                        <ProfileImageComponent userId = {user.user._id}/>
                                         <div className="card-body">
                                             <h5 className="card-title">{user.user.name}</h5>
                                             <Link to={`/profiles/${user.user._id}`}><button href="#" className="btn btn-primary">See Profile</button></Link>
