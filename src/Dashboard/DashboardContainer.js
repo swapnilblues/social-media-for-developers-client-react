@@ -20,7 +20,6 @@ class DashboardContainer extends React.Component {
     }
     handleUploadSuccess = (filename) => {
         storage.ref('Uploaded_Images').child(filename).getDownloadURL().then(url => {
-            console.log(url);
             let newA = url;
             console.log(newA);
             this.setState({
@@ -29,6 +28,22 @@ class DashboardContainer extends React.Component {
             console.log(this.state.image);
         })
     }
+
+    saveImage = () => {
+        fetch(`${LOCALHOST_URL}/profile/image`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    image: this.state.image
+                }
+            )
+        }).then(() => console.log("after fetch: ", this.state.image ))
+    }
+
     componentDidMount() {
         this.state.dashboardToken = localStorage.getItem('token')
         console.log("Dashboard token: ", this.state.dashboardToken)
@@ -61,6 +76,7 @@ class DashboardContainer extends React.Component {
                         Welcome, {this.state.user.name}</p>
                 </div>
                 <br/>
+
                 <div className="container">
                     <h4>Add an Image</h4>
                     <br/>
@@ -70,7 +86,9 @@ class DashboardContainer extends React.Component {
                         storageRef={firebase.storage().ref('Uploaded_Images')}
                         onUploadSuccess={this.handleUploadSuccess}
                     />
+                    <button onClick={() => this.saveImage()}>Save Image</button>
                 </div>
+
                 <div className="container">
                     <h2 className="my-2">Phone Number</h2>
                     <PhoneNumberComponent
