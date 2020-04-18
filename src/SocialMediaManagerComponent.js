@@ -16,6 +16,9 @@ import DashboardContainer from "./Dashboard/DashboardContainer";
 import authReducer from "./Reducer/auth.reducer"
 import NeoPosts from "./Post/NeoPosts";
 import NeoPostDetail from "./Post/NeoPostDetail";
+import CrudPosts from "./Admin/crudPosts";
+import CrudUsers from "./Admin/crudUsers";
+import AdminUsers from "./Admin/admin";
 
 
 const store = createStore(authReducer)
@@ -25,7 +28,7 @@ class SocialMediaManagerComponent extends React.Component {
     render() {
         return (
             <div>
-                <Router>
+                  <Router>
                     <Route
                         path="/"
                         exact={true}
@@ -105,6 +108,47 @@ class SocialMediaManagerComponent extends React.Component {
                         >
 
                         </Route>
+
+                        <Route
+                            path="/admin-users"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <AdminUsers
+                                        {...props}
+                                    />
+                            }
+                        >
+
+                        </Route>
+
+                        <Route
+                            path="/crud-posts"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <CrudPosts
+                                        {...props}
+                                    />
+                            }
+                        >
+
+                        </Route>
+
+                        <Route
+                            path="/crud-users"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <CrudUsers
+                                        {...props}
+                                    />
+                            }
+                        >
+
+                        </Route>
+
+
 
                         <Route
                             path="/sign-in"

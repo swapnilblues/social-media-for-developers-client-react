@@ -23,7 +23,7 @@ class SignUpComponent extends React.Component {
             alert("Passwords do not match")
         } else {
             // alert("Awesome")
-            await fetch(`${API_URL}/users`, {
+            await fetch(`${LOCALHOST_URL}/users`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
@@ -32,7 +32,8 @@ class SignUpComponent extends React.Component {
                     {
                         password: this.state.password,
                         email: this.state.email,
-                        name: this.state.name
+                        name: this.state.name,
+
                     }
                 )
             }).then(response =>
@@ -58,12 +59,12 @@ class SignUpComponent extends React.Component {
                                 },
                                 method: 'POST'
                             }).then(
-                            async () =>  {
+                            async () => {
                                 await console.log('State token ', this.state.token)
                                 await this.props.generateTokenAndSave(this.state.token)
                                 await this.props.history.push(`/dashboard`)
                             }
-                    )
+                        )
 
                     }
                 }

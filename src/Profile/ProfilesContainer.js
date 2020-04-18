@@ -73,7 +73,7 @@ export default class ProfilesContainer extends React.Component {
                                     </div>
                                     <div className="row">
                                         <Link to={`/profiles/${user.user._id}`}>
-                                            <span href="#" className="btn btn-danger">Open Profile</span>
+                                            <span className="btn btn-danger">Open Profile</span>
                                         </Link>
                                     </div>
                                 </div>

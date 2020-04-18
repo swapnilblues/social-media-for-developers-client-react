@@ -7,7 +7,7 @@ import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionCompone
 export default class ProfileDetailsContainer extends React.Component {
 
     state = {
-        user: {user: {}, social: {}, experience: [], education: [], skills: []},
+        user: {user: {}, social: {}, experience: [], education: [], skills: [],githubUsername: ''},
         repos: []
     }
 
@@ -19,7 +19,7 @@ export default class ProfileDetailsContainer extends React.Component {
             }))
 
         await this.getRepos(this.state.user.githubusername)
-        await console.log("Name", this.state.repos)
+        // await console.log("Name", this.state.user)
     }
 
     getRepos = (username) => {
@@ -140,7 +140,8 @@ export default class ProfileDetailsContainer extends React.Component {
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
 
-                        {
+                        {   this.state.repos.length > 0 &&
+
                             this.state.repos.map(repo =>
                                     <div>
                                         {   repo.name !== 'undefined.github.io' &&
@@ -175,6 +176,15 @@ export default class ProfileDetailsContainer extends React.Component {
                                 <h5>GitHub account not found</h5>
                             </div>
                         }
+                        {
+                            this.state.user.githubusername === ""  &&
+                            
+                            <div>
+                                <br/>
+                                <h5>GitHub account not found</h5>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
