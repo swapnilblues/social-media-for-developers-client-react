@@ -220,7 +220,7 @@ class phoneNumberComponent extends React.Component {
                                 }
                                 }
                                 className="btn btn-danger">
-                                Enter
+                                Save
 
                             </button>
                         </div>
