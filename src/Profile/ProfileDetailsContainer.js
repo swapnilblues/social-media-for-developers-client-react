@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {LOCALHOST_URL} from "../common/constants";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
+import ProfileImageComponent from "./ProfileImageComponent";
 
 export default class ProfileDetailsContainer extends React.Component {
 
@@ -44,6 +45,7 @@ export default class ProfileDetailsContainer extends React.Component {
 
     render() {
         return (
+
             <div>
                 {
                     localStorage.getItem('token') === null &&
@@ -56,8 +58,7 @@ export default class ProfileDetailsContainer extends React.Component {
                 <div className="container">
                     <div className="profile-grid my-1 bg-secondary">
                         <div className="col-sm-4">
-                            <img src="../images/sajag_dp.jfif" alt="Not found" width="250"
-                                 height="250"/>
+                            <ProfileImageComponent userId={this.props.userId}/>
                         </div>
                         <div className="col-sm-8">
                             <div className="row">
