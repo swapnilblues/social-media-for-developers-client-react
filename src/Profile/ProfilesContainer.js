@@ -18,15 +18,15 @@ export default class ProfilesContainer extends React.Component {
     }
 
     getDisplayImage = () => {
-        fetch(`${LOCALHOST_URL}/profile/image`, {
-            headers: {
-                'x-auth-token': localStorage.getItem('token')
-            }
-        })
-            .then(response => response.json())
-            .then(results => this.setState({
-                image : results.image
-                                           }))
+        // fetch(`${LOCALHOST_URL}/profile/image`, {
+        //     headers: {
+        //         'x-auth-token': localStorage.getItem('token')
+        //     }
+        // })
+        //     .then(response => response.json())
+        //     .then(results => this.setState({
+        //         image : results.image
+        //                                    }))
     }
 
     findAllUser = () => {
