@@ -54,15 +54,11 @@ export default class ProfileDetailsContainer extends React.Component {
                     <NavBarInSessionComponent/>
                 }
                 <div className="container">
-
                     <div className="profile-grid my-1 bg-secondary">
-
-
                         <div className="col-sm-4">
                             <img src="../images/sajag_dp.jfif" alt="Not found" width="250"
                                  height="250"/>
                         </div>
-
                         <div className="col-sm-8">
                             <div className="row">
                                 <h2 className="geek-name"><b>{this.state.user.user.name}</b></h2>
