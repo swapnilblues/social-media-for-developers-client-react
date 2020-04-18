@@ -10,11 +10,25 @@ export default class ProfilesContainer extends React.Component {
     state = {
         users: [],
         repos: [],
-        nameToSearch:''
+        nameToSearch:'',
+        image: ''
     }
 
     componentDidMount = () => {
         this.findAllUser()
+        this.getDisplayImage()
+    }
+
+    getDisplayImage = () => {
+        fetch(`${LOCALHOST_URL}/profile/image`, {
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        })
+            .then(response => response.json())
+            .then(results => this.setState({
+                image : results.image
+                                           }))
     }
 
 
@@ -52,9 +66,10 @@ export default class ProfilesContainer extends React.Component {
     findAllUser = () => {
         fetch(`${LOCALHOST_URL}/profile/all`)
             .then(response => response.json())
-            .then(results =>{ this.setState({
-                users: results
-            })})
+            .then(results => this.setState({
+                                               users: results
+                                           }))
+
     }
 
     render() {
@@ -72,7 +87,6 @@ export default class ProfilesContainer extends React.Component {
                 <div className="container">
 
 
-
                     <div className="row find-user">
                         <button
                             onClick={this.findAllUser}
@@ -86,7 +100,8 @@ export default class ProfilesContainer extends React.Component {
 
 
                         <div className="col-sm-1 dp">
-                            <img src="../images/sajag_dp.jfif" alt="" width="250" height="250"/>
+                            {/*<img src="../images/sajag_dp.jfif" alt="" width="250" height="250"/>*/}
+                            <img src={this.state.image} alt="" width="250" height="250"/>
                         </div>
 
                         {
