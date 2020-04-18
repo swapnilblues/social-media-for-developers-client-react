@@ -23,7 +23,7 @@ class SignUpComponent extends React.Component {
             alert("Passwords do not match")
         } else {
             // alert("Awesome")
-            await fetch(`${API_URL}/users`, {
+            await fetch(`${LOCALHOST_URL}/users`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
