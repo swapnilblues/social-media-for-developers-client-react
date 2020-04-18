@@ -54,7 +54,7 @@ export default class ProfileDetailsContainer extends React.Component {
                     <NavBarInSessionComponent/>
                 }
                 <div className="container">
-                    <div className="profile-grid my-1 bg-secondary">
+                    <div className="profile-grid my-1" style={{backgroundColor:"rgb(23,162,184)"}}>
                         <div className="col-sm-4">
                             <img src="../images/sajag_dp.jfif" alt="Not found" width="250"
                                  height="250"/>
