@@ -146,7 +146,7 @@ class educationTableComponent extends React.Component {
                 </div>
                 {/*<tbody>*/}
                 {
-                    this.state.educations.map(education =>
+                    this.state.educations&&this.state.educations.map(education =>
                         <Link to={`/dashboard/education/${education._id}`}>
 
 

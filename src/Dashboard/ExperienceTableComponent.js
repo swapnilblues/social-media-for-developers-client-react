@@ -144,7 +144,7 @@ class ExperienceTableComponent extends React.Component {
                 </div>
                 {/*<tbody>*/}
                 {
-                    this.state.experiences.map(experience =>
+                    this.state.experiences&&this.state.experiences.map(experience =>
                         <Link to={`/dashboard/experience/${experience._id}`}>
 
 

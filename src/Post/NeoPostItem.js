@@ -107,7 +107,7 @@ class NeoPostItem extends Component {
                 <div className='post bg-white p-1 my-1'>
                     <div>
                         <Link>
-                            <img className='round-img'
+                            <img style={{height : 130, width : 100}}
                                  src={this.state.image}
                                  alt=''/>
                             <h4>{this.props.user.name}</h4>

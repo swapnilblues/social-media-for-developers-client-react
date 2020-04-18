@@ -115,7 +115,6 @@ class NeoPosts extends Component {
         return (
             <div>
                 <NavBarInSessionComponent/>
-
                 <div class="container">
                     <div>{this.state.postStatus&&<div  className="alert alert-success" role="alert">Post Created Successfully</div>}</div>
                     <h1 className='large text-primary'>Posts</h1>

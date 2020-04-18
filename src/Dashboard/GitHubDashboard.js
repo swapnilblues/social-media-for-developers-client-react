@@ -10,7 +10,7 @@ class gitHubDashboard extends React.Component {
     state = {
         githubUsername: null,
         dashboardToken: '',
-        edit: false
+        edit: false,
     }
 
     addGithubUsername = () => {

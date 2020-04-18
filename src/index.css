@@ -90,6 +90,15 @@ code {
   border: 0;
 }
 
+.profiles{
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-card{
+  width: 20rem;
+}
 .profile-exp p,
 .profile-edu p {
   margin: 0.5rem 0;
