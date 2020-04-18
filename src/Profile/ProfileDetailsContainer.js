@@ -4,10 +4,12 @@ import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {LOCALHOST_URL} from "../common/constants";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
+import ProfileImageComponent from "./ProfileImageComponent";
+
 export default class ProfileDetailsContainer extends React.Component {
 
     state = {
-        user: {user: {}, social: {}, experience: [], education: [], skills: []},
+        user: {user: {}, social: {}, experience: [], education: [], skills: [], followers:[], following:[] },
         repos: []
     }
 
@@ -33,6 +35,7 @@ export default class ProfileDetailsContainer extends React.Component {
                 repos: results
             }))
     }
+
     //
     // searchUser = (name) => {
     //     fetch(`https://jsonplaceholder.typicode.com/users?name=${name}`)
@@ -42,8 +45,44 @@ export default class ProfileDetailsContainer extends React.Component {
     //         }))
     // }
 
+    handleFollow = async () =>{
+        await fetch(`${LOCALHOST_URL}/profile/follow/${this.state.user.user.email}`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        })
+
+        await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
+                .then(response => response.json())
+                .then(results =>
+                    this.setState({
+                                      user: results
+                                  })
+                )
+
+    }
+
+    handleUnFollow = async () =>{
+        await fetch(`${LOCALHOST_URL}/profile/unfollow/${this.state.user.user.email}`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        })
+
+        await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
+            .then(response => response.json())
+            .then(results =>
+                this.setState({
+                                  user: results
+                              })
+            )
+    }
+
     render() {
         return (
+
             <div>
                 {
                     localStorage.getItem('token') === null &&
@@ -54,15 +93,10 @@ export default class ProfileDetailsContainer extends React.Component {
                     <NavBarInSessionComponent/>
                 }
                 <div className="container">
-
-                    <div className="profile-grid my-1 bg-secondary">
-
-
+                    <div className="profile-grid my-1" style={{backgroundColor:"rgb(23,162,184)"}}>
                         <div className="col-sm-4">
-                            <img src="../images/sajag_dp.jfif" alt="Not found" width="250"
-                                 height="250"/>
+                            <ProfileImageComponent userId={this.props.userId}/>
                         </div>
-
                         <div className="col-sm-8">
                             <div className="row">
                                 <h2 className="geek-name"><b>{this.state.user.user.name}</b></h2>
@@ -87,6 +121,22 @@ export default class ProfileDetailsContainer extends React.Component {
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+
+                        <div className="col-sm-1"></div>
+                        <div className="col-sm-2 btn btn-success" onClick={this.handleFollow}>Follow</div>
+                        <div className="col-sm-2 btn btn-danger" onClick={this.handleUnFollow}>UnFollow</div>
+                        <div className="col-sm-2">
+                            Followers: {this.state.user.followers.length}
+                        </div>
+
+                        <div className="col-sm-2">
+                            Following: {this.state.user.following.length}
+                        </div>
+
+                    </div>
+                    <br/>
 
                     <div className="profile-exp bg-white p-2">
                         <h2 className="text-primary">Experience</h2>
