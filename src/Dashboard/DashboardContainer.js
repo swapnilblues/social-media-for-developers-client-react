@@ -136,9 +136,11 @@ class DashboardContainer extends React.Component {
         )
     }
 }
-const stateToPropertyMapper = (state) => {
-}
-const dispatchToPropertyMapper = (dispatch) => {
-}
-export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
-(DashboardContainer)
+
+export default DashboardContainer
+// const stateToPropertyMapper = (state) => {
+// }
+// const dispatchToPropertyMapper = (dispatch) => {
+// }
+// export default connect(stateToPropertyMapper, dispatchToPropertyMapper)
+// (DashboardContainer)
