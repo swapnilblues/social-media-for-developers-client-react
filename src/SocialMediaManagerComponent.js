@@ -17,6 +17,7 @@ import authReducer from "./Reducer/auth.reducer"
 import NeoPosts from "./Post/NeoPosts";
 import NeoPostDetail from "./Post/NeoPostDetail";
 import AdminUsers from "./Admin/admin";
+import AdminPosts from "./Admin/adminposts";
 
 
 const store = createStore(authReducer)
@@ -127,6 +128,19 @@ class SocialMediaManagerComponent extends React.Component {
                             render={
                                 (props) =>
                                     <AdminUsers
+                                        {...props}
+                                    />
+                            }
+                        >
+
+                        </Route>
+
+                        <Route
+                            path="/admin-posts"
+                            exact={true}
+                            render={
+                                (props) =>
+                                    <AdminPosts
                                         {...props}
                                     />
                             }

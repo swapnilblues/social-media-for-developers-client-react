@@ -81,13 +81,22 @@ class DashboardContainer extends React.Component {
                     <h4>Add an Image</h4>
                     <br/>
                     <FileUploader
+
                         accept="image/*"
                         name='image'
                         storageRef={firebase.storage().ref('Uploaded_Images')}
                         onUploadSuccess={this.handleUploadSuccess}
                     />
-                    <button onClick={() => this.saveImage()}>Save Image</button>
+                    <br/>
+                    <button className="btn btn-success" onClick={() => this.saveImage()}>Save Image</button>
                 </div>
+
+                {   this.state.image &&
+                    <div className="container">
+                        <ImageComponent
+                            imageUrl={this.state.image}/>
+                    </div>
+                }
 
                 <div className="container">
                     <h2 className="my-2">Phone Number</h2>
@@ -97,10 +106,6 @@ class DashboardContainer extends React.Component {
                     />
                 </div>
                 <div className="container">
-                    <ImageComponent
-                        imageUrl={this.state.image}/>
-                </div>
-                <div className="container">
                     <h2 className="my-2">GitHub Username</h2>
                     <GitHubDashboard
                         githubUsername={this.props.githubUsername}
@@ -108,13 +113,6 @@ class DashboardContainer extends React.Component {
                     />
                 </div>
                 <br/>
-                <div className="container">
-                    <h2 className="my-2">Phone Number</h2>
-                    <PhoneNumberComponent
-                        githubUsername={this.props.githubUsername}
-                        user={this.state.user}
-                    />
-                </div>
                 <br/>
                 <div className="container">
                     <h2 className="my-2">Experience Credentials</h2>

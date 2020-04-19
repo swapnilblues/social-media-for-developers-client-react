@@ -302,6 +302,10 @@ a {
   background-color: aliceblue;
 }
 
+.user-link {
+  color: #0077b5;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
