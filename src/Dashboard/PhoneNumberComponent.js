@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker/es";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import MaskedInput from "react-text-mask/dist/reactTextMask";
@@ -31,7 +31,7 @@ class phoneNumberComponent extends React.Component {
 
         }
         else {
-            fetch(`${LOCALHOST_URL}/profile/phone`, {
+            fetch(`${API_URL}/profile/phone`, {
                 method: "POST",
                 headers: {
                     'x-auth-token': localStorage.getItem('token'),
@@ -76,7 +76,7 @@ class phoneNumberComponent extends React.Component {
     }
 
     deletePhoneNumber = () => {
-        fetch(`${LOCALHOST_URL}/profile/phone`, {
+        fetch(`${API_URL}/profile/phone`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': this.state.dashboardToken,
@@ -101,7 +101,7 @@ class phoneNumberComponent extends React.Component {
 
     getPhoneNumber = () => {
         fetch(
-            `${LOCALHOST_URL}/profile/me`, {
+            `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': this.state.dashboardToken
                 }
@@ -220,7 +220,7 @@ class phoneNumberComponent extends React.Component {
                                 }
                                 }
                                 className="btn btn-danger">
-                                Enter
+                                Save
 
                             </button>
                         </div>

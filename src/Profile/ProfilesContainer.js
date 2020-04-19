@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
-import {LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 import ProfileImageComponent from "./ProfileImageComponent";
 
@@ -24,7 +24,7 @@ export default class ProfilesContainer extends React.Component {
 
 
     // getDisplayImage = () => {
-    //     fetch(`${LOCALHOST_URL}/profile/image`, {
+    //     fetch(`${API_URL}/profile/image`, {
     //         headers: {
     //             'x-auth-token': localStorage.getItem('token')
     //         }
@@ -43,7 +43,7 @@ export default class ProfilesContainer extends React.Component {
 
     findUserByName = (name) => {
         let array = [];
-        axios.post(`http://localhost:3002/codebook/users/name`, {
+        axios.post(`${API_URL}/users/name`, {
             "name": name
         })
             .then(results => {
@@ -67,7 +67,7 @@ export default class ProfilesContainer extends React.Component {
     }
 
     findAllUser = () => {
-        fetch(`${LOCALHOST_URL}/profile/all`)
+        fetch(`${API_URL}/profile/all`)
             .then(response => response.json())
             .then(results => this.setState({
                                                users: results

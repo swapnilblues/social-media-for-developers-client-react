@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import React, {Component} from 'react';
 import axios from "axios";
+import {API_URL} from "../common/constants";
 
 class CommentItem extends Component {
 
@@ -12,7 +13,7 @@ class CommentItem extends Component {
     }
 
     handleDeleteComment =()=>{
-        axios.delete('http://localhost:3002/codebook/posts/comment/'+this.props.postId+'/'+this.props._id,{
+        axios.delete(`${API_URL}/posts/comment/${this.props.postId}/${this.props._id}`,{
             headers:{
                 "x-auth-token": localStorage.getItem('token')
             }
@@ -26,7 +27,7 @@ class CommentItem extends Component {
     }
 
     componentDidMount() {
-            axios.get(`http://localhost:3002/codebook/users/id/${this.props.user}`,{
+            axios.get(`${API_URL}/users/id/${this.props.user}`,{
                 headers:{
                     "x-auth-token": localStorage.getItem('token')
                 }

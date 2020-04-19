@@ -1,8 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
+import img1 from '../img/showcase.jpg';
 import Moment from 'react-moment';
+import axios from "axios";
 import './main.css';
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 
 class NeoPostItem extends Component {
 
@@ -14,11 +16,14 @@ class NeoPostItem extends Component {
         token: '',
         likeStatus: false,
         userId: '',
-        image: ''
+        image: '',
+        currentUser: ''
     }
 
     componentDidMount() {
-        this.getImageById()
+
+        this.getImageById(this.state.userId)
+
         {
             localStorage.getItem('token') === null &&
             this.props.history.push('/sign-in')
@@ -27,12 +32,26 @@ class NeoPostItem extends Component {
         this.setState({
                           token: localStorage.getItem('token')
                       })
+
+        fetch(
+            `${API_URL}/profile/me`, {
+                headers: {
+                    'x-auth-token': localStorage.getItem('token')
+                }
+            }
+        )
+            .then(response => response.json())
+            .then(results => this.setState({
+                                               currentUser: results.user,
+                                           }))
+
     }
 
     getImageById = async () => {
 
         await this.setUserId();
         await this.setImageUrl();
+        // console.log("props: ", this.props.user._id)
     }
 
     setUserId = () => {
@@ -42,7 +61,7 @@ class NeoPostItem extends Component {
     }
 
     setImageUrl = () => {
-        fetch(`${LOCALHOST_URL}/profile/user/${this.props.user._id}`)
+        fetch(`${API_URL}/profile/user/${this.state.userId}`)
             .then(response => response.json())
             .then(res => this.setState({
                                            image: res.image
@@ -50,7 +69,7 @@ class NeoPostItem extends Component {
     }
 
     handleLike = () => {
-        fetch(`${LOCALHOST_URL}/posts/like/${this.props._id}`, {
+        fetch(`${API_URL}/posts/like/${this.props._id}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
@@ -76,7 +95,7 @@ class NeoPostItem extends Component {
     }
 
     handleUnlike = () => {
-        fetch(`${LOCALHOST_URL}/posts/unlike/${this.props._id}`, {
+        fetch(`${API_URL}/posts/unlike/${this.props._id}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
@@ -102,7 +121,7 @@ class NeoPostItem extends Component {
                 <div className='post bg-white p-1 my-1'>
                     <div>
                         <Link>
-                            <img style={{height : 130, width : 100}}
+                            <img style={{height: 130, width: 100}}
                                  src={this.state.image}
                                  alt=''/>
                             <h4>{this.props.user.name}</h4>
@@ -137,7 +156,7 @@ class NeoPostItem extends Component {
                                                                : null}
                             </Link>
                             {/*{!auth.loading && user === auth.user._id && (*/}
-                            {this.props.showDelete ?
+                            {this.props.user._id === this.state.currentUser._id &&
                              <button
                                  onClick={() => this.props.delete(this.props._id)}
                                  type='button'
@@ -145,9 +164,7 @@ class NeoPostItem extends Component {
                              >
                                  <i className='fa fa-times'/>
                              </button>
-                                                   :
-                             null}
-                            {/*)}*/}
+                            }
                         </Fragment>
 
                     </div>

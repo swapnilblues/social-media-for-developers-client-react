@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {Link} from "react-router-dom";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 
 class SignUpComponent extends React.Component {
 
@@ -23,7 +23,7 @@ class SignUpComponent extends React.Component {
             alert("Passwords do not match")
         } else {
             // alert("Awesome")
-            await fetch(`${LOCALHOST_URL}/users`, {
+            await fetch(`${API_URL}/users`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
@@ -51,7 +51,7 @@ class SignUpComponent extends React.Component {
                             }
                         )
                         fetch(
-                            `${LOCALHOST_URL}/profile`, {
+                            `${API_URL}/profile`, {
                                 headers: {
                                     'x-auth-token': this.state.token,
                                     'content-type': 'application/json'

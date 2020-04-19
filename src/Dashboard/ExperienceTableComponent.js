@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker/es";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -30,7 +30,7 @@ class ExperienceTableComponent extends React.Component {
     }
 
     addExperience = () => {
-        fetch(`${LOCALHOST_URL}/profile/experience`, {
+        fetch(`${API_URL}/profile/experience`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -53,7 +53,7 @@ class ExperienceTableComponent extends React.Component {
     }
 
     updateExperience = (experienceId) => {
-        fetch(`${LOCALHOST_URL}/profile/experience/${experienceId}`, {
+        fetch(`${API_URL}/profile/experience/${experienceId}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -77,7 +77,7 @@ class ExperienceTableComponent extends React.Component {
     }
 
     deleteExperience = (eid) => {
-        fetch(`${LOCALHOST_URL}/profile/experience/${eid}`, {
+        fetch(`${API_URL}/profile/experience/${eid}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
@@ -100,7 +100,7 @@ class ExperienceTableComponent extends React.Component {
 
     getExperience = () => {
         fetch(
-            `${LOCALHOST_URL}/profile/me`, {
+            `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': localStorage.getItem('token')
                 }

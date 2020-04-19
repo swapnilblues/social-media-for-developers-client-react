@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
+import {API_URL} from "../common/constants";
 
 export default class ProfileComponent extends React.Component {
 
@@ -11,7 +12,7 @@ export default class ProfileComponent extends React.Component {
     }
 
     componentDidMount = async () => {
-        await fetch(`https://group-32-node-server.herokuapp.com/codebook/profile/user/${this.props.profileId}`)
+        await fetch(`${API_URL}/profile/user/${this.props.profileId}`)
             .then(response => response.json())
             .then(results => this.setState({
                 user: results

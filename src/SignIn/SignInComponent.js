@@ -1,18 +1,18 @@
 import React from "react";
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {Link} from "react-router-dom";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 
 class SignInComponent extends React.Component {
 
     state = {
-        email : '',
-        password : ''
+        email: '',
+        password: ''
     }
 
     login = async () => {
-        await fetch(`${LOCALHOST_URL}/users/auth`, {
+        await fetch(`${API_URL}/users/auth`, {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -24,17 +24,28 @@ class SignInComponent extends React.Component {
                 }
             )
         }).then(response =>
-                    response.json()
+            response.json()
         ).then(
             r => {
                 if (r.errors !== undefined) {
                     r.errors.map(error =>
-                                     console.log("ERROR", error.msg)
+                        console.log("ERROR", error.msg)
                     )
                 } else {
-                    console.log("SUCCESS", r.token)
+                    console.log("SUCCESS", r.user.role)
                     this.props.generateTokenAndSave(r.token)
-                    this.props.history.push(`/dashboard`)
+                    {
+                        r.user === undefined &&
+                        this.props.history.push(`/dashboard`)
+                    }
+                    {
+                        r.user.role === 0 &&
+                        this.props.history.push(`/dashboard`)
+                    }
+                    {
+                        r.user.role === 1 &&
+                        this.props.history.push(`/admin-users`)
+                    }
                 }
             }
         )
@@ -49,13 +60,13 @@ class SignInComponent extends React.Component {
                 <div className="container login-main-div">
 
 
-                    <p className="lead"><i className="fas fa-sign-in-alt"></i> SIGN IN</p>
+                    <p className="lead"><i className="fas fa-sign-in-alt"/> SIGN IN</p>
                     <form className="form">
                         <div className="form-group">
                             <input onChange={async (e) =>
                                 await this.setState({
-                                                        email: e.target.value
-                                                    })
+                                    email: e.target.value
+                                })
                             }
                                    placeholder="Email Address"
                                    name={"email"}
@@ -68,8 +79,8 @@ class SignInComponent extends React.Component {
 
                             <input onChange={async (e) =>
                                 await this.setState({
-                                                        password: e.target.value
-                                                    })
+                                    password: e.target.value
+                                })
                             }
                                    placeholder="Password"
                                    name={"password"}
@@ -107,12 +118,13 @@ const dispatchToPropertyMapper = (dispatch) => {
     return {
         generateTokenAndSave: (token) =>
             dispatch({
-                         type: "ADD_TOKEN",
-                         token: token
-                     })
+                type: "ADD_TOKEN",
+                token: token
+            })
 
     }
 }
 
 export default connect(
     stateToPropertyMapper, dispatchToPropertyMapper)(SignInComponent)
+

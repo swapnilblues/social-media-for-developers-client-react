@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import {LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 
 class CommentComponent extends Component {
 
@@ -23,7 +23,7 @@ class CommentComponent extends Component {
 
     handleDeleteComment = () => {
 
-        fetch(`${LOCALHOST_URL}/profile/education/${this.props.postId}`, {
+        fetch(`${API_URL}/profile/education/${this.props.postId}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),

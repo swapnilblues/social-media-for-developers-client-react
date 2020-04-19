@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Card} from "react-bootstrap";
 import {Container} from "react-bootstrap";
 import axios from 'axios';
+import {API_URL} from "../common/constants";
 
 class PostComponent extends Component {
 
@@ -11,7 +12,7 @@ class PostComponent extends Component {
     }
 
     handleLike = () =>{
-        axios.put('http://localhost:3002/codebook/posts/like/'+this.props.post._id).then((res)=>{
+        axios.put(`${API_URL}/posts/like/${this.props.post._id}`).then((res)=>{
             if(res)
                     this.setState({
                                       likeNumber:this.state.likeNumber+1
@@ -20,7 +21,7 @@ class PostComponent extends Component {
     }
 
     handleUnlike = () =>{
-        axios.put('http://localhost:3002/codebook/posts/unlike/'+this.props.post._id).then((res)=>{
+        axios.put(`${API_URL}/posts/unlike/${this.props.post._id}`).then((res)=>{
             if(res)
                 this.setState({
                                   likeNumber:this.state.likeNumber-1
