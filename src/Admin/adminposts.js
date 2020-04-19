@@ -13,7 +13,9 @@ class AdminPosts extends React.Component {
             id: '',
             name: ''
         },
-        posts: []
+        posts: [],
+        edit: false,
+        selectedPost: '',
     }
 
     addPost = () => {
@@ -35,8 +37,26 @@ class AdminPosts extends React.Component {
 
     }
 
+    updatePost = (postId) => {
+        fetch(`${LOCALHOST_URL}/posts/admin/update/${postId}`, {
+            method: "PUT",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    text: this.state.text
+                }
+            )
+        }).then(() => this.setState({
+            text: '',
+            edit: false,
+            selectedPost: ''
+        }))
+            .then(() => this.getPosts())
+    }
     deletePost = (postId) => {
-        fetch(`${LOCALHOST_URL}/posts/admin/post/${postId}`, {
+        fetch(`${LOCALHOST_URL}/posts/admin/delete/${postId}`, {
             method: "DELETE",
         }).then(() => this.getPosts())
     }
@@ -128,10 +148,62 @@ class AdminPosts extends React.Component {
 
                                             {
                                                 this.state.posts.map(post =>
+
                                                     <tr>
+                                                        {(!this.state.edit || this.state.selectedPost !== post._id) &&
                                                         <td>
-                                                            <h6>{post.text}</h6>
+                                                            <div className="col-sm-12">
+                                                                <p><small>{post.text}</small></p>
+                                                            </div>
+                                                            <div className="col-sm-2">
+                                                                <span
+                                                                    onClick={() => this.setState({
+                                                                        edit: true,
+                                                                        selectedPost: post._id,
+                                                                        text: post.text
+                                                                    })}
+                                                                    className="btn btn-danger">Edit</span>
+                                                            </div>
+
                                                         </td>
+                                                        }
+                                                        {
+                                                            this.state.edit && this.state.selectedPost === post._id &&
+                                                            <td>
+                                                                <div className="col-sm-12">
+                                                                    <input
+                                                                        className="nav-item ml-auto form-control"
+                                                                        placeholder="Input New Post"
+                                                                        onChange={async (e) => {
+                                                                            const n = e.target.value;
+                                                                            await this.setState({
+                                                                                    ...this.state,
+                                                                                    text: n
+                                                                                }
+                                                                            )
+                                                                        }}
+                                                                        value={this.state.text}
+                                                                    />
+                                                                </div>
+                                                                <br/>
+
+                                                                <div className="col-sm-2">
+                                                                <span
+                                                                    onClick={async () => {
+                                                                        await this.updatePost(post._id)
+                                                                        await this.setState({
+                                                                            edit: false,
+                                                                            selectedPost: '',
+                                                                            text: ''
+                                                                        })
+                                                                    }
+                                                                    }
+                                                                    className="btn btn-success">Save</span>
+                                                                </div>
+
+                                                            </td>
+                                                        }
+
                                                         <td>
                                                             <img src="https://bootdey.com/img/Content/user_1.jpg"
                                                                  alt=""/>
@@ -141,19 +213,6 @@ class AdminPosts extends React.Component {
                                                         <td>{post.date.substring(0, 10)}</td>
 
                                                         <td>
-                                                            {/*                    <a href="#" className="table-link">*/}
-                                                            {/*<span className="fa-stack">*/}
-                                                            {/*    <i className="fa fa-square fa-stack-2x"/>*/}
-                                                            {/*    <i className="fa fa-search-plus fa-stack-1x fa-inverse"/>*/}
-                                                            {/*</span>*/}
-                                                            {/*                    </a>*/}
-                                                            {/*                    <a href="#" className="table-link">*/}
-                                                            {/*<span className="fa-stack">*/}
-                                                            {/*    <i className="fa fa-square fa-stack-2x"/>*/}
-                                                            {/*    <i className="fa fa-pencil fa-stack-1x fa-inverse"/>*/}
-                                                            {/*</span>*/}
-                                                            {/*                    </a>*/}
-
 
                                                             <span className="fa-stack cursor-pointer"
                                                                   onClick={() => this.deletePost(post._id)}
