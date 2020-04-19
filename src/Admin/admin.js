@@ -89,7 +89,7 @@ class AdminUsers extends React.Component {
                                                         <td>
                                                             <img src="https://bootdey.com/img/Content/user_1.jpg"
                                                                  alt=""/>
-                                                            <a href="#" className="user-link">{user.name}</a>
+                                                            <span className="user-link">{user.name}</span>
                                                             {user.name !== 'Alice' &&
                                                             <span className="user-subhead">Geek</span>
                                                             }
@@ -100,7 +100,7 @@ class AdminUsers extends React.Component {
                                                         <td>{user.date.substring(0, 10)}</td>
 
                                                         <td>
-                                                            <a href="#">{user.email}</a>
+                                                            <h6>{user.email}</h6>
                                                         </td>
                                                         <td>
                                                             {/*                    <a href="#" className="table-link">*/}
@@ -117,7 +117,7 @@ class AdminUsers extends React.Component {
                                                             {/*                    </a>*/}
 
                                                             {   user.name !== 'Alice' &&
-                                                            <span className="fa-stack cursor-pointergi"
+                                                            <span className="fa-stack cursor-pointer"
                                                                   onClick={() => this.deleteUserAndProfile(user._id)}
                                                             >
                                                                       <i className="fas fa-trash-alt btn-lg btn-danger"/>
