@@ -151,7 +151,7 @@ class NeoPosts extends Component {
                     {/*))}*/}
 
                     {this.state.posts && this.state.posts.map(post => (
-                        <NeoPostItem showDelete={true} delete={this.deletePost} {...post} />
+                        <NeoPostItem currentPost = {post} showDelete={true} delete={this.deletePost} {...post} />
                     ))}
                 </div>
             </div>
