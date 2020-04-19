@@ -3,6 +3,7 @@ import NeoPostItem from "./NeoPostItem";
 import axios from "axios";
 import './main.css';
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
+import {API_URL} from "../common/constants";
 
 class NeoPosts extends Component {
     state = {
@@ -15,7 +16,7 @@ class NeoPosts extends Component {
 
     deletePost = async (id) => {
 
-        await fetch(`http://localhost:3002/codebook/posts/${id}`, {
+        await fetch(`${API_URL}/posts/${id}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': this.state.token
@@ -27,7 +28,7 @@ class NeoPosts extends Component {
         // });
 
 
-        let postsData = await axios.get('http://localhost:3002/codebook/posts',
+        let postsData = await axios.get(`${API_URL}/posts`,
             {
                 headers: {
                     "x-auth-token": localStorage.getItem('token')
@@ -49,7 +50,7 @@ class NeoPosts extends Component {
         this.setState({
             token : localStorage.getItem('token')
         })
-        let postsData = await axios.get('http://localhost:3002/codebook/posts',
+        let postsData = await axios.get(`${API_URL}/posts`,
             {
                 headers: {
                     "x-auth-token": localStorage.getItem('token'),
@@ -78,7 +79,7 @@ class NeoPosts extends Component {
 
     submitPost = async () => {
         console.log("NEO token", this.state.token)
-        await fetch('http://localhost:3002/codebook/posts', {
+        await fetch(`${API_URL}/posts`, {
             method: "POST",
             headers: {
                 'x-auth-token': this.state.token,
@@ -89,7 +90,7 @@ class NeoPosts extends Component {
             )
         })
 
-        const postsData = await axios.get('http://localhost:3002/codebook/posts',
+        const postsData = await axios.get(`${API_URL}/posts`,
             {
                 headers: {
                     "x-auth-token": this.state.token

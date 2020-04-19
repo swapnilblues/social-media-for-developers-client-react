@@ -1,6 +1,6 @@
 import React from "react";
 import ExperienceTableComponent from "./ExperienceTableComponent";
-import {LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 import EducationTableComponent from "./EducationTableComponent";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
@@ -30,7 +30,7 @@ class DashboardContainer extends React.Component {
     }
 
     saveImage = () => {
-        fetch(`${LOCALHOST_URL}/profile/image`, {
+        fetch(`${API_URL}/profile/image`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -52,7 +52,7 @@ class DashboardContainer extends React.Component {
             this.props.history.push('/sign-in')
         }
         fetch(
-            `${LOCALHOST_URL}/profile/me`, {
+            `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': '' + this.state.dashboardToken
                 }

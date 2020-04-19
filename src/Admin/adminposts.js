@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import NavBarAdmin from "../Component/NavBar/NavBarAdmin";
 
 class AdminPosts extends React.Component {
@@ -19,7 +19,7 @@ class AdminPosts extends React.Component {
     }
 
     addPost = () => {
-        fetch(`${LOCALHOST_URL}/posts`, {
+        fetch(`${API_URL}/posts`, {
             method: "POST",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -38,7 +38,7 @@ class AdminPosts extends React.Component {
     }
 
     updatePost = (postId) => {
-        fetch(`${LOCALHOST_URL}/posts/admin/update/${postId}`, {
+        fetch(`${API_URL}/posts/admin/update/${postId}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'
@@ -56,13 +56,13 @@ class AdminPosts extends React.Component {
             .then(() => this.getPosts())
     }
     deletePost = (postId) => {
-        fetch(`${LOCALHOST_URL}/posts/admin/delete/${postId}`, {
+        fetch(`${API_URL}/posts/admin/delete/${postId}`, {
             method: "DELETE",
         }).then(() => this.getPosts())
     }
 
     getPosts = () => {
-        fetch(`${LOCALHOST_URL}/posts`)
+        fetch(`${API_URL}/posts`)
             .then(res => res.json())
             .then(res => this.setState({
                 posts: res
@@ -76,7 +76,7 @@ class AdminPosts extends React.Component {
             this.state.dashboardToken === null &&
             this.props.history.push('/sign-in')
         }
-        fetch(`${LOCALHOST_URL}/profile/me`, {
+        fetch(`${API_URL}/profile/me`, {
             headers: {
                 'x-auth-token': this.state.dashboardToken,
                 'content-type': 'application/json'

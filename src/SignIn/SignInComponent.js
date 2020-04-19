@@ -1,7 +1,7 @@
 import React from "react";
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {Link} from "react-router-dom";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 
 class SignInComponent extends React.Component {
@@ -12,7 +12,7 @@ class SignInComponent extends React.Component {
     }
 
     login = async () => {
-        await fetch(`${LOCALHOST_URL}/users/auth`, {
+        await fetch(`${API_URL}/users/auth`, {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

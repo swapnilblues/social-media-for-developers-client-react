@@ -16,13 +16,13 @@ class AdminUsers extends React.Component {
     }
 
     deleteUserAndProfile = (userId) => {
-        fetch(`${LOCALHOST_URL}/profile/${userId}`,{
+        fetch(`${API_URL}/profile/${userId}`,{
             method: "DELETE",
         }).then(() => this.getUsers())
     }
 
     getUsers = () => {
-        fetch(`${LOCALHOST_URL}/users/all`)
+        fetch(`${API_URL}/users/all`)
             .then(res => res.json())
             .then(res => this.setState({
                 users: res

@@ -1,5 +1,5 @@
 import React from "react";
-import {LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 
 class ProfileImageComponent extends React.Component {
 
@@ -12,7 +12,7 @@ class ProfileImageComponent extends React.Component {
     }
 
     getImageById = () => {
-        fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
+        fetch(`${API_URL}/profile/user/${this.props.userId}`)
             .then(response => response.json())
             .then(res => this.setState({
                                            image: res.image

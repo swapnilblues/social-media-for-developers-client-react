@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker/es";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -30,7 +30,7 @@ class educationTableComponent extends React.Component {
     }
 
     addeducation = () => {
-        fetch(`${LOCALHOST_URL}/profile/education`, {
+        fetch(`${API_URL}/profile/education`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -54,7 +54,7 @@ class educationTableComponent extends React.Component {
     }
 
     updateeducation = (educationId) => {
-        fetch(`${LOCALHOST_URL}/profile/education/${educationId}`, {
+        fetch(`${API_URL}/profile/education/${educationId}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -79,7 +79,7 @@ class educationTableComponent extends React.Component {
     }
 
     deleteeducation = (eid) => {
-        fetch(`${LOCALHOST_URL}/profile/education/${eid}`, {
+        fetch(`${API_URL}/profile/education/${eid}`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
@@ -102,7 +102,7 @@ class educationTableComponent extends React.Component {
 
     geteducation = () => {
         fetch(
-            `${LOCALHOST_URL}/profile/me`, {
+            `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': localStorage.getItem('token')
                 }

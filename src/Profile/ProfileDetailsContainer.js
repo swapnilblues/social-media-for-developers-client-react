@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
-import {LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import NavBarInSessionComponent from "../Component/NavBar/NavBarInSessionComponent";
 
 import ProfileImageComponent from "./ProfileImageComponent";
@@ -14,7 +14,7 @@ export default class ProfileDetailsContainer extends React.Component {
     }
 
     componentDidMount = async () => {
-        await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
+        await fetch(`${API_URL}/profile/user/${this.props.userId}`)
             .then(response => response.json())
             .then(results => this.setState({
                 user: results
@@ -46,14 +46,14 @@ export default class ProfileDetailsContainer extends React.Component {
     // }
 
     handleFollow = async () =>{
-        await fetch(`${LOCALHOST_URL}/profile/follow/${this.state.user.user.email}`, {
+        await fetch(`${API_URL}/profile/follow/${this.state.user.user.email}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
             }
         })
 
-        await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
+        await fetch(`${API_URL}/profile/user/${this.props.userId}`)
                 .then(response => response.json())
                 .then(results =>
                     this.setState({
@@ -64,14 +64,14 @@ export default class ProfileDetailsContainer extends React.Component {
     }
 
     handleUnFollow = async () =>{
-        await fetch(`${LOCALHOST_URL}/profile/unfollow/${this.state.user.user.email}`, {
+        await fetch(`${API_URL}/profile/unfollow/${this.state.user.user.email}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
             }
         })
 
-        await fetch(`${LOCALHOST_URL}/profile/user/${this.props.userId}`)
+        await fetch(`${API_URL}/profile/user/${this.props.userId}`)
             .then(response => response.json())
             .then(results =>
                 this.setState({

@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker/es";
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -17,7 +17,7 @@ class gitHubDashboard extends React.Component {
         // console.log("Trying to add githubusername")
         // console.log(localStorage.getItem('token'))
         // console.log(this.state.githubUsername)
-        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
+        fetch(`${API_URL}/profile/githubusername`, {
             method: "POST",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -32,7 +32,7 @@ class gitHubDashboard extends React.Component {
     }
 
     updateGithubUsername = (educationId) => {
-        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
+        fetch(`${API_URL}/profile/githubusername`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -57,7 +57,7 @@ class gitHubDashboard extends React.Component {
     }
 
     deleteGithubUsername = (eid) => {
-        fetch(`${LOCALHOST_URL}/profile/githubusername`, {
+        fetch(`${API_URL}/profile/githubusername`, {
             method: "DELETE",
             headers: {
                 'x-auth-token': this.state.dashboardToken,
@@ -80,7 +80,7 @@ class gitHubDashboard extends React.Component {
 
     getGithubUsername = () => {
         fetch(
-            `${LOCALHOST_URL}/profile/me`, {
+            `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': this.state.dashboardToken
                 }

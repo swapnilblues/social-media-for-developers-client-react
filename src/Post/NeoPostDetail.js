@@ -3,6 +3,7 @@ import axios from "axios";
 import {Link} from 'react-router-dom';
 import NeoPostItem from "./NeoPostItem";
 import CommentItem from "./CommentItem";
+import {API_URL} from "../common/constants";
 class NeoPostDetail extends Component {
 
     state = {
@@ -21,7 +22,7 @@ class NeoPostDetail extends Component {
 
      handlePostComponent= async(comment)=>{
 
-        await fetch(`http://localhost:3002/codebook/posts/comment/${this.state.post._id}`, {
+        await fetch(`${API_URL}/posts/comment/${this.state.post._id}`, {
             method: "POST",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),
@@ -30,7 +31,7 @@ class NeoPostDetail extends Component {
             body: JSON.stringify({text:comment})
         });
 
-         let postData = await axios.get('http://localhost:3002/codebook/posts/'+this.state.post._id,{
+         let postData = await axios.get(`${API_URL}/posts/'${this.state.post._id}`,{
              headers:{
                  "x-auth-token": localStorage.getItem('token')
              }
@@ -50,7 +51,7 @@ class NeoPostDetail extends Component {
 
     componentDidMount = async () => {
 
-        let postData = await axios.get('http://localhost:3002/codebook/posts/'+this.state.id,{
+        let postData = await axios.get(`${API_URL}/posts/${this.state.id}`,{
             headers:{
                 "x-auth-token": localStorage.getItem('token')
             }

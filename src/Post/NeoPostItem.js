@@ -4,7 +4,7 @@ import img1 from '../img/showcase.jpg';
 import Moment from 'react-moment';
 import axios from "axios";
 import './main.css';
-import {API_URL, LOCALHOST_URL} from "../common/constants";
+import {API_URL} from "../common/constants";
 
 class NeoPostItem extends Component {
 
@@ -34,7 +34,7 @@ class NeoPostItem extends Component {
         })
 
         fetch(
-            `${LOCALHOST_URL}/profile/me`, {
+            `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': localStorage.getItem('token')
                 }
@@ -61,7 +61,7 @@ class NeoPostItem extends Component {
     }
 
     setImageUrl = () => {
-        fetch(`${LOCALHOST_URL}/profile/user/${this.state.userId}`)
+        fetch(`${API_URL}/profile/user/${this.state.userId}`)
             .then(response => response.json())
             .then(res => this.setState({
                 image: res.image
@@ -69,7 +69,7 @@ class NeoPostItem extends Component {
     }
 
     handleLike = () => {
-        fetch(`${LOCALHOST_URL}/posts/like/${this.props._id}`, {
+        fetch(`${API_URL}/posts/like/${this.props._id}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
@@ -95,7 +95,7 @@ class NeoPostItem extends Component {
     }
 
     handleUnlike = () => {
-        fetch(`${LOCALHOST_URL}/posts/unlike/${this.props._id}`, {
+        fetch(`${API_URL}/posts/unlike/${this.props._id}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')

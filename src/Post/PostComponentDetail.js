@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Card} from "react-bootstrap";
 import axios from 'axios';
 import CommentComponent from "./CommentComponent";
+import {API_URL} from "../common/constants";
 
 class PostComponentDetail extends Component {
 
@@ -23,7 +24,7 @@ class PostComponentDetail extends Component {
     };
 
     handleLike = () =>{
-        axios.put('http://localhost:3002/codebook/posts/like/'+this.state.id).then((res)=>{
+        axios.put(`${API_URL}/codebook/posts/like/${this.state.id}`).then((res)=>{
             if(res)
                 this.setState({
                                   likeNumber:this.state.likeNumber+1
@@ -32,7 +33,7 @@ class PostComponentDetail extends Component {
     }
 
     handleUnlike = () =>{
-        axios.put('http://localhost:3002/codebook/posts/unlike/'+this.state.id).then((res)=>{
+        axios.put(`${API_URL}/posts/unlike/${this.state.id}`).then((res)=>{
             if(res)
                 this.setState({
                                   likeNumber:this.state.likeNumber-1
@@ -41,7 +42,7 @@ class PostComponentDetail extends Component {
     }
 
     handlePostComponent=()=>{
-        axios.post('http://localhost:3002/codebook/posts/comment/'+this.state.id,{text: this.state.inputComment}).then((res)=>{
+        axios.post(`${API_URL}/posts/comment/${this.state.id}`,{text: this.state.inputComment}).then((res)=>{
             if(res){
                 this.setState({
                     commentNumber: this.state.commentNumber+1,
@@ -65,7 +66,7 @@ class PostComponentDetail extends Component {
     }
 
     componentDidMount = async () => {
-        axios.get('http://localhost:3002/codebook/posts/'+this.state.id,{
+        axios.get(`${API_URL}/posts/${this.state.id}`,{
             headers:{
                 "x-auth-token":'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU5NGM1ZGE3NTJiNjMwMDA0NGUxYTk0In0sImlhdCI6MTU4NjgwODI4MiwiZXhwIjoxNTg3MTY4MjgyfQ.c5VZhqxOpUogyqrPNL9rM-yDIP5GhXT6upMmDTvOqHI'
             }
