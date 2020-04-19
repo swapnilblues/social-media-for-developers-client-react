@@ -8,6 +8,7 @@ class AdminPosts extends React.Component {
 
     state = {
         dashboardToken: '',
+        text: '',
         user: {
             id: '',
             name: ''
@@ -15,8 +16,27 @@ class AdminPosts extends React.Component {
         posts: []
     }
 
+    addPost = () => {
+        fetch(`${LOCALHOST_URL}/posts`, {
+            method: "POST",
+            headers: {
+                'x-auth-token': localStorage.getItem('token'),
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    text: this.state.text
+                }
+            )
+        }).then(() => this.setState({
+            text: ''
+        }))
+            .then(() => this.getPosts())
+
+    }
+
     deletePost = (postId) => {
-        fetch(`${LOCALHOST_URL}/posts/admin/post/${postId}`,{
+        fetch(`${LOCALHOST_URL}/posts/admin/post/${postId}`, {
             method: "DELETE",
         }).then(() => this.getPosts())
     }
@@ -58,7 +78,6 @@ class AdminPosts extends React.Component {
         this.getPosts()
 
 
-
     }
 
     render() {
@@ -68,6 +87,30 @@ class AdminPosts extends React.Component {
                 <br/>
                 <div className="container">
                     <div className="row">
+                        <div className="col-lg-12">
+                            <input
+                                type="text"
+                                placeholder="Enter Post Content"
+                                onChange={async (e) => {
+                                    const n = e.target.value;
+                                    await this.setState({
+                                        text: n
+                                    })
+                                }
+                                }
+
+                                id="vehicle1" name="vehicle1"
+                                value={this.state.text}/>
+                        </div>
+
+                        <div className="col-lg-12">
+                            <br/>
+                            <span
+                                onClick={() => this.addPost()}
+                                className="btn btn-danger">Add Post</span>
+                            <br/>
+                            <br/>
+                        </div>
                         <div className="col-lg-12">
                             <div className="main-box no-header clearfix bg-color-alice-blue">
                                 <div className="main-box-body clearfix">
