@@ -101,9 +101,9 @@ class NeoPosts extends Component {
             text: '',
             postStatus:true
         })
-        setTimeout(function(){
-            this.setState({postStatus:false});
-        }.bind(this),3000);
+        // setTimeout(function(){
+        //     this.setState({postStatus:false});
+        // }.bind(this),3000);
     }
 
     handleChange = e => {

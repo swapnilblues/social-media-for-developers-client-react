@@ -1,8 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
-import img1 from '../img/showcase.jpg';
 import Moment from 'react-moment';
-import axios from "axios";
 import './main.css';
 import {API_URL, LOCALHOST_URL} from "../common/constants";
 
@@ -20,9 +18,7 @@ class NeoPostItem extends Component {
     }
 
     componentDidMount() {
-
-        this.getImageById(this.state.userId)
-
+        this.getImageById()
         {
             localStorage.getItem('token') === null &&
             this.props.history.push('/sign-in')
@@ -37,7 +33,6 @@ class NeoPostItem extends Component {
 
         await this.setUserId();
         await this.setImageUrl();
-        // console.log("props: ", this.props.user._id)
     }
 
     setUserId = () => {
@@ -47,7 +42,7 @@ class NeoPostItem extends Component {
     }
 
     setImageUrl = () => {
-        fetch(`${LOCALHOST_URL}/profile/user/${this.state.userId}`)
+        fetch(`${LOCALHOST_URL}/profile/user/${this.props.user._id}`)
             .then(response => response.json())
             .then(res => this.setState({
                                            image: res.image
