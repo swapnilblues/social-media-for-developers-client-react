@@ -15,12 +15,21 @@ class SignUpComponent extends React.Component {
         email: '',
         name: '',
         cpassword: '',
-        token: ''
+        token: '',
+        alert: false,
+        alert_msg: []
     }
 
     register = async () => {
         if (this.state.password !== this.state.cpassword) {
-            alert("Passwords do not match")
+            this.setState({
+                alert: true,
+                alert_msg: [{'msg':'Passwords do not match'}]
+            })
+            setTimeout(function () {
+                this.setState({alert: false, alert_msg: []});
+            }.bind(this), 3000);
+
         } else {
             // alert("Awesome")
             await fetch(`${API_URL}/users`, {
@@ -40,9 +49,15 @@ class SignUpComponent extends React.Component {
             ).then(
                 r => {
                     if (r.errors !== undefined) {
-                        r.errors.map(error =>
-                            console.log("ERROR", error.msg)
-                        )
+
+                            this.setState({
+                                alert: true,
+                                alert_msg: r.errors
+                            })
+                        setTimeout(function () {
+                            this.setState({alert: false, alert_msg: []});
+                        }.bind(this), 3000);
+
                     } else {
                         console.log("SUCCESS", r)
                         this.setState(
@@ -77,6 +92,12 @@ class SignUpComponent extends React.Component {
             <div>
                 <NavBarComponent/>
                 <div className="container login-main-div-1">
+                    {this.state.alert && this.state.alert_msg.length>0 && this.state.alert_msg.map(err =>(
+                        <div className="alert alert-danger" role="alert">
+                        {err.msg}
+                        </div>
+                    )
+                    )}
 
 
                     <p className="lead"><i className="fas fa-user-plus"/> SIGN UP</p>

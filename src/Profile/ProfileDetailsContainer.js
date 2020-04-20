@@ -9,6 +9,9 @@ import ProfileImageComponent from "./ProfileImageComponent";
 export default class ProfileDetailsContainer extends React.Component {
 
     state = {
+        alert: false,
+        alert_msg: '',
+        currentUser: '',
         user: {user: {}, social: {}, experience: [], education: [], followers:[], following:[] },
         repos: []
     }
@@ -18,7 +21,19 @@ export default class ProfileDetailsContainer extends React.Component {
             .then(response => response.json())
             .then(results => this.setState({
                 user: results
-            }))
+            })).then(() => {
+                fetch(`${API_URL}/profile/me`, {
+                    headers: {
+                        'x-auth-token': localStorage.getItem('token'),
+                        'content-type': 'application/json'
+                    }
+                }).then(response => response.json())
+                    .then(res => {
+                        this.setState({
+                            currentUser: res.user
+                        })
+                    })
+            })
 
         await this.getRepos(this.state.user.githubusername)
         await console.log("Name", this.state.repos)
@@ -45,38 +60,60 @@ export default class ProfileDetailsContainer extends React.Component {
     //         }))
     // }
 
-    handleFollow = async () =>{
+    handleFollow = async () => {
         await fetch(`${API_URL}/profile/follow/${this.state.user.user.email}`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token')
             }
-        })
-
-        await fetch(`${API_URL}/profile/user/${this.props.userId}`)
-                .then(response => response.json())
-                .then(results =>
-                    this.setState({
-                                      user: results
-                                  })
-                )
-
-    }
-
-    handleUnFollow = async () =>{
-        await fetch(`${API_URL}/profile/unfollow/${this.state.user.user.email}`, {
-            method: "PUT",
-            headers: {
-                'x-auth-token': localStorage.getItem('token')
+        }).then(() => {
+            if (localStorage.getItem('token') === null) {
+                this.setState({
+                    alert: true,
+                    alert_msg: 'Login to follow users'
+                })
+                setTimeout(function () {
+                    this.setState({alert: false, alert_msg: ''});
+                }.bind(this), 3000);
             }
+
         })
 
         await fetch(`${API_URL}/profile/user/${this.props.userId}`)
             .then(response => response.json())
             .then(results =>
                 this.setState({
-                                  user: results
-                              })
+                    user: results
+                })
+            )
+
+    }
+
+    handleUnFollow = async () => {
+        await fetch(`${API_URL}/profile/unfollow/${this.state.user.user.email}`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        }).then(() => {
+            if (localStorage.getItem('token') === null) {
+                this.setState({
+                    alert: true,
+                    alert_msg: 'Login to unfollow users'
+                })
+                setTimeout(function () {
+                    this.setState({alert: false, alert_msg: ''});
+                }.bind(this), 3000);
+            }
+
+        })
+
+        await fetch(`${API_URL}/profile/user/${this.props.userId}`)
+            .then(response => response.json())
+            .then(results =>
+                this.setState({
+                    user: results
+                })
             )
     }
 
@@ -93,7 +130,14 @@ export default class ProfileDetailsContainer extends React.Component {
                     <NavBarInSessionComponent/>
                 }
                 <div className="container">
-                    <div className="profile-grid my-1" style={{backgroundColor:"rgb(23,162,184)"}}>
+
+                    {this.state.alert &&
+                    <div className="alert alert-danger" role="alert">
+                        {this.state.alert_msg}
+                    </div>
+                    }
+
+                    <div className="profile-grid my-1" style={{backgroundColor: "rgb(23,162,184)"}}>
                         <div className="col-sm-4">
                             <ProfileImageComponent userId={this.props.userId}/>
                         </div>
@@ -106,27 +150,32 @@ export default class ProfileDetailsContainer extends React.Component {
                                     {this.state.user.bio}
                                 </b></p>
                             </div>
-
-                            {/*<div className="row">*/}
-                            {/*    /!*<h4><b>Skills</b></h4>*!/*/}
-                            {/*</div>*/}
-                            {/*<div className="row">*/}
-                            {/*    <ul className="skills">*/}
-                            {/*        {this.state.user.skills.map(skill =>*/}
-                            {/*            <li><i*/}
-                            {/*                className="fas fa-terminal"/> {skill}*/}
-                            {/*            </li>*/}
-                            {/*        )}*/}
-                            {/*    </ul>*/}
-                            {/*</div>*/}
+                            <div className="row">
+                                <h4><i>{this.state.user.user.email}</i></h4>
+                            </div>
+                            <div className="row">
+                                <ul className="skills">
+                                    {this.state.user.skills.map(skill =>
+                                        <li><i
+                                            className="fas fa-terminal"/> {skill}
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row">
 
                         <div className="col-sm-1"></div>
+
+                        {this.state.currentUser._id !== this.props.userId &&
                         <div className="col-sm-2 btn btn-success" onClick={this.handleFollow}>Follow</div>
+                        }
+
+                        {this.state.currentUser._id !== this.props.userId &&
                         <div className="col-sm-2 btn btn-danger" onClick={this.handleUnFollow}>UnFollow</div>
+                        }
                         <div className="col-sm-2">
                             Followers: {this.state.user.followers.length}
                         </div>
@@ -180,7 +229,7 @@ export default class ProfileDetailsContainer extends React.Component {
                         }
                         {
                             this.state.user.education.length === 0 &&
-                                <h5>No Education Record Found</h5>
+                            <h5>No Education Record Found</h5>
                         }
                     </div>
 
@@ -192,35 +241,34 @@ export default class ProfileDetailsContainer extends React.Component {
 
                         {
                             this.state.repos.map(repo =>
-                                    <div>
-                                        {   repo.name !== 'undefined.github.io' &&
+                                <div>
+                                    {repo.name !== 'undefined.github.io' &&
 
-                                            <Link
-                                                to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
-                                                <div
-                                                    className="p-1 border border-secondary github-repo">
-                                                    <div>
-                                                        <h4><a href="#"
-                                                               className="text-dark">{repo.name}</a>
-                                                        </h4>
-                                                        <p className="paragraph-justify">
-                                                            {repo.description}
-                                                        </p>
-                                                        <i className="fas fa-star"/> {repo.stargazers_count}
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        }
+                                    <Link
+                                        to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
+                                        <div
+                                            className="p-1 border border-secondary github-repo">
+                                            <div>
+                                                <h4><a href="#"
+                                                       className="text-dark">{repo.name}</a>
+                                                </h4>
+                                                <p className="paragraph-justify">
+                                                    {repo.description}
+                                                </p>
+                                                <i className="fas fa-star"/> {repo.stargazers_count}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    }
 
-                                            <br/>
+                                    <br/>
 
-                                    </div>
-
+                                </div>
                             )
                         }
                         {
                             this.state.repos.length === 1 &&
-                                this.state.repos[0].name === 'undefined.github.io' &&
+                            this.state.repos[0].name === 'undefined.github.io' &&
                             <div>
                                 <h5>GitHub account not found</h5>
                             </div>
