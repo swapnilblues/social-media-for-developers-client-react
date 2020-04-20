@@ -8,6 +8,11 @@ import {API_URL} from "../common/constants";
 
 class NeoPostItem extends Component {
 
+    constructor(props) {
+        console.log(props)
+        super(props);
+    }
+
     state = {
         likeNumber: this.props.likes.length,
         commentsNumber: this.props.comments.length,
@@ -15,15 +20,20 @@ class NeoPostItem extends Component {
         showDelete: this.props.showDelete,
         token: '',
         likeStatus: false,
-        userId: '',
+        userId: this.props.id,
         image: '',
-        currentUser: ''
+        currentUser: '',
+        name: this.props.name
     }
 
-    componentDidMount() {
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if(prevProps.name!==this.props.name){
+    //         console.log(this.props.name)
+    //     }
+    //     console.log("hello")
+    // }
 
-        this.getImageById(this.state.userId)
-
+    async componentDidMount() {
         {
             localStorage.getItem('token') === null &&
             this.props.history.push('/sign-in')
@@ -33,7 +43,7 @@ class NeoPostItem extends Component {
                           token: localStorage.getItem('token')
                       })
 
-        fetch(
+       await fetch(
             `${API_URL}/profile/me`, {
                 headers: {
                     'x-auth-token': localStorage.getItem('token')
@@ -45,28 +55,30 @@ class NeoPostItem extends Component {
                                                currentUser: results.user,
                                            }))
 
+        // await fetch(`${API_URL}/profile/user/${this.props.id}`)
+        //     .then(response => response.json())
+        //     .then(res =>{
+        //         console.log("Image "+res.user.name)
+        //
+        //         this.setState({
+        //                           image: res.image
+        //                           // name: res.user.name
+        //                       })})
     }
 
-    getImageById = async () => {
-
-        await this.setUserId();
-        await this.setImageUrl();
-        // console.log("props: ", this.props.user._id)
-    }
-
-    setUserId = () => {
-        this.setState({
-                          userId: this.props.user._id
-                      })
-    }
-
-    setImageUrl = () => {
-        fetch(`${API_URL}/profile/user/${this.state.userId}`)
-            .then(response => response.json())
-            .then(res => this.setState({
-                                           image: res.image
-                                       }))
-    }
+    // getImageById = async () => {
+    //     await this.setImageUrl();
+    // }
+    //
+    // // setUserId = () => {
+    // //     this.setState({
+    // //                       userId: this.props.user._id
+    // //                   })
+    // // }
+    //
+    // setImageUrl = () => {
+    //
+    // }
 
     handleLike = () => {
         fetch(`${API_URL}/posts/like/${this.props._id}`, {
@@ -122,9 +134,10 @@ class NeoPostItem extends Component {
                     <div>
                         <Link>
                             <img style={{height: 130, width: 100}}
-                                 src={this.state.image}
+                                 src={this.props.image}
                                  alt=''/>
-                            <h4>{this.props.user.name}</h4>
+                            <h4>{this.props.name}</h4>
+                            {/*<h3>{this.state.image}</h3>*/}
                         </Link>
                     </div>
                     <div>

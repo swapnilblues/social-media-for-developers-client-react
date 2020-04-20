@@ -30,7 +30,7 @@ class DashboardContainer extends React.Component {
     }
 
     saveImage = () => {
-        fetch(`${API_URL}/profile/image`, {
+        fetch(`http://localhost:3002/codebook/profile/image`, {
             method: "PUT",
             headers: {
                 'x-auth-token': localStorage.getItem('token'),

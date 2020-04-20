@@ -11,7 +11,7 @@ class NeoPosts extends Component {
         inputPost: '',
         text: '',
         token: '',
-        postStatus:false
+        postStatus:false,
     }
 
     deletePost = async (id) => {
@@ -78,7 +78,7 @@ class NeoPosts extends Component {
     // }
 
     submitPost = async () => {
-        console.log("NEO token", this.state.token)
+        // console.log("NEO token", this.state.token)
         await fetch(`${API_URL}/posts`, {
             method: "POST",
             headers: {
@@ -97,7 +97,7 @@ class NeoPosts extends Component {
                 }
             });
         console.log(postsData);
-        this.setState({
+        await this.setState({
             posts: postsData.data,
             text: '',
             postStatus:true
@@ -148,11 +148,11 @@ class NeoPosts extends Component {
                     </div>
 
                     {/*{this.state.posts && this.state.posts.map(post => (*/}
-                    {/*    <li>{post.text}</li>*/}
+                    {/*    <li>{post.user.image}</li>*/}
                     {/*))}*/}
-
+                    {console.log("posts", this.state.posts)}
                     {this.state.posts && this.state.posts.map(post => (
-                        <NeoPostItem currentPost = {post} showDelete={true} delete={this.deletePost} {...post} />
+                        <NeoPostItem currentPost = {post} image={post.user.image} name={post.user.name} id={post.user._id} showDelete={true} delete={this.deletePost} {...post} />
                     ))}
                 </div>
             </div>
