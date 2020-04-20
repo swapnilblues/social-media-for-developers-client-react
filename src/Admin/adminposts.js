@@ -205,7 +205,7 @@ class AdminPosts extends React.Component {
                                                         }
 
                                                         <td>
-                                                            <img src="https://bootdey.com/img/Content/user_1.jpg"
+                                                            <img src={post.user.image}
                                                                  alt=""/>
                                                             <span className="user-link">{post.user.name}</span>
                                                             <span className="user-subhead">{post.user.email}</span>

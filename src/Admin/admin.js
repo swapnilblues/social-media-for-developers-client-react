@@ -10,7 +10,8 @@ class AdminUsers extends React.Component {
         dashboardToken: '',
         user: {
             id: '',
-            name: ''
+            name: '',
+            image: ''
         },
         users: []
     }
@@ -87,7 +88,7 @@ class AdminUsers extends React.Component {
                                                 this.state.users.map(user =>
                                                     <tr>
                                                         <td>
-                                                            <img src="https://bootdey.com/img/Content/user_1.jpg"
+                                                            <img src={user.image}
                                                                  alt=""/>
                                                             <span className="user-link">{user.name}</span>
                                                             {user.name !== 'Alice' &&

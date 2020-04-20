@@ -9,11 +9,11 @@ import ProfileImageComponent from "./ProfileImageComponent";
 export default class ProfileDetailsContainer extends React.Component {
 
     state = {
-        user: {user: {}, social: {}, experience: [], education: [], skills: [], followers: [], following: []},
-        repos: [],
         alert: false,
         alert_msg: '',
-        currentUser: ''
+        currentUser: '',
+        user: {user: {}, social: {}, experience: [], education: [], followers:[], following:[] },
+        repos: []
     }
 
     componentDidMount = async () => {
@@ -150,7 +150,6 @@ export default class ProfileDetailsContainer extends React.Component {
                                     {this.state.user.bio}
                                 </b></p>
                             </div>
-
                             <div className="row">
                                 <h4><i>{this.state.user.user.email}</i></h4>
                             </div>
