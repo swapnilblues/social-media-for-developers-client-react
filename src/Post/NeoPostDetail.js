@@ -65,7 +65,7 @@ class NeoPostDetail extends Component {
             post:data[0],
             comments:data[0].comments
         })
-        console.log(this.state.post)
+        console.log("posts" + this.state.post.user)
         // console.log('here 3'+this.state.comments.length);
     }
 
@@ -86,6 +86,7 @@ class NeoPostDetail extends Component {
                                      comments={this.state.post.comments}
                                      text={this.state.post.text}
                                      date={this.state.post.date}
+                                     image={this.state.post.user.image}
                         /> }
 
                     <div className='post-form'>
@@ -105,11 +106,6 @@ class NeoPostDetail extends Component {
         />
                            <input type='submit' className='btn btn-dark my-1' value='Submit' onClick={()=>this.handlePostComponent(this.state.comment)} />
                         </form>
-
-
-                        {/*{this.state.comments && this.state.comments.map(comment=>(*/}
-                        {/*    <li>{comment.text}</li>*/}
-                        {/*))}*/}
 
                         {this.state.comments && this.state.comments.length>0 &&  this.state.comments.map(com=>(
                             <CommentItem postId={this.state.id} _id={com._id}  text={com.text} user={com.user} {...com} />
