@@ -42,7 +42,6 @@ export default class BarComponent extends React.Component {
                         </ul>
                     </div>
 
-
                 </nav>
             </div>
         )
