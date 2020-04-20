@@ -12,7 +12,7 @@ export default class BarComponent extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-                    <a href="#" className="navbar-brand">
+                    <a className="navbar-brand">
                         <Link to={"/"}>
                             <i className="fas fa-code-branch"/>
                             GeeksHub
@@ -31,12 +31,12 @@ export default class BarComponent extends React.Component {
                             </li>
                             <li className="nav-item">
                                 <Link to={"/sign-in"}>
-                                    <span href="#" className="nav-link wbdv-page-tab">Login</span>
+                                    <span className="nav-link wbdv-page-tab">Login</span>
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link to={"/sign-up"}>
-                                    <a href="#" className="nav-link wbdv-page-tab">Sign Up</a>
+                                    <span className="nav-link wbdv-page-tab">Sign Up</span>
                                 </Link>
                             </li>
                         </ul>
