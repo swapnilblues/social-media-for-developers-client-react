@@ -42,7 +42,7 @@ export default class ProfileDetailsContainer extends React.Component {
     getRepos = (username) => {
         fetch(`https://api.github.com/users/${username}/repos`, {
             headers: {
-                'Authorization': 'token 862dd87f07b9ebce2fc3bad7d3496d3e54a4646b'
+                'Authorization': 'token 51d3ee746bb9aef0987afcefb53ed4257cdf1286'
             }
         })
             .then(response => response.json())
@@ -153,15 +153,6 @@ export default class ProfileDetailsContainer extends React.Component {
                             <div className="row">
                                 <h4><i>{this.state.user.user.email}</i></h4>
                             </div>
-                            <div className="row">
-                                <ul className="skills">
-                                    {this.state.user.skills.map(skill =>
-                                        <li><i
-                                            className="fas fa-terminal"/> {skill}
-                                        </li>
-                                    )}
-                                </ul>
-                            </div>
                         </div>
                     </div>
 
@@ -238,9 +229,8 @@ export default class ProfileDetailsContainer extends React.Component {
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
-
                         {
-                            this.state.repos.map(repo =>
+                            this.state.repos.length>0 && this.state.repos.map(repo =>
                                 <div>
                                     {repo.name !== 'undefined.github.io' &&
 

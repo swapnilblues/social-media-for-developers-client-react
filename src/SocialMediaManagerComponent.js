@@ -109,7 +109,7 @@ class SocialMediaManagerComponent extends React.Component {
                         </Route>
 
                         <Route
-                            path="/sign-in"
+                            path="/login"
                             exact={true}
                             render={
                                 (props) =>
@@ -200,7 +200,7 @@ class SocialMediaManagerComponent extends React.Component {
                         </Route>
 
                         <Route
-                            path="/sign-up"
+                            path="/register"
                             exact={true}
                             render={
                                 (props) =>

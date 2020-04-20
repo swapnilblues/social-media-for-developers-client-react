@@ -174,7 +174,7 @@ class SignUpComponent extends React.Component {
 
                     <p className="my-1">
                         Already have an account?
-                        <Link to={"/sign-in"}> Sign In</Link>
+                        <Link to={"/login"}> Login</Link>
                     </p>
 
                 </div>

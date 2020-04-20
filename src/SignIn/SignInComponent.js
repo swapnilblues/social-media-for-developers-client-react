@@ -110,7 +110,7 @@ class SignInComponent extends React.Component {
 
                     <p className="my-1">
                         Don't have an account?
-                        <Link to={"/sign-up"}> Sign Up</Link>
+                        <Link to={"/register"}> Register</Link>
                     </p>
 
 
