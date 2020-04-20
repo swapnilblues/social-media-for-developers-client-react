@@ -16,6 +16,7 @@ class AdminPosts extends React.Component {
         posts: [],
         edit: false,
         selectedPost: '',
+        text1: '',
     }
 
     addPost = () => {
@@ -27,11 +28,11 @@ class AdminPosts extends React.Component {
             },
             body: JSON.stringify(
                 {
-                    text: this.state.text
+                    text: this.state.text1
                 }
             )
         }).then(() => this.setState({
-            text: ''
+            text1: ''
         }))
             .then(() => this.getPosts())
 
@@ -114,13 +115,13 @@ class AdminPosts extends React.Component {
                                 onChange={async (e) => {
                                     const n = e.target.value;
                                     await this.setState({
-                                        text: n
+                                        text1: n
                                     })
                                 }
                                 }
 
                                 id="vehicle1" name="vehicle1"
-                                value={this.state.text}/>
+                                value={this.state.text1}/>
                         </div>
 
                         <div className="col-lg-12">

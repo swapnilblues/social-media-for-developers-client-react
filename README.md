@@ -21,5 +21,5 @@
 - [x] Remove skill section in profile-details page and add email
 - [x] Show anonymous user "to sign-in" when clicked on Follow or UnFollow button - Sw
 - [x] Deploy to Heroku   
-- [ ] Navbar does not dropdown on mobile
+- [ ] NavBar does not dropdown on mobile
 - [ ] Images don't show up in comments for the OP 
