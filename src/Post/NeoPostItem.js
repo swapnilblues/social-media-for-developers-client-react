@@ -53,32 +53,22 @@ class NeoPostItem extends Component {
             .then(response => response.json())
             .then(results => this.setState({
                                                currentUser: results.user,
-                                           }))
+                                           }));
+            // if(this.props.image.length===0){
+            //     await fetch(`${API_URL}/profile/user/${this.props.id}`)
+            //         .then(response => response.json())
+            //         .then(res =>{
+            //             console.log("Image "+res.user.name)
+            //
+            //             this.setState({
+            //                               image: res.image
+            //                               // name: res.user.name
+            //                           })})
+            // }
 
-        // await fetch(`${API_URL}/profile/user/${this.props.id}`)
-        //     .then(response => response.json())
-        //     .then(res =>{
-        //         console.log("Image "+res.user.name)
-        //
-        //         this.setState({
-        //                           image: res.image
-        //                           // name: res.user.name
-        //                       })})
     }
 
-    // getImageById = async () => {
-    //     await this.setImageUrl();
-    // }
-    //
-    // // setUserId = () => {
-    // //     this.setState({
-    // //                       userId: this.props.user._id
-    // //                   })
-    // // }
-    //
-    // setImageUrl = () => {
-    //
-    // }
+
 
     handleLike = () => {
         fetch(`${API_URL}/posts/like/${this.props._id}`, {

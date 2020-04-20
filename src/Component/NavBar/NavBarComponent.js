@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-export default class NavBarComponent extends React.Component {
+export default class BarComponent extends React.Component {
 
 
     state = {
@@ -41,6 +41,8 @@ export default class NavBarComponent extends React.Component {
                             </li>
                         </ul>
                     </div>
+
+
                 </nav>
             </div>
         )

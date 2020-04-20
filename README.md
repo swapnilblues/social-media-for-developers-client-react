@@ -20,4 +20,6 @@
 - [x] Add pop-up for errors in sign-in and sign-up and other places - Sw
 - [x] Remove skill section in profile-details page and add email
 - [x] Show anonymous user "to sign-in" when clicked on Follow or UnFollow button - Sw
-- [ ] Deploy to Heroku   
+- [x] Deploy to Heroku   
+- [ ] Navbar does not dropdown on mobile
+- [ ] Images don't show up in comments for the OP 
