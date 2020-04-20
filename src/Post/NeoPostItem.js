@@ -19,6 +19,8 @@ class NeoPostItem extends Component {
         show: true,
         showDelete: this.props.showDelete,
         token: '',
+        likes:this.props.likes,
+        comments:this.props.comments,
         likeStatus: false,
         userId: this.props.id,
         image: '',
@@ -26,12 +28,6 @@ class NeoPostItem extends Component {
         name: this.props.name
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if(prevProps.name!==this.props.name){
-    //         console.log(this.props.name)
-    //     }
-    //     console.log("hello")
-    // }
 
     async componentDidMount() {
         {
@@ -54,64 +50,50 @@ class NeoPostItem extends Component {
             .then(results => this.setState({
                                                currentUser: results.user,
                                            }));
-            // if(this.props.image.length===0){
-            //     await fetch(`${API_URL}/profile/user/${this.props.id}`)
-            //         .then(response => response.json())
-            //         .then(res =>{
-            //             console.log("Image "+res.user.name)
-            //
-            //             this.setState({
-            //                               image: res.image
-            //                               // name: res.user.name
-            //                           })})
-            // }
-
     }
 
-
-
-    handleLike = () => {
-        fetch(`${API_URL}/posts/like/${this.props._id}`, {
-            method: "PUT",
-            headers: {
-                'x-auth-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => {
-                      if (res) {
-                          if (res.status !== 200) {
-                              this.setState({
-                                                likeStatus: true
-                                            })
-                          } else {
-                              this.setState({
-                                                likeNumber: this.state.likeNumber + 1,
-                                            })
-                          }
-                          setTimeout(function () {
-                              this.setState({likeStatus: false});
-                          }.bind(this), 3000);
-                      }
-                  }
-            )
-    }
-
-    handleUnlike = () => {
-        fetch(`${API_URL}/posts/unlike/${this.props._id}`, {
-            method: "PUT",
-            headers: {
-                'x-auth-token': localStorage.getItem('token')
-            }
-        })
-            .then(res => {
-                      if (res) {
-                          this.setState({
-                                            likeNumber: this.state.likeNumber - 1
-                                        })
-                      }
-                  }
-            )
-    }
+    // handleLike = (id) => {
+    //     fetch(`${API_URL}/posts/like/${id}`, {
+    //         method: "PUT",
+    //         headers: {
+    //             'x-auth-token': localStorage.getItem('token')
+    //         }
+    //     })
+    //         .then(res => {
+    //                   if (res) {
+    //                       if (res.status !== 200) {
+    //                           this.setState({
+    //                                             likeStatus: true
+    //                                         })
+    //                       } else {
+    //                           this.setState({
+    //                                             likeNumber: this.state.likeNumber + 1,
+    //                                         })
+    //                       }
+    //                       setTimeout(function () {
+    //                           this.setState({likeStatus: false});
+    //                       }.bind(this), 3000);
+    //                   }
+    //               }
+    //         )
+    // }
+    //
+    // handleUnlike = (id) => {
+    //     fetch(`${API_URL}/posts/unlike/${id}`, {
+    //         method: "PUT",
+    //         headers: {
+    //             'x-auth-token': localStorage.getItem('token')
+    //         }
+    //     })
+    //         .then(res => {
+    //                   if (res) {
+    //                       this.setState({
+    //                                         likeNumber: this.state.likeNumber - 1
+    //                                     })
+    //                   }
+    //               }
+    //         )
+    // }
 
     render() {
         return (
@@ -137,28 +119,27 @@ class NeoPostItem extends Component {
                         </p>
                         <Fragment>
                             <button
-                                onClick={this.handleLike}
+                                onClick={()=>this.props.like(this.props._id)}
                                 type='button'
                                 className='btn btn-light'
                             >
                                 <i className='fa fa-thumbs-up'/>
-                                <span>{this.state.likeNumber > 0 &&
-                                       <span>{this.state.likeNumber}</span>}</span>
+                                <span>{this.props.likes.length > 0 &&
+                                       <span>{this.props.likes.length}</span>}</span>
                             </button>
                             <button
-                                onClick={this.handleUnlike}
+                                onClick={()=>this.props.unlike(this.props._id)}
                                 type='button'
                                 className='btn btn-light'
                             >
                                 <i className='fa fa-thumbs-down'/>
                             </button>
                             <Link to={'/posts/' + this.props._id} className='btn btn-primary'>
-                                Comment {this.state.showDelete ? <span>{this.state.commentsNumber
+                                Comment {this.state.showDelete ? <span>{this.props.comments.length
                                                                         > 0 &&
-                                                                        <span>{this.state.commentsNumber}</span>}</span>
+                                                                        <span>{this.props.comments.length}</span>}</span>
                                                                : null}
                             </Link>
-                            {/*{!auth.loading && user === auth.user._id && (*/}
                             {this.props.user._id === this.state.currentUser._id &&
                              <button
                                  onClick={() => this.props.delete(this.props._id)}

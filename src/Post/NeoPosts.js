@@ -62,6 +62,46 @@ class NeoPosts extends Component {
         })
     }
 
+
+
+    handleLike = async (id) => {
+        await fetch(`${API_URL}/posts/like/${id}`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        });
+        let postsData = await axios.get(`${API_URL}/posts`,
+            {
+                headers: {
+                    "x-auth-token": localStorage.getItem('token'),
+                }
+            })
+        console.log("After liking "+postsData.data);
+        this.setState({
+            posts: postsData.data
+        })
+    }
+
+    handleUnlike = async (id) => {
+        await fetch(`${API_URL}/posts/unlike/${id}`, {
+            method: "PUT",
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        })
+        let postsData = await axios.get(`${API_URL}/posts`,
+            {
+                headers: {
+                    "x-auth-token": localStorage.getItem('token'),
+                }
+            })
+        console.log(postsData)
+        this.setState({
+            posts: postsData.data
+        })
+    }
+
     // async componentDidUpdate  (prevProps, prevState, snapshot) {
     //     if(prevState.posts!==this.state.posts) {
     //         let postsData = await axios.get('http://localhost:3002/codebook/posts',
@@ -96,15 +136,15 @@ class NeoPosts extends Component {
                     "x-auth-token": this.state.token
                 }
             });
-        console.log(postsData);
+        console.log('Submit is clicked'+postsData);
         await this.setState({
             posts: postsData.data,
             text: '',
             postStatus:true
         })
-        // setTimeout(function(){
-        //     this.setState({postStatus:false});
-        // }.bind(this),3000);
+        setTimeout(function(){
+            this.setState({postStatus:false});
+        }.bind(this),3000);
     }
 
     handleChange = e => {
@@ -146,13 +186,8 @@ class NeoPosts extends Component {
                             </button>
                         </form>
                     </div>
-
-                    {/*{this.state.posts && this.state.posts.map(post => (*/}
-                    {/*    <li>{post.user.image}</li>*/}
-                    {/*))}*/}
-                    {console.log("posts", this.state.posts)}
                     {this.state.posts && this.state.posts.map(post => (
-                        <NeoPostItem currentPost = {post} image={post.user.image} name={post.user.name} id={post.user._id} showDelete={true} delete={this.deletePost} {...post} />
+                        <NeoPostItem like={this.handleLike} unlike={this.handleUnlike} currentPost = {post} comments={post.comments} likes={post.likes} image={post.user.image} name={post.user.name} id={post.user._id} showDelete={true} delete={this.deletePost} {...post} />
                     ))}
                 </div>
             </div>

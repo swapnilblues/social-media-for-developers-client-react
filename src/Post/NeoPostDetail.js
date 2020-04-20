@@ -36,9 +36,13 @@ class NeoPostDetail extends Component {
                  "x-auth-token": localStorage.getItem('token')
              }
          });
-         console.log(postData)
+         let data = [];
+
+         data.push(postData.data);
+
          this.setState({
-             comments:postData,
+             post:data[0],
+             comments:data[0].comments,
              comment:''
          })
     }
