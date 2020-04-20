@@ -1,4 +1,5 @@
 {
+  "homepage": "http://Anurag26.github.io/codebook-client",
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
@@ -20,11 +21,13 @@
     "react-moment": "^0.9.7",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.0",
     "react-text-mask": "^5.4.3",
     "redux": "^4.0.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "gh-pages": "^2.2.0"
   }
 }
