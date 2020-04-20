@@ -8,7 +8,9 @@ class SignInComponent extends React.Component {
 
     state = {
         email: '',
-        password: ''
+        password: '',
+        alert: false,
+        alert_msg: ''
     }
 
     login = async () => {
@@ -28,8 +30,15 @@ class SignInComponent extends React.Component {
         ).then(
             r => {
                 if (r.errors !== undefined) {
-                    r.errors.map(error =>
-                        console.log("ERROR", error.msg)
+                    r.errors.map(error => {
+                            this.setState({
+                                alert: true,
+                                alert_msg: error.msg
+                            })
+                            setTimeout(function () {
+                                this.setState({alert: false, alert_msg: ''});
+                            }.bind(this), 3000);
+                        }
                     )
                 } else {
                     console.log("SUCCESS", r.user.role)
@@ -57,8 +66,13 @@ class SignInComponent extends React.Component {
         return (
             <div>
                 <NavBarComponent/>
-                <div className="container login-main-div">
 
+                <div className="container login-main-div">
+                    {this.state.alert &&
+                    <div className="alert alert-danger" role="alert">
+                        {this.state.alert_msg}
+                    </div>
+                    }
 
                     <p className="lead"><i className="fas fa-sign-in-alt"/> SIGN IN</p>
                     <form className="form">
