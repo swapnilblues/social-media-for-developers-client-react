@@ -27,7 +27,7 @@ class SocialMediaManagerComponent extends React.Component {
     render() {
         return (
             <div>
-                <Router>
+                <Router basename="/codebook-client/">
                     <Route
                         path="/"
                         exact={true}
