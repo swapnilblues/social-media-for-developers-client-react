@@ -1,5 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 
 export default class BarComponent extends React.Component {
 
@@ -10,15 +12,20 @@ export default class BarComponent extends React.Component {
 
     render() {
         return (
-            <div>
-                <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-                    <a href="#" className="navbar-brand">
-                        <Link to={"/"}>
-                            <i className="fas fa-code-branch"/>
-                            GeeksHub
-                        </Link>
-                    </a>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar.Brand href="/">
+                    <i className="fas fa-code-branch"/>
+                    GeeksHub
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="ml-auto">
+                        <Nav.Link href="/codebook-client/profiles">Geeks</Nav.Link>
+                        <Nav.Link href="/codebook-client/login">Login</Nav.Link>
+                        <Nav.Link href="/codebook-client/register">Register</Nav.Link>
+                    </Nav>
 
+<<<<<<< HEAD
                     <button className="navbar-toggler" data-toggle="collapse" data-target="#navbar-menu">
                         <span className="navbar-toggler-icon"/>
                     </button>
@@ -44,6 +51,10 @@ export default class BarComponent extends React.Component {
 
                 </nav>
             </div>
+=======
+                </Navbar.Collapse>
+            </Navbar>
+>>>>>>> fda3d924e20acc1f081d2d59f3c49cbf3bdf114e
         )
     }
 }
