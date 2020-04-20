@@ -13,11 +13,11 @@
 
 ## New TODO
 
-- [ ] Remove ability to follow/ unfollow oneself - Sw
-- [ ] Show image for users in admin-users and  admin-posts - Su + An
+- [x] Remove ability to follow/ unfollow oneself - Sw
+- [x] Show image for users in admin-users and  admin-posts - Su + An
 - [x] Image render properly in Posts
 - [ ] Improving styling of Dashboard + add pop up when image is saved - All
-- [ ] Add pop-up for errors in sign-in and sign-up and other places - Sw
-- [ ] Remove skill section in profile-details page and add email
-- [ ] Show anonymous user "to sign-in" when clicked on Follow or UnFollow button - Sw
+- [x] Add pop-up for errors in sign-in and sign-up and other places - Sw
+- [x] Remove skill section in profile-details page and add email
+- [x] Show anonymous user "to sign-in" when clicked on Follow or UnFollow button - Sw
 - [ ] Deploy to Heroku   
