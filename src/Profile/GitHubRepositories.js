@@ -19,7 +19,7 @@ export default class ProfileComponent extends React.Component {
             }))
         await fetch(`https://api.github.com/repos/${this.state.user.githubusername}/${this.props.repoName}`, {
             headers: {
-                'Authorization': 'token 862dd87f07b9ebce2fc3bad7d3496d3e54a4646b'
+                'Authorization': 'token 51d3ee746bb9aef0987afcefb53ed4257cdf1286'
             }
         })
             .then(response => response.json())

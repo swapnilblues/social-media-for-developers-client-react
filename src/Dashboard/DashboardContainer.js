@@ -49,7 +49,7 @@ class DashboardContainer extends React.Component {
         console.log("Dashboard token: ", this.state.dashboardToken)
         {
             this.state.dashboardToken === null &&
-            this.props.history.push('/sign-in')
+            this.props.history.push('/login')
         }
         fetch(
             `${API_URL}/profile/me`, {
