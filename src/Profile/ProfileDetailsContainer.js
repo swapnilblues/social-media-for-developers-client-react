@@ -9,7 +9,7 @@ import ProfileImageComponent from "./ProfileImageComponent";
 export default class ProfileDetailsContainer extends React.Component {
 
     state = {
-        user: {user: {}, social: {}, experience: [], education: [], skills: [], followers:[], following:[] },
+        user: {user: {}, social: {}, experience: [], education: [], followers:[], following:[] },
         repos: []
     }
 
@@ -107,18 +107,18 @@ export default class ProfileDetailsContainer extends React.Component {
                                 </b></p>
                             </div>
 
-                            <div className="row">
-                                <h4><b>Skills</b></h4>
-                            </div>
-                            <div className="row">
-                                <ul className="skills">
-                                    {this.state.user.skills.map(skill =>
-                                        <li><i
-                                            className="fas fa-terminal"/> {skill}
-                                        </li>
-                                    )}
-                                </ul>
-                            </div>
+                            {/*<div className="row">*/}
+                            {/*    /!*<h4><b>Skills</b></h4>*!/*/}
+                            {/*</div>*/}
+                            {/*<div className="row">*/}
+                            {/*    <ul className="skills">*/}
+                            {/*        {this.state.user.skills.map(skill =>*/}
+                            {/*            <li><i*/}
+                            {/*                className="fas fa-terminal"/> {skill}*/}
+                            {/*            </li>*/}
+                            {/*        )}*/}
+                            {/*    </ul>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
 
