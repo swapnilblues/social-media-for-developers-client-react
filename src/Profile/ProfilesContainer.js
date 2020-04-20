@@ -109,7 +109,7 @@ export default class ProfilesContainer extends React.Component {
                         <div className="col-sm-12">
                             {this.state.users.length>0 && this.state.users.map(user => (
                                 <div className="card profile-card"
-                                     style={{float: "left", marginLeft: "1.2em"}}
+                                     style={{float: "left", marginLeft: "1em"}}
                                      key={user.user._id}>
                                     <ProfileImageComponent userId={user.user._id}/>
                                     <div className="card-body">

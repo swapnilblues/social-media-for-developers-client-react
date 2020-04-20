@@ -97,7 +97,8 @@ code {
 }
 
 .profile-card{
-  width: 20rem;
+  width: 15rem;
+  margin-bottom: 2em;
 }
 .profile-exp p,
 .profile-edu p {

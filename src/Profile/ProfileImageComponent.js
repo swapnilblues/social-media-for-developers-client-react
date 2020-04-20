@@ -22,7 +22,7 @@ class ProfileImageComponent extends React.Component {
     render() {
         return (
             <div>
-                <img style={{height : 130, width : 100}}
+                <img style={{height : "15rem", width : "14.9rem"}}
                      src={this.state.image}
                      alt=''/>
             </div>
