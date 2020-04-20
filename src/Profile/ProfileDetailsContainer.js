@@ -11,7 +11,7 @@ export default class ProfileDetailsContainer extends React.Component {
     state = {
         alert: false,
         alert_msg: '',
-        currentUser: '',
+        currentUser: {_id:''},
         user: {user: {}, social: {}, experience: [], education: [], followers:[], following:[] },
         repos: []
     }
@@ -42,13 +42,14 @@ export default class ProfileDetailsContainer extends React.Component {
     getRepos = (username) => {
         fetch(`https://api.github.com/users/${username}/repos`, {
             headers: {
-                'Authorization': 'token 51d3ee746bb9aef0987afcefb53ed4257cdf1286'
+                'Authorization': 'token 776f8251be801cfae17799318e25f9088fe9d1c3'
             }
         })
             .then(response => response.json())
             .then(results => this.setState({
                 repos: results
             }))
+        console.log("Repos" +this.state.repos.length)
     }
 
     //
@@ -160,11 +161,11 @@ export default class ProfileDetailsContainer extends React.Component {
 
                         <div className="col-sm-1"></div>
 
-                        {this.state.currentUser._id !== this.props.userId &&
+                        { localStorage.getItem('token') !== null && this.state.currentUser._id !== this.props.userId &&
                         <div className="col-sm-2 btn btn-success" onClick={this.handleFollow}>Follow</div>
                         }
 
-                        {this.state.currentUser._id !== this.props.userId &&
+                        { localStorage.getItem('token') !== null && this.state.currentUser._id !== this.props.userId &&
                         <div className="col-sm-2 btn btn-danger" onClick={this.handleUnFollow}>UnFollow</div>
                         }
                         <div className="col-sm-2">
@@ -200,7 +201,7 @@ export default class ProfileDetailsContainer extends React.Component {
                             <h5>No Experience Record Found</h5>
                         }
                     </div>
-
+                    <br/>
 
                     <div className="profile-edu bg-white p-2">
                         <h2 className="text-primary">Education</h2>
@@ -229,6 +230,9 @@ export default class ProfileDetailsContainer extends React.Component {
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
+                        {
+                            this.state.repos.length === 0&&<h1>No Repos</h1>
+                        }
                         {
                             this.state.repos.length>0 && this.state.repos.map(repo =>
                                 <div>

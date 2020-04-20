@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker/es";
-import {API_URL} from "../common/constants";
+import {API_URL, LOCALHOST_URL} from "../common/constants";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -56,15 +56,14 @@ class gitHubDashboard extends React.Component {
             })
     }
 
-    deleteGithubUsername = (eid) => {
-        fetch(`${API_URL}/profile/githubusername`, {
+    deleteGithubUsername = () => {
+        fetch(`${API_URL}/profile/github/delete`, {
             method: "DELETE",
-            headers: {
-                'x-auth-token': this.state.dashboardToken,
-                'content-type': 'application/json'
+            headers:{
+                'x-auth-token': localStorage.getItem('token')
             }
         })
-            .then(() => {
+            .then((res) => {
                 this.getGithubUsername()
             })
     }
