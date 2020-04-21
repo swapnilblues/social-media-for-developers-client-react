@@ -22,4 +22,5 @@
 - [x] Show anonymous user "to sign-in" when clicked on Follow or UnFollow button - Sw
 - [x] Deploy to Heroku   
 - [x] NavBar does not dropdown on mobile
-- [ ] Images don't show up in comments for the OP 
+- [x] Images don't show up in comments for the OP
+- [ ] Like / Unlike posts working from NeoPostItem but not from NeoPostDetails  

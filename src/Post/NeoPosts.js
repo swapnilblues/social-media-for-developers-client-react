@@ -11,7 +11,8 @@ class NeoPosts extends Component {
         inputPost: '',
         text: '',
         token: '',
-        postStatus:false,
+        postStatus: false,
+        alreadyLiked: ''
     }
 
     deletePost = async (id) => {
@@ -70,7 +71,16 @@ class NeoPosts extends Component {
             headers: {
                 'x-auth-token': localStorage.getItem('token')
             }
-        });
+        }).then(res => res.json())
+            .then(res=> {
+                if(Array.isArray(res)) {
+                    window.alert('liked post')
+                }
+                else {
+                    window.alert('Already liked post before')
+                }
+            })
+
         let postsData = await axios.get(`${API_URL}/posts`,
             {
                 headers: {
@@ -89,7 +99,15 @@ class NeoPosts extends Component {
             headers: {
                 'x-auth-token': localStorage.getItem('token')
             }
-        })
+        }).then(res => res.json())
+            .then(res=> {
+                if(Array.isArray(res)) {
+                    window.alert('Unliked post')
+                }
+                else {
+                    window.alert('Cannot unlike post without liking it')
+                }
+            })
         let postsData = await axios.get(`${API_URL}/posts`,
             {
                 headers: {
@@ -163,7 +181,7 @@ class NeoPosts extends Component {
                         <i className='fa fa-user'/> Welcome to the community
                     </p>
                     <div className='post-form'>
-                        <div className='bg-primary p'>
+                        <div className='bg-dark p'>
                             <h3>Say Something...</h3>
                         </div>
                         <form
