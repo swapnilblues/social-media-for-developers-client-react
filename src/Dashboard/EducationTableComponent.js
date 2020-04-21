@@ -134,7 +134,7 @@ class educationTableComponent extends React.Component {
         return (
             <div className="col list-group">
                 <div className="list-group-item">
-                    <div className="container row">
+                    <div className="row">
                         {/*<ul className="row education-ul">*/}
                         <div className="col-lg-2">School</div>
                         <div className="hide-sm col-lg-2">Degree and Field of Study</div>
@@ -158,7 +158,7 @@ class educationTableComponent extends React.Component {
                                 this.state.edit === true && this.props.educationId === education._id &&
 
                                 <div className="list-group-item active">
-                                    <div className="container row" key={education._id}>
+                                    <div className="row" key={education._id}>
                                         <div className="col-lg-2">
 
                                             <input
@@ -293,7 +293,7 @@ class educationTableComponent extends React.Component {
 
                                 <div>
                                     <div className="list-group-item active">
-                                        <div className="container row" key={education._id}>
+                                        <div className="row" key={education._id}>
                                             <div className="col-lg-2">
 
                                                 {education.school}
@@ -367,7 +367,7 @@ class educationTableComponent extends React.Component {
                                          })
                                      }}
                                 >
-                                    <div className="container row" key={education._id}>
+                                    <div className="row" key={education._id}>
                                         <div className="col-lg-2">
 
                                             {education.school}
@@ -405,7 +405,7 @@ class educationTableComponent extends React.Component {
 
                 <br/>
                 <div className="list-group-item">
-                    <div className="container row">
+                    <div className="row">
                         <div className="col-lg-2">
                             <input
                                 className="nav-item ml-auto form-control"
@@ -490,7 +490,7 @@ class educationTableComponent extends React.Component {
                                 id="vehicle1" name="vehicle1"
                                 value={this.state.current}/>
 
-                            <label htmlFor="vehicle1"> Ongoing</label>
+                            <label htmlFor="vehicle1"> Present</label>
                         </div>
                         <div className="col-lg-1">
                             <button

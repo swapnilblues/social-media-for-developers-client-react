@@ -45,7 +45,8 @@ class SignUpComponent extends React.Component {
                         image: 'https://firebasestorage.googleapis.com/v0/b/ecommerceweb-8831e.appspot.com/o/Uploaded_Images%2Fdownload.png?alt=media&token=3277b9c0-d960-47fb-8364-b2d71ca71171',
                         password: this.state.password,
                         email: this.state.email,
-                        name: this.state.name
+                        name: this.state.name,
+                        image: 'https://firebasestorage.googleapis.com/v0/b/ecommerceweb-8831e.appspot.com/o/Uploaded_Images%2Fno-dp.jpg?alt=media&token=6e92faa5-b8b1-4721-b956-ff1cf739d08d'
                     }
                 )
             }).then(response =>

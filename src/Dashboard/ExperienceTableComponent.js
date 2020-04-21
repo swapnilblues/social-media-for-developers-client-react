@@ -132,7 +132,7 @@ class ExperienceTableComponent extends React.Component {
         return (
             <div className="col list-group">
                 <div className="list-group-item">
-                    <div className="container row">
+                    <div className="row">
                         {/*<ul className="row experience-ul">*/}
                         <div className="col-lg-2">Company</div>
                         <div className="hide-sm col-lg-2">Title</div>
@@ -152,9 +152,8 @@ class ExperienceTableComponent extends React.Component {
                                 this.state.edit === true && this.props.experienceId === experience._id &&
 
                                 <div className="list-group-item active">
-                                    <div className="container row" key={experience._id}>
+                                    <div className="row" key={experience._id}>
                                         <div className="col-lg-2">
-
                                             <input
                                                 className="nav-item ml-auto form-control"
                                                 placeholder="Input Company Here"
@@ -287,7 +286,7 @@ class ExperienceTableComponent extends React.Component {
 
                                 <div>
                                     <div className="list-group-item active">
-                                        <div className="container row" key={experience._id}>
+                                        <div className="row" key={experience._id}>
                                             <div className="col-lg-2">
 
                                                 {experience.company}
@@ -361,7 +360,7 @@ class ExperienceTableComponent extends React.Component {
                                          })
                                      }}
                                 >
-                                    <div className="container row" key={experience._id}>
+                                    <div className="row" key={experience._id}>
                                         <div className="col-lg-2">
 
                                             {experience.company}
@@ -399,7 +398,7 @@ class ExperienceTableComponent extends React.Component {
 
                 <br/>
                 <div className="list-group-item">
-                    <div className="container row">
+                    <div className="row">
                         <div className="col-lg-2">
                             <input
                                 className="nav-item ml-auto form-control"
@@ -484,7 +483,7 @@ class ExperienceTableComponent extends React.Component {
                                 id="vehicle1" name="vehicle1"
                                 value={this.state.current}/>
 
-                            <label htmlFor="vehicle1"> Ongoing</label>
+                            <label htmlFor="vehicle1"> Present </label>
                         </div>
                         <div className="col-lg-1">
                             <button
