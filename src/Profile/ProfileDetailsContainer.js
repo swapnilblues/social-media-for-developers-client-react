@@ -11,8 +11,8 @@ export default class ProfileDetailsContainer extends React.Component {
     state = {
         alert: false,
         alert_msg: '',
-        currentUser: {_id:''},
-        user: {user: {}, social: {}, experience: [], education: [], followers:[], following:[] },
+        currentUser: {_id: ''},
+        user: {user: {}, social: {}, experience: [], education: [], followers: [], following: []},
         repos: []
     }
 
@@ -42,14 +42,14 @@ export default class ProfileDetailsContainer extends React.Component {
     getRepos = (username) => {
         fetch(`https://api.github.com/users/${username}/repos`, {
             headers: {
-                'Authorization': 'token 776f8251be801cfae17799318e25f9088fe9d1c3'
+                'Authorization': 'token d612c4a98409cd16eed84decaa16b379f423e77c'
             }
         })
             .then(response => response.json())
             .then(results => this.setState({
                 repos: results
             }))
-        console.log("Repos" +this.state.repos.length)
+        console.log("Repos" + this.state.repos.length)
     }
 
     //
@@ -138,7 +138,7 @@ export default class ProfileDetailsContainer extends React.Component {
                     </div>
                     }
 
-                    <div className="profile-grid my-1" style={{backgroundColor: "rgb(23,162,184)"}}>
+                    <div className="profile-grid my-1 bg-dark" >
                         <div className="col-sm-4">
                             <ProfileImageComponent userId={this.props.userId}/>
                         </div>
@@ -161,13 +161,21 @@ export default class ProfileDetailsContainer extends React.Component {
 
                         <div className="col-sm-1"></div>
 
-                        { localStorage.getItem('token') !== null && this.state.currentUser._id !== this.props.userId &&
+                        {localStorage.getItem('token') !== null && this.state.currentUser._id !== this.props.userId &&
                         <div className="col-sm-2 btn btn-success" onClick={this.handleFollow}>Follow</div>
                         }
 
-                        { localStorage.getItem('token') !== null && this.state.currentUser._id !== this.props.userId &&
+                        {localStorage.getItem('token') !== null && this.state.currentUser._id !== this.props.userId &&
                         <div className="col-sm-2 btn btn-danger" onClick={this.handleUnFollow}>UnFollow</div>
                         }
+
+                        {localStorage.getItem('token') === null &&
+                        <div className="col-sm-2 btn btn-success" onClick={this.handleFollow}>Follow</div>
+                        }
+                        {localStorage.getItem('token') === null &&
+                        <div className="col-sm-2 btn btn-danger" onClick={this.handleUnFollow}>UnFollow</div>
+                        }
+
                         <div className="col-sm-2">
                             Followers: {this.state.user.followers.length}
                         </div>
@@ -225,23 +233,23 @@ export default class ProfileDetailsContainer extends React.Component {
                         }
                     </div>
 
-
+                    <br/>
                     <div className="profile-github">
                         <h2 className="text-dark my-1">
                             <i className="fab fa-github-square"/> GitHub Repositories
                         </h2>
                         {
-                            this.state.repos.length === 0&&<h1>No Repos</h1>
+                            this.state.repos.length === 0 && <h1>No Repos</h1>
                         }
                         {
-                            this.state.repos.length>0 && this.state.repos.map(repo =>
+                            this.state.repos.length > 0 && this.state.repos.map(repo =>
                                 <div>
                                     {repo.name !== 'undefined.github.io' &&
 
                                     <Link
                                         to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
                                         <div
-                                            className="p-1 border border-secondary github-repo">
+                                            className="p-1 border border-info github-repo">
                                             <div>
                                                 <h4><a href="#"
                                                        className="text-dark">{repo.name}</a>
@@ -260,9 +268,14 @@ export default class ProfileDetailsContainer extends React.Component {
                                 </div>
                             )
                         }
+                        {   this.state.repos.length === 1 && this.state.repos[0].name === 'undefined.github.io' &&
+                            <div>
+                                <h5>GitHub account not found</h5>
+                            </div>
+
+                        }
                         {
-                            this.state.repos.length === 1 &&
-                            this.state.repos[0].name === 'undefined.github.io' &&
+                            !Array.isArray(this.state.repos) &&
                             <div>
                                 <h5>GitHub account not found</h5>
                             </div>
