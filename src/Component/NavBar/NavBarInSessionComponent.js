@@ -16,10 +16,10 @@ export default class NavBarComponent extends React.Component {
     componentDidMount(){
         this.state.dashboardToken = localStorage.getItem('token')
         console.log("Dashboard token: ", this.state.dashboardToken)
-        {
-            this.state.dashboardToken === null &&
-            this.props.history.push('/login')
-        }
+        // {
+        //     this.state.dashboardToken === null &&
+        //     history.push('/login')
+        // }
         fetch(
             `${API_URL}/profile/me`, {
                 headers: {
