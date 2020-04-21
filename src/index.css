@@ -7,6 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.dashboard-div {
+  margin-left : 150px;
+  margin-bottom: 20px;
+  margin-right: 150px;
+}
+
+.phone-comp {
+  height: 30px;
+  width: 100px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -105,24 +105,19 @@ class gitHubDashboard extends React.Component {
 
     render() {
         return (
-            // <div>
-            //     {this.state.githubUsername}
-            // </div>
-
-
             <div>
                 {this.state.edit === false &&
                 <div className="col list-group">
                     <div className="list-group-item">
-                        <div className="container row">
+                        <div className="row">
                             {!this.state.githubUsername &&
-                            <div className="col-lg-2"><i>No Username Given</i></div>
+                            <div className="col-lg-6"><i>No Username Given</i></div>
                             }
                             {this.state.githubUsername &&
-                            <div className="col-lg-2"><i>{this.state.githubUsername}</i></div>
+                            <div className="col-lg-6"><i>{this.state.githubUsername}</i></div>
                             }
 
-                            <div className="col-lg-2">
+                            <div className="col-lg-6">
                                 {!this.state.githubUsername &&
                                 <button
                                     onClick={() => {
@@ -154,10 +149,9 @@ class gitHubDashboard extends React.Component {
                 }
                 {this.state.edit === true &&
                 <div className="list-group-item">
-                    <div className="container row">
-                        <div className="col-lg-2">
+                    <div className="row">
+                        <div className="col-lg-6">
                             <input
-
                                 className="nav-item ml-auto form-control"
                                 placeholder="Input GitHub Username"
                                 onChange={async (e) =>
@@ -170,7 +164,7 @@ class gitHubDashboard extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-1">
+                        <div className="col-lg-3">
                             <button
                                 onClick={async () => {
                                     await this.setState({
@@ -185,7 +179,7 @@ class gitHubDashboard extends React.Component {
                             </button>
                         </div>
 
-                        <div className="col-lg-1">
+                        <div className="col-lg-3">
                             <button
                                 onClick={async () => {
                                     await this.setState({

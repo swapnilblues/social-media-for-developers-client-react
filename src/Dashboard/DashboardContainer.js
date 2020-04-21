@@ -11,13 +11,25 @@ import FileUploader from 'react-firebase-file-uploader';
 import {storage} from '../firebase_config';
 import firebase from 'firebase/app';
 import ImageComponent from "./ImageComponent";
+
 class DashboardContainer extends React.Component {
     state = {
         user: {name: ''},
         experiences: [],
         dashboardToken: '',
         image: '',
+        uploadStatus: false,
+        isImageUploaded: false
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.image !== this.state.image) {
+            this.setState({
+                              isImageUploaded: true
+                          })
+        }
+    }
+
     handleUploadSuccess = (filename) => {
         storage.ref('Uploaded_Images').child(filename).getDownloadURL().then(url => {
             let newA = url;
@@ -38,10 +50,17 @@ class DashboardContainer extends React.Component {
             },
             body: JSON.stringify(
                 {
-                    image: this.state.image
+                    image: this.state.image,
                 }
             )
-        }).then(() => console.log("after fetch: ", this.state.image ))
+        }).then(() => this.setState({uploadStatus: true}))
+            .then(() => setTimeout(function () {
+                this.setState({
+                                  uploadStatus: false,
+                                  isImageUploaded: false
+                              });
+            }.bind(this), 3000))
+
     }
 
     componentDidMount() {
@@ -65,56 +84,60 @@ class DashboardContainer extends React.Component {
                                                image: results.image
                                            }))
     }
+
     render() {
         return (
             <div>
                 <NavBarInSessionComponent/>
-                <div className="container">
+                <div className="dashboard-div">
                     <h2 className="large">Dashboard</h2>
                     <p className="lead">
                         <i className="fas fa-child"> </i>
                         Welcome, {this.state.user.name}</p>
                 </div>
-                <br/>
+                {this.state.image &&
+                 <div className="dashboard-div">
+                     <ImageComponent
+                         imageUrl={this.state.image}/>
+                 </div>
+                }
 
-                <div className="container">
+                <div className="dashboard-div">
                     <h4>Add an Image</h4>
                     <br/>
                     <FileUploader
-
                         accept="image/*"
                         name='image'
                         storageRef={firebase.storage().ref('Uploaded_Images')}
                         onUploadSuccess={this.handleUploadSuccess}
                     />
                     <br/>
-                    <button className="btn btn-success" onClick={() => this.saveImage()}>Save Image</button>
+                    <div>{this.state.uploadStatus && this.state.isImageUploaded &&
+                          <div className="alert alert-success" role="alert">Image Uploaded
+                              Successfully</div>}</div>
+                    <button className="btn btn-success" onClick={() => this.saveImage()}>Save
+                        Image
+                    </button>
                 </div>
 
-                {   this.state.image &&
-                    <div className="container">
-                        <ImageComponent
-                            imageUrl={this.state.image}/>
+                <div className="row">
+                    <div className="dashboard-div col-6 col-lg-4">
+                        <h4 className="my-2">Phone Number</h4>
+                        <PhoneNumberComponent
+                            githubUsername={this.props.githubUsername}
+                            user={this.state.user}
+                        />
                     </div>
-                }
-
-                <div className="container">
-                    <h2 className="my-2">Phone Number</h2>
-                    <PhoneNumberComponent
-                        githubUsername={this.props.githubUsername}
-                        user={this.state.user}
-                    />
-                </div>
-                <div className="container">
-                    <h2 className="my-2">GitHub Username</h2>
-                    <GitHubDashboard
-                        githubUsername={this.props.githubUsername}
-                        user={this.state.user}
-                    />
+                    <div className="col-6 col-lg-4">
+                        <h4 className="my-2">GitHub Username</h4>
+                        <GitHubDashboard
+                            githubUsername={this.props.githubUsername}
+                            user={this.state.user}
+                        />
+                    </div>
                 </div>
                 <br/>
-                <br/>
-                <div className="container">
+                <div className="dashboard-div">
                     <h2 className="my-2">Experience Credentials</h2>
                     <ExperienceTableComponent
                         experienceId={this.props.experienceId}
@@ -123,7 +146,7 @@ class DashboardContainer extends React.Component {
                 </div>
                 <br/>
                 <br/>
-                <div className="container">
+                <div className="dashboard-div">
                     <h2 className="my-2">Education Credentials</h2>
                     <EducationTableComponent
                         educationId={this.props.educationId}
