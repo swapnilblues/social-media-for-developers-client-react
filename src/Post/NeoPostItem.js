@@ -32,7 +32,7 @@ class NeoPostItem extends Component {
     async componentDidMount() {
         {
             localStorage.getItem('token') === null &&
-            this.props.history.push('/sign-in')
+            this.props.history.push('/login')
         }
 
         this.setState({

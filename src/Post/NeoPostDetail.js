@@ -58,6 +58,11 @@ class NeoPostDetail extends Component {
 
     componentDidMount = async () => {
 
+        {
+            localStorage.getItem('token') === null &&
+            this.props.history.push('/login')
+        }
+
         let postData = await axios.get(`${API_URL}/posts/${this.state.id}`, {
             headers: {
                 "x-auth-token": localStorage.getItem('token')
