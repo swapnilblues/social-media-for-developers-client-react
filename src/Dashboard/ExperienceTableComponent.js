@@ -25,6 +25,8 @@ class ExperienceTableComponent extends React.Component {
 
 
         edit: false,
+        alert: false,
+        alert_msg: ''
 
 
     }
@@ -46,8 +48,32 @@ class ExperienceTableComponent extends React.Component {
                     description: this.state.inputDescription
                 }
             )
-        })
-            .then(response => {
+        }).then(res => res.json())
+            .then(r => {
+                if (r.errors !== undefined) {
+
+                    this.setState({
+                        alert: 'a',
+                        alert_msg: 'Experience information missing'
+                    })
+                    setTimeout(function () {
+                        this.setState({alert: false, alert_msg: ''});
+                    }.bind(this), 3000);
+
+                }
+                else {
+                    this.setState({
+                        alert: 'b',
+                        alert_msg: 'Successfully added experience'
+                    })
+                    setTimeout(function () {
+                        this.setState({alert: false, alert_msg: ''});
+                    }.bind(this), 3000);
+
+                }
+                }
+            )
+            .then(() => {
                 this.getExperience()
             })
     }
@@ -70,8 +96,28 @@ class ExperienceTableComponent extends React.Component {
                     description: this.state.updateDescription
                 }
             )
+        }).then(res => {
+            if (res.status === 500) {
+                this.setState({
+                    alert: 'a',
+                    alert_msg: 'Experience information missing on update'
+                })
+                setTimeout(function () {
+                    this.setState({alert: false, alert_msg: ''});
+                }.bind(this), 3000);
+            } else {
+                let r = res.json()
+                this.setState({
+                    alert: 'c',
+                    alert_msg: 'Successfully updated experience'
+                })
+                setTimeout(function () {
+                    this.setState({alert: false, alert_msg: ''});
+                }.bind(this), 3000);
+            }
         })
-            .then(response => {
+
+            .then(() => {
                 this.getExperience()
             })
     }
@@ -131,6 +177,24 @@ class ExperienceTableComponent extends React.Component {
     render() {
         return (
             <div className="col list-group">
+                {this.state.alert === 'a' &&
+                        <div className="alert alert-danger" role="alert">
+                            {this.state.alert_msg}
+                        </div>
+
+                }
+                {this.state.alert === 'b' &&
+                <div className="alert alert-success" role="alert">
+                    {this.state.alert_msg}
+                </div>
+
+                }
+                {this.state.alert === 'c' &&
+                <div  style={{backgroundColor: "#ffcc00"}} className="alert" role="alert">
+                    {this.state.alert_msg}
+                </div>
+
+                }
                 <div className="list-group-item">
                     <div className="row">
                         {/*<ul className="row experience-ul">*/}
