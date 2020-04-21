@@ -35,7 +35,7 @@ class SignUpComponent extends React.Component {
             // CreateImage(this.state.name);
             // let url = await uploadSuccess("E:\\NEU\\CS5610-WebDev\\Final_Project\\swapnil-front-end\\social-media-for-developers-client-react\\src\\SignUp")
             // console.log("URL "+url);
-            await fetch(`${LOCALHOST_URL}/users`, {
+            await fetch(`${API_URL}/users`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
@@ -70,7 +70,7 @@ class SignUpComponent extends React.Component {
                             }
                         )
                          fetch(
-                            `${LOCALHOST_URL}/profile`, {
+                            `${API_URL}/profile`, {
                                 headers: {
                                     'x-auth-token': this.state.token,
                                     'content-type': 'application/json'
@@ -78,7 +78,7 @@ class SignUpComponent extends React.Component {
                                 method: 'POST'
                             }).then(
                             async () =>  {
-                                await fetch(`${LOCALHOST_URL}/profile/image`,{
+                                await fetch(`${API_URL}/profile/image`,{
                                     headers: {
                                         'x-auth-token': this.state.token,
                                         'content-type': 'application/json'

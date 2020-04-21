@@ -37,7 +37,7 @@ class AdminUsers extends React.Component {
             this.state.dashboardToken === null &&
             this.props.history.push('/sign-in')
         }
-        fetch(`${LOCALHOST_URL}/profile/me`, {
+        fetch(`${API_URL}/profile/me`, {
             headers: {
                 'x-auth-token': this.state.dashboardToken,
                 'content-type': 'application/json'
