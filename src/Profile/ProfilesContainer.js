@@ -114,7 +114,7 @@ export default class ProfilesContainer extends React.Component {
                                     <ProfileImageComponent userId={user.user._id}/>
                                     <div className="card-body">
                                         <h5 className="card-title">{user.user.name}</h5>
-                                        <Link to={`/profiles/${user.user._id}`}>
+                                        <Link to={`/profile/${user.user._id}`}>
                                             <button href="#" className="btn btn-primary">
                                                 See Profile
                                             </button>

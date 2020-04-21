@@ -34,12 +34,12 @@ class SocialMediaManagerComponent extends React.Component {
                         component={LandingComponent}
                     >
                     </Route>
-                        <Route path="/posts" exact component={NeoPosts} >
+                    <Route path="/posts" exact component={NeoPosts} >
 
-                        </Route>
-                        <Route path="/posts/:id" exact component={NeoPostDetail} >
+                    </Route>
+                    <Route path="/posts/:id" exact component={NeoPostDetail} >
 
-                        </Route>
+                    </Route>
 
 
 
@@ -56,7 +56,7 @@ class SocialMediaManagerComponent extends React.Component {
                     </Route>
 
                     <Route
-                        path="/profiles/:userId"
+                        path="/profile/:userId"
                         exact={true}
                         render={
                             (props) =>
@@ -69,7 +69,7 @@ class SocialMediaManagerComponent extends React.Component {
                     </Route>
 
                     <Route
-                        path="/profiles/:profileId/github/:repoName"
+                        path="/profile/:profileId/github/:repoName"
                         exact={true}
                         render={
                             (props) =>

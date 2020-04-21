@@ -247,7 +247,7 @@ export default class ProfileDetailsContainer extends React.Component {
                                     {repo.name !== 'undefined.github.io' &&
 
                                     <Link
-                                        to={`/profiles/${this.state.user.user._id}/github/${repo.name}`}>
+                                        to={`/profile/${this.state.user.user._id}/github/${repo.name}`}>
                                         <div
                                             className="p-1 border border-info github-repo">
                                             <div>

@@ -36,7 +36,7 @@ export default class NavBarComponent extends React.Component {
     render() {
         return (
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="/">
+                <Navbar.Brand href="/codebook-client/dashboard">
                     <i className="fas fa-code-branch"/> Hello {this.state.user.name}
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>

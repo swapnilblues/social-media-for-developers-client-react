@@ -45,7 +45,7 @@ class SignInComponent extends React.Component {
                     this.props.generateTokenAndSave(r.token)
                     {
                         r.user === undefined &&
-                        this.props.history.push(`/dashboard`)
+                        this.props.history.push(`/login`)
                     }
                     {
                         r.user.role === 0 &&

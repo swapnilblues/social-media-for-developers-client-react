@@ -39,6 +39,7 @@ class AdminPosts extends React.Component {
     }
 
     updatePost = (postId) => {
+
         fetch(`${API_URL}/posts/admin/update/${postId}`, {
             method: "PUT",
             headers: {

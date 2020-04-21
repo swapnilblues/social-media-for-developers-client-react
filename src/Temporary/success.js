@@ -7,7 +7,7 @@ export default class SuccessComponent extends React.Component {
             <div>
                 <NavBarComponent/>
             <h1>Success</h1>
-            <Link to={"/dashboard"}>
+            <Link to={"/profile"}>
                 Dashboard
             </Link>
             </div>

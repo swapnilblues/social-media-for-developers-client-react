@@ -46,7 +46,7 @@ export default class ProfileComponent extends React.Component {
                 <div className="container">
 
                     <br/>
-                    <Link to={`/profiles/${this.props.profileId}`}>
+                    <Link to={`/profile/${this.props.profileId}`}>
                         <span className="btn btn-light">Back To {this.state.user.user.name}'s Profiles</span>
                     </Link>
                     <br/>
