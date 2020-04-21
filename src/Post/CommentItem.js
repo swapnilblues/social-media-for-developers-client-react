@@ -44,10 +44,12 @@ class CommentItem extends Component {
                 "x-auth-token": localStorage.getItem('token')
             }
         }).then((res) => {
-            this.setState({
-                commentUser: res.data,
-                image: res.data.image
-            })
+            if(res.data) {
+                this.setState({
+                    commentUser: res.data,
+                    image: res.data.image
+                })
+            }
         }).then(() =>
             fetch(
                 `${API_URL}/profile/me`, {
@@ -72,9 +74,7 @@ class CommentItem extends Component {
                     <div className='post bg-white p-1 my-1'>
                         <img src={this.state.image}/>
                         <div>
-                            <Link>
-                                <h4>{this.state.commentUser.name}</h4>
-                            </Link>
+                            <h4>{this.state.commentUser?this.state.commentUser.name:<span><i className="fas fa-dizzy"/> <i>User Removed By Admin</i></span> }</h4>
                         </div>
                         <div>
                             <p className='my-1'>{this.props.text}</p>
@@ -82,7 +82,6 @@ class CommentItem extends Component {
                                 Posted on {this.props.date}
                             </p>
                             {this.state.currentUser && this.state.currentUser._id === this.state.commentUser._id &&
-
 
                             <button
                                 onClick={this.handleDeleteComment}
