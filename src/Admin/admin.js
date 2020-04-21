@@ -49,7 +49,7 @@ class AdminUsers extends React.Component {
                 })
             ).then(() => {
             {
-                this.state.user.name !== 'Alice' &&
+                this.state.user.name !== 'Alice (Admin)' &&
                 this.props.history.push('/dashboard')
 
             }
