@@ -87,6 +87,7 @@ class NeoPostDetail extends Component {
                         <NeoPostItem showDelete={false} likes={this.state.post.likes}
                                      _id={this.state.post._id}
                                      user={this.state.post.user}
+                                     showBtns={false}
                                      comments={this.state.post.comments}
                                      text={this.state.post.text}
                                      date={this.state.post.date}

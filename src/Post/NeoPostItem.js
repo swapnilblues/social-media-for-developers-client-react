@@ -118,7 +118,7 @@ class NeoPostItem extends Component {
                             Posted on <Moment format='YYYY/MM/DD'>{this.props.date}</Moment>
                         </p>
                         <Fragment>
-                            <button
+                            {this.props.showBtns &&<button
                                 onClick={()=>this.props.like(this.props._id)}
                                 type='button'
                                 className='btn btn-light'
@@ -126,21 +126,21 @@ class NeoPostItem extends Component {
                                 <i className='fa fa-thumbs-up'/>
                                 <span>{this.props.likes.length > 0 &&
                                        <span>{this.props.likes.length}</span>}</span>
-                            </button>
-                            <button
+                            </button>}
+                            {this.props.showBtns &&<button
                                 onClick={()=>this.props.unlike(this.props._id)}
                                 type='button'
                                 className='btn btn-light'
                             >
                                 <i className='fa fa-thumbs-down'/>
-                            </button>
-                            <Link to={'/posts/' + this.props._id} className='btn btn-primary'>
+                            </button>}
+                            {this.props.showBtns &&<Link to={'/posts/' + this.props._id} className='btn btn-primary'>
                                 Comment {this.state.showDelete ? <span>{this.props.comments.length
                                                                         > 0 &&
                                                                         <span>{this.props.comments.length}</span>}</span>
                                                                : null}
-                            </Link>
-                            {this.props.user._id === this.state.currentUser._id &&
+                            </Link>}
+                            {this.props.user._id === this.state.currentUser._id && this.props.showBtns &&
                              <button
                                  onClick={() => this.props.delete(this.props._id)}
                                  type='button'

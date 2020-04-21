@@ -125,39 +125,6 @@ export default class ProfilesContainer extends React.Component {
                         </div>
                     </div>
 
-
-                    {/*<div className="col-sm-1 dp">*/}
-
-                    {/*    /!*<img src="../images/sajag_dp.jfif" alt="" width="250" height="250"/>*!/*/}
-                    {/*    <img src={this.state.image} alt="" width="250" height="250"/>*/}
-                    {/*</div>*/}
-
-                    {/*{*/}
-                    {/*    this.state.users&&this.state.users.map(user =>*/}
-                    {/*        <div className="container">*/}
-                    {/*        <div key={user.user._id} className="col-sm-6">*/}
-                    {/*            <div className="row">*/}
-                    {/*                <h2 className="geek-name"><b>{user.user.name}</b></h2>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="row">*/}
-                    {/*                <p className="geek-bio">*/}
-                    {/*                    {user.bio}*/}
-                    {/*                </p>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="row">*/}
-                    {/*                <p className="geek-bio">*/}
-                    {/*                    Quincy, MA*/}
-                    {/*                </p>*/}
-                    {/*            </div>*/}
-                    {/*            <div className="row">*/}
-                    {/*                <Link to={`/profiles/${user.user._id}`}>*/}
-                    {/*                    <span href="#" className="btn btn-danger">Open Profile</span>*/}
-                    {/*                </Link>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        </div>*/}
-                    {/*    )*/}
-                    {/*}*/}
                 </div>
             </div>
         )

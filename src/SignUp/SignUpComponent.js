@@ -2,8 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import NavBarComponent from "../Component/NavBar/NavBarComponent";
 import {Link} from "react-router-dom";
-import {API_URL} from "../common/constants";
-
+import {API_URL, LOCALHOST_URL} from "../common/constants";
+import CreateImage from "../../src/SignUp/test";
+import uploadSuccess from "../Dashboard/Uploader";
 class SignUpComponent extends React.Component {
 
     constructor(props) {
@@ -31,14 +32,17 @@ class SignUpComponent extends React.Component {
             }.bind(this), 3000);
 
         } else {
-            // alert("Awesome")
-            await fetch(`${API_URL}/users`, {
+            // CreateImage(this.state.name);
+            // let url = await uploadSuccess("E:\\NEU\\CS5610-WebDev\\Final_Project\\swapnil-front-end\\social-media-for-developers-client-react\\src\\SignUp")
+            // console.log("URL "+url);
+            await fetch(`${LOCALHOST_URL}/users`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(
                     {
+                        image: 'https://firebasestorage.googleapis.com/v0/b/ecommerceweb-8831e.appspot.com/o/Uploaded_Images%2Fdownload.png?alt=media&token=3277b9c0-d960-47fb-8364-b2d71ca71171',
                         password: this.state.password,
                         email: this.state.email,
                         name: this.state.name
@@ -65,8 +69,8 @@ class SignUpComponent extends React.Component {
                                 token: r.token
                             }
                         )
-                        fetch(
-                            `${API_URL}/profile`, {
+                         fetch(
+                            `${LOCALHOST_URL}/profile`, {
                                 headers: {
                                     'x-auth-token': this.state.token,
                                     'content-type': 'application/json'
@@ -74,6 +78,18 @@ class SignUpComponent extends React.Component {
                                 method: 'POST'
                             }).then(
                             async () =>  {
+                                await fetch(`${LOCALHOST_URL}/profile/image`,{
+                                    headers: {
+                                        'x-auth-token': this.state.token,
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(
+                                        {
+                                            image: 'https://firebasestorage.googleapis.com/v0/b/ecommerceweb-8831e.appspot.com/o/Uploaded_Images%2Fdownload.png?alt=media&token=3277b9c0-d960-47fb-8364-b2d71ca71171',
+                                        }
+                                    ),
+                                    method: 'PUT'
+                                })
                                 await console.log('State token ', this.state.token)
                                 await this.props.generateTokenAndSave(this.state.token)
                                 await this.props.history.push(`/dashboard`)

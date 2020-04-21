@@ -11,6 +11,7 @@ import FileUploader from 'react-firebase-file-uploader';
 import {storage} from '../firebase_config';
 import firebase from 'firebase/app';
 import ImageComponent from "./ImageComponent";
+import uploadSuccess from "./Uploader";
 class DashboardContainer extends React.Component {
     state = {
         user: {name: ''},
@@ -18,16 +19,18 @@ class DashboardContainer extends React.Component {
         dashboardToken: '',
         image: '',
     }
+
     handleUploadSuccess = (filename) => {
+        // let newA = uploadSuccess(storage,filename)
         storage.ref('Uploaded_Images').child(filename).getDownloadURL().then(url => {
             let newA = url;
             console.log(newA);
             this.setState({
                               image: newA
-                          })
-            console.log(this.state.image);
+                          });
         })
-    }
+    };
+
 
     saveImage = () => {
         fetch(`${API_URL}/profile/image`, {
@@ -81,7 +84,6 @@ class DashboardContainer extends React.Component {
                     <h4>Add an Image</h4>
                     <br/>
                     <FileUploader
-
                         accept="image/*"
                         name='image'
                         storageRef={firebase.storage().ref('Uploaded_Images')}

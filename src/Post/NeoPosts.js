@@ -187,7 +187,7 @@ class NeoPosts extends Component {
                         </form>
                     </div>
                     {this.state.posts && this.state.posts.map(post => (
-                        <NeoPostItem like={this.handleLike} unlike={this.handleUnlike} currentPost = {post} comments={post.comments} likes={post.likes} image={post.user.image} name={post.user.name} id={post.user._id} showDelete={true} delete={this.deletePost} {...post} />
+                        <NeoPostItem showBtns={true} like={this.handleLike} unlike={this.handleUnlike} currentPost = {post} comments={post.comments} likes={post.likes} image={post.user.image} name={post.user.name} id={post.user._id} showDelete={true} delete={this.deletePost} {...post} />
                     ))}
                 </div>
             </div>
