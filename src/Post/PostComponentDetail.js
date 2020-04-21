@@ -48,7 +48,7 @@ class PostComponentDetail extends Component {
                     commentNumber: this.state.commentNumber+1,
                     inputComment:''
                               })
-                axios.get('http://localhost:3002/codebook/posts/'+this.state.id).then(res=>{
+                axios.get(`${API_URL}/posts/${this.state.id}`).then(res=>{
                     if(res){
                         this.setState({
                             comments:res.data.comments

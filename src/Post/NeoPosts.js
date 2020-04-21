@@ -74,7 +74,7 @@ class NeoPosts extends Component {
         }).then(res => res.json())
             .then(res=> {
                 if(Array.isArray(res)) {
-                    window.alert('liked post')
+                    window.alert('Liked post')
                 }
                 else {
                     window.alert('Already liked post before')

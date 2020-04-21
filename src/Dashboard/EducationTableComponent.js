@@ -25,6 +25,8 @@ class educationTableComponent extends React.Component {
 
 
         edit: false,
+        alert: false,
+        alert_msg: ''
 
 
     }
@@ -47,7 +49,31 @@ class educationTableComponent extends React.Component {
                     fieldofstudy: 'null'
                 }
             )
-        })
+        }).then(res => res.json())
+            .then(r => {
+                    if (r.errors !== undefined) {
+
+                        this.setState({
+                            alert: 'a',
+                            alert_msg: 'Education information missing'
+                        })
+                        setTimeout(function () {
+                            this.setState({alert: false, alert_msg: ''});
+                        }.bind(this), 3000);
+
+                    }
+                    else {
+                        this.setState({
+                            alert: 'b',
+                            alert_msg: 'Successfully added education'
+                        })
+                        setTimeout(function () {
+                            this.setState({alert: false, alert_msg: ''});
+                        }.bind(this), 3000);
+
+                    }
+                }
+            )
             .then(response => {
                 this.geteducation()
             })
@@ -72,8 +98,28 @@ class educationTableComponent extends React.Component {
                     fieldofstudy: 'null'
                 }
             )
+        }).then(res => {
+            if (res.status === 500) {
+                this.setState({
+                    alert: 'a',
+                    alert_msg: 'Education information missing on update'
+                })
+                setTimeout(function () {
+                    this.setState({alert: false, alert_msg: ''});
+                }.bind(this), 3000);
+            } else {
+                let r = res.json()
+                this.setState({
+                    alert: 'c',
+                    alert_msg: 'Successfully updated education'
+                })
+                setTimeout(function () {
+                    this.setState({alert: false, alert_msg: ''});
+                }.bind(this), 3000);
+            }
         })
-            .then(response => {
+
+            .then(() => {
                 this.geteducation()
             })
     }
@@ -133,6 +179,24 @@ class educationTableComponent extends React.Component {
     render() {
         return (
             <div className="col list-group">
+                {this.state.alert === 'a' &&
+                <div className="alert alert-danger" role="alert">
+                    {this.state.alert_msg}
+                </div>
+
+                }
+                {this.state.alert === 'b' &&
+                <div className="alert alert-success" role="alert">
+                    {this.state.alert_msg}
+                </div>
+
+                }
+                {this.state.alert === 'c' &&
+                <div  style={{backgroundColor: "#ffcc00"}} className="alert" role="alert">
+                    {this.state.alert_msg}
+                </div>
+
+                }
                 <div className="list-group-item">
                     <div className="row">
                         {/*<ul className="row education-ul">*/}
