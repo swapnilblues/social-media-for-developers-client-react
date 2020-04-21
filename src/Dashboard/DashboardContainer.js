@@ -11,11 +11,8 @@ import FileUploader from 'react-firebase-file-uploader';
 import {storage} from '../firebase_config';
 import firebase from 'firebase/app';
 import ImageComponent from "./ImageComponent";
-<<<<<<< HEAD
-import uploadSuccess from "./Uploader";
-=======
 
->>>>>>> b49f1c7d8497d47d2f32448a1ea1c6e3335bae67
+
 class DashboardContainer extends React.Component {
     state = {
         user: {name: ''},
