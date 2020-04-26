@@ -19,6 +19,6 @@ The GitHub repository is being used to get the public repositories of users.
 * React.Js
 * Node.Js
  
-## Deployed on Cloud: 
+## Link to frontend: 
 https://cs5610-wbdv-client-gp32.herokuapp.com/codebook-client/
     
