@@ -16,7 +16,7 @@ The GitHub repository is being used to get the public repositories of users.
 ## Technologies used:
 * MongoDB
 * Express.Js
-* React.Js with Redux
+* React.Js
 * Node.Js
  
 ## Deployed on Cloud: 
