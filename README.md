@@ -23,3 +23,8 @@ We are using the GitHub API to get the public repositories of users.
 * [Frontend Website](https://cs5610-wbdv-client-gp32.herokuapp.com/codebook-client/)
 * [Backend APIs](https://cs5610-wbdv-final-server.herokuapp.com/codebook)
     
+## Authors: 
+[Swapnil](https://github.com/swapnilblues?tab=repositories/)
+[Anurag](https://github.com/Anurag26)
+[Sajag](https://github.com/sajagporwal)
+[Sumanth]()
