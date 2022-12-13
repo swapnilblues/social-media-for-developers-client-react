@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "firebase": "^7.14.1",
     "jdenticon": "^2.2.0",
     "moment": "^2.24.0",
